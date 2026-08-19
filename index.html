@@ -1557,11 +1557,82 @@ button {
   font-weight: 600;
 }
 
+/* FLOATING CITIZEN SOS TRIGGER */
+.floatingSosBtn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  background: var(--red);
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  border-radius: 99px;
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 20px rgba(201, 42, 42, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  animation: pulseSos 2s infinite;
+  transition: transform 0.15s ease;
+}
+
+.floatingSosBtn:hover {
+  transform: scale(1.05);
+  background: #A82020;
+}
+
+@keyframes pulseSos {
+  0% { box-shadow: 0 0 0 0 rgba(201, 42, 42, 0.6); }
+  70% { box-shadow: 0 0 0 14px rgba(201, 42, 42, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(201, 42, 42, 0); }
+}
+
 @media(max-width:900px){
   .uniqueGrid, .uniqueGrid3 { grid-template-columns: 1fr; }
   .cascade { grid-template-columns: 1fr; }
   .cascadeArrow { transform: rotate(90deg); }
 }
+
+/* STEP 3 ENHANCEMENTS */
+.locationSearchWrap{display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:12px}
+.locationSearchWrap input{width:100%;padding:10px 12px;border:1px solid var(--line-strong);border-radius:8px;background:var(--panel2);font-size:12px}
+.locationSearchWrap input:focus{outline:none;border-color:var(--teal)}
+.locationResults{display:grid;gap:6px;max-height:210px;overflow:auto;margin-bottom:12px}
+.locationResult{width:100%;text-align:left;padding:10px 12px;border:1px solid var(--line);background:var(--panel2);border-radius:8px;font-size:11px}
+.locationResult:hover{border-color:var(--teal);background:var(--teal-light)}
+.locationMeta{font-size:9px;color:var(--muted);margin-top:2px}
+.xaiExplainCard{border:1px solid var(--line);background:var(--panel2);border-radius:9px;padding:13px;margin:10px 0}
+.xaiExplainHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.xaiExplainHead b{font-size:12px;color:var(--text)}
+.xaiImpact{font-size:9px;font-weight:800;padding:4px 7px;border-radius:99px;white-space:nowrap}
+.xaiImpact.up{color:var(--orange);background:var(--orange-bg)}
+.xaiImpact.down{color:var(--green);background:var(--green-bg)}
+.xaiImpact.neutral{color:var(--muted);background:#ECE9E0}
+.xaiValue{font-size:10px;color:var(--muted);margin:5px 0}
+.xaiExplain{font-size:10px;color:var(--text);line-height:1.6;margin-top:8px}
+.xaiLearn{margin-top:8px;border:0;background:none;color:var(--teal);font-size:10px;font-weight:800;padding:0}
+.xaiDetail{display:none;margin-top:7px;padding-top:7px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);line-height:1.6}
+.xaiExplainCard.open .xaiDetail{display:block}
+.regionPredictionWrap{margin-top:16px}
+.regionPredictionGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;max-width:560px}
+.regionCell{min-height:52px;border-radius:7px;border:1px solid rgba(255,255,255,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-weight:800;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.regionCell small{font-size:8px;font-weight:600;margin-top:2px}
+.rescueMap{height:430px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.rescueSummary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.rescueMetric{padding:11px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)}
+.rescueMetric span{display:block;font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:700}
+.rescueMetric b{display:block;font-size:18px;color:var(--text);margin-top:3px}
+.rescueLive{margin-top:12px;padding:12px;border:1px solid var(--teal-border);background:var(--teal-light);border-radius:8px;font-size:11px}
+.routeLegend{display:flex;gap:12px;flex-wrap:wrap;font-size:9px;color:var(--muted);margin-top:8px}
+.routeLegend span{display:flex;align-items:center;gap:5px}
+.routeDot{width:9px;height:9px;border-radius:50%}
+@media(max-width:850px){.rescueSummary{grid-template-columns:1fr 1fr}.regionPredictionGrid{grid-template-columns:repeat(5,1fr)}}
+@media(max-width:520px){.locationSearchWrap{grid-template-columns:1fr}.rescueSummary{grid-template-columns:1fr}.regionPredictionGrid{grid-template-columns:repeat(5,1fr)}}
+
 </style>
 </head>
 <body>
@@ -1610,6 +1681,21 @@ button {
       <span>Historical Events</span>
     </button>
 
+    <div class="navtitle">OPERATIONS</div>
+    <button type="button" data-view="dispatch" onclick="go('dispatch'); return false;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 19l6-6-6-6"/><path d="M4 12h16"/><path d="M4 18v-2a4 4 0 0 1 4-4h4"/></svg>
+      <span>Rescue & Routing ETA</span>
+      <span class="badge" id="dispatchBadge" style="background:var(--orange)">3</span>
+    </button>
+    <button type="button" data-view="facilities" onclick="go('facilities'); return false;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M13 11h4v10"/></svg>
+      <span>Shelters & Hospitals</span>
+    </button>
+    <button type="button" data-view="hydrology" onclick="go('hydrology'); return false;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+      <span>Soil & Hydrology</span>
+    </button>
+
     <div class="navtitle">SYSTEM</div>
     <button type="button" data-view="alerts" onclick="go('alerts'); return false;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
@@ -1642,6 +1728,7 @@ button {
 </header>
 <div class="page">
 
+<!-- 1. DASHBOARD VIEW -->
 <section id="dashboard" class="view active">
 <div class="intro">
   <div>
@@ -1663,7 +1750,7 @@ button {
     </div>
     <div>
       <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">MONITORING LOCATION</div>
-      <div style="font-size:16px;font-weight:700;color:var(--text);margin-top:1px" id="monitoringLocation">Ranchi, Jharkhand</div>
+      <div style="font-size:16px;font-weight:700;color:var(--text);margin-top:1px" id="monitoringLocation">Ranchi, Jharkhand, India</div>
     </div>
   </div>
   <button type="button" class="btn secondary" onclick="openLocationModal()" style="display:inline-flex;align-items:center;gap:6px">
@@ -1672,9 +1759,7 @@ button {
   </button>
 </div>
 
-
 <div class="hero" style="margin-bottom:16px">
-  <!-- Left Side: Current Risk Situation -->
   <div class="panel heroMain" style="display:flex;flex-direction:column;justify-content:space-between">
     <div>
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -1701,7 +1786,6 @@ button {
     </div>
   </div>
 
-  <!-- Right Side: Expected Rainfall Forecast Timeline -->
   <div class="panel" style="display:flex;flex-direction:column;justify-content:space-between">
     <div>
       <div class="sectionHead">
@@ -1732,7 +1816,6 @@ button {
 </div>
 
 <div class="grid2" style="margin-bottom:16px">
-  <!-- Why does the model expect heavy rain? -->
   <div class="panel">
     <div class="sectionHead">
       <div>
@@ -1748,7 +1831,6 @@ button {
     </div>
   </div>
 
-  <!-- Potential Local Impact -->
   <div class="panel" style="display:flex;flex-direction:column;justify-content:space-between">
     <div>
       <div class="sectionHead">
@@ -1786,7 +1868,6 @@ button {
   </div>
 </div>
 
-<!-- At a Glance: 3 metrics only -->
 <div class="panel" style="margin-bottom:16px">
   <div class="eyebrow" style="margin-bottom:12px">AT A GLANCE</div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
@@ -1807,73 +1888,10 @@ button {
     </div>
   </div>
 </div>
-
-<!-- Explore Further: 3 Navigation Cards -->
-<div class="uniqueGrid3" style="margin-bottom:16px">
-  <div class="featureCard" style="display:flex;flex-direction:column;justify-content:space-between">
-    <div>
-      <div class="eyebrow">DETAILED FORECAST</div>
-      <h3 style="font-family:var(--font-serif);font-size:18px;font-weight:400;margin:6px 0">Rainfall Prediction</h3>
-      <p>View the detailed rainfall prediction curve, atmospheric inputs, and multi-model consensus.</p>
-    </div>
-    <div style="margin-top:16px">
-      <button class="btn secondary" style="width:100%;justify-content:center" onclick="go('prediction')">Open prediction →</button>
-    </div>
-  </div>
-
-  <div class="featureCard" style="display:flex;flex-direction:column;justify-content:space-between">
-    <div>
-      <div class="eyebrow">WHAT-IF SIMULATOR</div>
-      <h3 style="font-family:var(--font-serif);font-size:18px;font-weight:400;margin:6px 0">What-If Simulation</h3>
-      <p>Test how changing rainfall intensity and duration could alter estimated exposure and stress.</p>
-    </div>
-    <div style="margin-top:16px">
-      <button class="btn secondary" style="width:100%;justify-content:center" onclick="go('simulation')">Run simulation →</button>
-    </div>
-  </div>
-
-  <div class="featureCard" style="display:flex;flex-direction:column;justify-content:space-between">
-    <div>
-      <div class="eyebrow">HISTORICAL MATCHING</div>
-      <h3 style="font-family:var(--font-serif);font-size:18px;font-weight:400;margin:6px 0">Historical Events</h3>
-      <p>Compare the current rainfall pattern with past high-impact events and validation benchmarks.</p>
-    </div>
-    <div style="margin-top:16px">
-      <button class="btn secondary" style="width:100%;justify-content:center" onclick="go('historical')">Compare history →</button>
-    </div>
-  </div>
-</div>
-
-<!-- Preserved Hidden Container for JS backward compatibility -->
-<div style="display:none" id="hiddenHomePreserved">
-  <span id="heroXaiTitle">Why is risk elevated?</span>
-  <span id="dashZones">14</span>
-  <span id="dashPop">48.2K</span>
-  <span id="dashRoads">19</span>
-  <div id="dashAlerts"></div>
-  <div id="dashMap"></div>
-  <span id="impactIndex">--</span>
-  <span id="impactLabel">Waiting for location</span>
-  <span id="leadTime">--</span>
-  <span id="failureRadar">LOW</span>
-  <span id="failureReason">Waiting</span>
-  <div id="cascadeEngine"></div>
-  <span id="drainStress">--</span>
-  <span id="roadImpact">--</span>
-  <span id="popImpact">--</span>
-  <input id="commanderInput">
-  <button id="commanderAsk"></button>
-  <div id="commanderAnswer"></div>
-  <span id="modeTitle">Government mode</span>
-  <div id="modeContent"></div>
-  <button id="refreshActions"></button>
-  <div id="actionList"></div>
-</div>
-
 </section>
 
+<!-- 2. PREDICTION VIEW -->
 <section id="prediction" class="view">
-<!-- Editorial Header -->
 <div class="intro">
   <div>
     <div class="eyebrow">PREDICTIVE INTELLIGENCE</div>
@@ -1885,7 +1903,6 @@ button {
   </div>
 </div>
 
-<!-- Compact Location + Forecast Controls -->
 <div class="panel" style="margin-bottom:16px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
   <div style="display:flex;align-items:center;gap:12px">
     <div style="width:36px;height:36px;border-radius:8px;background:var(--teal-light);border:1px solid var(--teal-border);display:grid;place-items:center;color:var(--teal);flex-shrink:0">
@@ -1911,9 +1928,7 @@ button {
   </div>
 </div>
 
-<!-- Main Prediction Result + Forecast Curve Grid -->
 <div class="predictionGrid" style="grid-template-columns:0.85fr 1.15fr;gap:16px;margin-bottom:16px">
-  <!-- Left Side: Main Result -->
   <div class="panel score" style="display:flex;flex-direction:column;justify-content:space-between">
     <div>
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -1932,13 +1947,8 @@ button {
         <div style="font-size:10px;color:var(--muted);margin-top:6px">MOSDAC Max Rain: <strong style="color:var(--text)"><span id="calcCurrent">0</span> mm/h</strong></div>
       </div>
     </div>
-
-    <div style="margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)">
-      Note: Probability describes event likelihood; severity describes expected physical rain rate.
-    </div>
   </div>
 
-  <!-- Right Side: Prominent Forecast Curve -->
   <div class="panel" style="display:flex;flex-direction:column;justify-content:space-between">
     <div>
       <div class="sectionHead">
@@ -1956,165 +1966,270 @@ button {
   </div>
 </div>
 
-<!-- Conditions Used For This Prediction (Read-Only Data Grid) -->
+<!-- Environmental signals grid -->
 <div class="panel" style="margin-bottom:16px">
   <div class="sectionHead">
     <div>
       <div class="eyebrow">ENVIRONMENTAL SIGNALS</div>
       <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Conditions used for this prediction</h3>
-      <p>Environmental signals currently available to the model.</p>
     </div>
   </div>
-
   <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:16px">
     <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
       <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">Rainfall</div>
       <div style="font-size:18px;font-weight:800;color:var(--text);margin-top:2px"><span id="readRain">42</span> <small style="font-size:11px;color:var(--muted)">mm/h</small></div>
-      <div style="font-size:9px;color:var(--muted);margin-top:2px">Surface rate</div>
     </div>
     <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
       <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">Humidity</div>
       <div style="font-size:18px;font-weight:800;color:var(--text);margin-top:2px"><span id="readHumidity">82</span> <small style="font-size:11px;color:var(--muted)">%</small></div>
-      <div style="font-size:9px;color:var(--muted);margin-top:2px">Relative humidity</div>
     </div>
     <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
       <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">Cloud Cover</div>
       <div style="font-size:18px;font-weight:800;color:var(--text);margin-top:2px"><span id="readCloud">78</span> <small style="font-size:11px;color:var(--muted)">%</small></div>
-      <div style="font-size:9px;color:var(--muted);margin-top:2px">Cloud development</div>
     </div>
     <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
       <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">Temperature</div>
       <div style="font-size:18px;font-weight:800;color:var(--text);margin-top:2px"><span id="readTemp">25</span> <small style="font-size:11px;color:var(--muted)">°C</small></div>
-      <div style="font-size:9px;color:var(--muted);margin-top:2px">Air temperature</div>
     </div>
     <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
       <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">Wind Speed</div>
       <div style="font-size:18px;font-weight:800;color:var(--text);margin-top:2px"><span id="readWind">24</span> <small style="font-size:11px;color:var(--muted)">km/h</small></div>
-      <div style="font-size:9px;color:var(--muted);margin-top:2px">Wind speed</div>
     </div>
     <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
       <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">Elevation</div>
       <div style="font-size:18px;font-weight:800;color:var(--text);margin-top:2px"><span id="readElevation">900</span> <small style="font-size:11px;color:var(--muted)">m</small></div>
-      <div style="font-size:9px;color:var(--muted);margin-top:2px">Terrain height</div>
     </div>
   </div>
-
-  <!-- Expandable Prototype Inputs -->
-  <details style="margin-top:16px;border-top:1px solid var(--line);padding-top:14px" id="predictionInputs">
-    <summary style="font-size:12px;font-weight:700;color:var(--teal);cursor:pointer;display:inline-flex;align-items:center;gap:6px">
-      <span>Edit inputs (Prototype Override) →</span>
-    </summary>
-    <div style="margin-top:12px;padding:16px;border:1px dashed var(--line-strong);border-radius:8px;background:var(--panel2)">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <div>
-          <b style="font-size:12px;color:var(--text)">PROTOTYPE INPUT OVERRIDE</b>
-          <p style="font-size:10px;color:var(--muted);margin:2px 0 0">Manual inputs are available for prototype testing. Production predictions will use connected satellite and weather data.</p>
-        </div>
-        <button class="btn primary" id="runPrediction" type="button" onclick="runPrediction()">Run Prediction</button>
-      </div>
-
-      <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
-        <label class="metric"><b>Current rainfall</b><input id="inRain" type="number" min="0" max="250" step="1" value="42" onchange="runPrediction()"><span>mm/h</span></label>
-        <label class="metric"><b>Relative humidity</b><input id="inHumidity" type="number" min="0" max="100" step="1" value="82" onchange="runPrediction()"><span>%</span></label>
-        <label class="metric"><b>Cloud cover</b><input id="inCloud" type="number" min="0" max="100" step="1" value="78" onchange="runPrediction()"><span>%</span></label>
-        <label class="metric"><b>Temperature</b><input id="inTemp" type="number" min="-10" max="55" step="0.5" value="25" onchange="runPrediction()"><span>°C</span></label>
-        <label class="metric"><b>Wind speed</b><input id="inWind" type="number" min="0" max="150" step="1" value="24" onchange="runPrediction()"><span>km/h</span></label>
-        <label class="metric"><b>Elevation</b><input id="inElevation" type="number" min="0" max="9000" step="10" value="900" onchange="runPrediction()"><span>m</span></label>
-      </div>
-      <div class="note" id="formulaNote" style="margin-top:10px;font-size:10px">Prototype formula: rainfall 45% + humidity 18% + cloud 14% + wind 8% + elevation 7% + temperature 8%, followed by calibrated probability transform.</div>
-    </div>
-  </details>
-</div>
-
-<!-- Prediction Reliability Section -->
-<div class="grid2" style="margin-bottom:16px">
-  <div class="panel" style="display:flex;flex-direction:column;justify-content:space-between">
-    <div>
-      <div class="sectionHead">
-        <div>
-          <div class="eyebrow">MODEL CONFIDENCE</div>
-          <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Prediction reliability</h3>
-          <p>How much confidence should we place in this prediction?</p>
-        </div>
-        <span class="status" id="calcConfidence" style="font-size:11px;font-weight:800;color:var(--teal)">HIGH</span>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0">
-        <div style="padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);text-align:center">
-          <div style="font-size:10px;color:var(--muted)">Data completeness</div>
-          <div style="font-size:14px;font-weight:700;color:var(--green);margin-top:2px">✓ Complete</div>
-        </div>
-        <div style="padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);text-align:center">
-          <div style="font-size:10px;color:var(--muted)">Input consistency</div>
-          <div style="font-size:14px;font-weight:700;color:var(--green);margin-top:2px">✓ Consistent</div>
-        </div>
-        <div style="padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);text-align:center">
-          <div style="font-size:10px;color:var(--muted)">Model agreement</div>
-          <div style="font-size:14px;font-weight:700;color:var(--green);margin-top:2px">✓ High</div>
-        </div>
-      </div>
-    </div>
-
-    <div style="padding-top:10px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)">
-      <strong>Note:</strong> Prediction probability describes how likely the event is. Reliability describes how trustworthy the prediction is given the available inputs.
-    </div>
-  </div>
-
-  <!-- Deeper Analysis Navigation Card -->
-  <div class="panel" style="display:flex;flex-direction:column;justify-content:space-between">
-    <div>
-      <div class="sectionHead">
-        <div>
-          <div class="eyebrow">DEEPER ANALYSIS</div>
-          <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Explore underlying evidence</h3>
-          <p>Investigate feature attributions and model validation benchmarks.</p>
-        </div>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:10px;margin:16px 0">
-        <button type="button" class="btn secondary" onclick="go('xai')" style="justify-content:space-between">
-          <span>Understand why (Feature Attribution)</span>
-          <span>→</span>
-        </button>
-        <button type="button" class="btn secondary" onclick="go('historical')" style="justify-content:space-between">
-          <span>View model performance & historical benchmarks</span>
-          <span>→</span>
-        </button>
-      </div>
-    </div>
-
-    <div style="padding-top:10px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)">
-      Access detailed SHAP explanations and held-out evaluation benchmarks.
-    </div>
-  </div>
-</div>
-
-<!-- Preserved Hidden Container for JS backward compatibility -->
-<div style="display:none" id="hiddenPredPreserved">
-  <select id="predCountry"></select>
-  <select id="predState"></select>
-  <select id="predCity"></select>
-  <div id="conditionTitle"></div>
-  <div id="conditionText"></div>
-  <div id="conditionBadge"></div>
-  <span id="calcCurrent">42</span>
-  <span id="calcProb">91.4</span>
-  <i id="cnnBar"></i><span id="cnnVal"></span>
-  <i id="xgbBar"></i><span id="xgbVal"></span>
-  <i id="lstmBar"></i><span id="lstmVal"></span>
-  <i id="trBar"></i><span id="trVal"></span>
-  <div id="disagreementNote"></div>
-  <div id="reliabilityScore"></div>
-  <div id="reliabilityLabel"></div>
-  <div id="reliabilityReason"></div>
-  <div id="failureSignals"></div>
-  <div id="rainFingerprint"></div>
-  <div id="historicalMatch"></div>
 </div>
 </section>
 
+<!-- 3. RESCUE DISPATCH VIEW -->
+<section id="dispatch" class="view">
+  <div class="intro">
+    <div>
+      <div class="eyebrow">TACTICAL COMMAND & ROUTING</div>
+      <h2>Rescue team dispatch & shortest safe route ETA</h2>
+      <p>Calculates shortest distance without flood disturbances, dynamic arrival times, and assigned relief facility destination.</p>
+    </div>
+    <div style="text-align:right">
+      <button class="btn primary" onclick="openCitizenSosModal()" style="background:var(--red);border-color:var(--red)">🚨 Log Emergency SOS</button>
+    </div>
+  </div>
+
+  <div class="stats" style="grid-template-columns:repeat(4,1fr);margin-bottom:16px">
+    <div class="panel stat"><span>Pending SOS Tickets</span><div class="statValue" id="statPendingSos" style="color:var(--red)">3</div><div class="statFoot">Requires immediate allotment</div></div>
+    <div class="panel stat"><span>Available Units</span><div class="statValue" id="statAvailableUnits" style="color:var(--green)">4</div><div class="statFoot">Boats, 4x4 trucks & medical vans</div></div>
+    <div class="panel stat"><span>Active Disturbances</span><div class="statValue" id="statDisturbances" style="color:var(--orange)">3</div><div class="statFoot">Submerged roads & bottlenecks</div></div>
+    <div class="panel stat"><span>Fastest Clear Route ETA</span><div class="statValue" id="statAvgEta">8 <small>min</small></div><div class="statFoot">Via shortest safe bypass</div></div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:16px">
+    <div class="panel">
+      <div class="sectionHead"><div><div class="eyebrow">LIVE TRIAGE QUEUE</div><h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Incoming SOS & shortest route</h3></div></div>
+      <div id="sosQueueContainer" style="display:grid;gap:12px;margin-top:12px"></div>
+    </div>
+
+    <div class="panel">
+      <div class="sectionHead"><div><div class="eyebrow">UNIT ROSTER</div><h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Response fleet & speed profiles</h3></div></div>
+      <div id="unitRosterContainer" style="display:grid;gap:8px;margin-top:12px"></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:16px">
+    <div class="sectionHead">
+      <div>
+        <div class="eyebrow">LIVE RESCUE TRACKING</div>
+        <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Rescue team position & shortest route</h3>
+        <p>Prototype tracking mode: the team marker moves along the calculated route and the ETA updates continuously.</p>
+      </div>
+      <span class="status" id="rescueStatusBadge">NO ACTIVE RESCUE</span>
+    </div>
+    <div id="rescueTrackingMap" class="rescueMap"></div>
+    <div class="rescueSummary">
+      <div class="rescueMetric"><span>Assigned Team</span><b id="rescueTeamName">—</b></div>
+      <div class="rescueMetric"><span>Distance Remaining</span><b id="rescueDistance">—</b></div>
+      <div class="rescueMetric"><span>ETA</span><b id="rescueEta">—</b></div>
+      <div class="rescueMetric"><span>Current Status</span><b id="rescueStatusText">No active mission</b></div>
+    </div>
+    <div id="rescueLiveMessage" class="rescueLive">Select an SOS and assign a team to begin live route tracking.</div>
+    <div class="routeLegend">
+      <span><i class="routeDot" style="background:#238C83"></i>Rescue team</span>
+      <span><i class="routeDot" style="background:#C92A2A"></i>Citizen SOS</span>
+      <span>━━ Shortest route</span>
+    </div>
+  </div>
+</section>
+
+<!-- 4. FACILITIES VIEW -->
+<section id="facilities" class="view">
+  <div class="intro">
+    <div>
+      <div class="eyebrow">RELIEF INFRASTRUCTURE & HEALTHCARE</div>
+      <h2>Government relief shelters & emergency hospitals</h2>
+      <p>Live bed capacity, trauma triage availability, flood submersion safety status, and essential amenities.</p>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:16px">
+    <div class="panel">
+      <div class="sectionHead"><div><div class="eyebrow">EVACUATION CENTERS</div><h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Government relief shelters</h3></div></div>
+      <div id="shelterListContainer" style="display:grid;gap:10px;margin-top:12px"></div>
+    </div>
+
+    <div class="panel">
+      <div class="sectionHead"><div><div class="eyebrow">TRAUMA & MEDICAL TRIAGE</div><h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Emergency hospital facilities</h3></div></div>
+      <div id="hospitalListContainer" style="display:grid;gap:10px;margin-top:12px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. SOIL HYDROLOGY VIEW -->
+<section id="hydrology" class="view">
+  <div class="intro">
+    <div>
+      <div class="eyebrow">HYDROLOGICAL INTELLIGENCE</div>
+      <h2>Soil moisture & flood saturation index</h2>
+      <p>Antecedent precipitation tracking, soil absorption deficit, and direct surface runoff forecasting.</p>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:16px">
+    <div class="panel">
+      <div class="sectionHead"><div><div class="eyebrow">7-DAY CLIMATE MEMORY</div><h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Antecedent soil moisture trend</h3></div></div>
+      <div id="soilHistoryChart" class="chart" style="height:210px"></div>
+    </div>
+
+    <div class="panel">
+      <div class="sectionHead"><div><div class="eyebrow">RUNOFF PHYSICS</div><h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Runoff vulnerability breakdown</h3></div></div>
+      <div style="display:grid;gap:10px;margin-top:14px">
+        <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700"><span>Topsoil Infiltration Rate</span><b style="color:var(--orange)">Low (&lt; 4 mm/h)</b></div>
+          <div class="miniBar"><i style="width:20%;background:var(--orange)"></i></div>
+        </div>
+        <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700"><span>Surface Runoff Ratio</span><b style="color:var(--red)">0.88 (Extreme)</b></div>
+          <div class="miniBar"><i style="width:88%;background:var(--red)"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. WHAT-IF SIMULATION VIEW -->
+<section id="simulation" class="view">
+  <div class="intro">
+    <div>
+      <div class="eyebrow">SCENARIO ENGINE</div>
+      <h2>What-if impact simulation</h2>
+      <p>Explore how changing rainfall conditions can alter estimated exposure and priority zones.</p>
+    </div>
+    <button class="btn secondary" id="resetSim" onclick="resetSimulation()">↻ Reset</button>
+  </div>
+
+  <div class="simGrid">
+    <div class="panel">
+      <div class="eyebrow">SCENARIO INPUTS</div>
+      <h3>Adjust conditions</h3>
+      <div class="sliderBlock">
+        <label>Rainfall intensity <strong><span id="rainVal">82</span> mm/h</strong></label>
+        <input id="rainSlider" type="range" min="20" max="150" value="82" oninput="simUpdate()">
+        <div class="rangeLabels"><span>20</span><span>150</span></div>
+      </div>
+      <div class="sliderBlock">
+        <label>Duration <strong><span id="durationVal">3</span> hours</strong></label>
+        <input id="durationSlider" type="range" min="1" max="6" value="3" oninput="simUpdate()">
+        <div class="rangeLabels"><span>1h</span><span>6h</span></div>
+      </div>
+      <div class="sliderBlock">
+        <label>Terrain sensitivity <strong><span id="elevVal">50</span>%</strong></label>
+        <input id="elevSlider" type="range" min="0" max="100" value="50" oninput="simUpdate()">
+        <div class="rangeLabels"><span>Higher impact</span><span>Lower impact</span></div>
+      </div>
+      <div class="note">ⓘ Scenario simulation only. It is not a validated hydrological or flood forecast.</div>
+    </div>
+
+    <div class="panel">
+      <div class="eyebrow">SIMULATION OUTPUT</div>
+      <div class="simRisk" id="simRisk">HIGH</div>
+      <p style="color:var(--muted);font-size:10px">Estimated exposure under the selected scenario.</p>
+      <div class="scenarioCards">
+        <div class="panel stat"><span>Affected zones</span><div class="statValue" id="simZones">14</div></div>
+        <div class="panel stat"><span>Population exposure</span><div class="statValue" id="simPop">48.2K</div></div>
+        <div class="panel stat"><span>Road segments</span><div class="statValue" id="simRoads">19</div></div>
+        <div class="panel stat"><span>Priority level</span><div class="statValue" id="simPriority" style="font-size:17px">HIGH</div></div>
+      </div>
+      <div class="scenarioBar"><div id="scenarioBar" style="--w:69%"></div></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:15px">
+    <div class="eyebrow">CASCADE SIMULATION</div>
+    <h3>See the consequences, not just the rain</h3>
+    <div class="cascade">
+      <div class="cascadeNode"><b id="simRainNode">82</b><span>mm/h rain</span></div><div class="cascadeArrow">→</div>
+      <div class="cascadeNode"><b id="simSoil">--</b><span>soil saturation</span></div><div class="cascadeArrow">→</div>
+      <div class="cascadeNode"><b id="simDrain">--</b><span>drainage stress</span></div><div class="cascadeArrow">→</div>
+      <div class="cascadeNode"><b id="simAccess">--</b><span>accessibility risk</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. ALERTS VIEW -->
+<section id="alerts" class="view">
+  <div class="intro">
+    <div>
+      <div class="eyebrow">EARLY WARNING</div>
+      <h2>Alert center</h2>
+      <p>Prioritized rainfall warnings generated from model risk outputs.</p>
+    </div>
+  </div>
+  <div class="alertSummary">
+    <div class="summary"><b>⚠ 6 active signals</b><span>2 critical · 3 high · 1 watch</span></div>
+    <div class="summary"><b>♧ Notification engine</b><span>Ready for SMS / email / app integration</span></div>
+  </div>
+  <div class="alertList" id="allAlerts"></div>
+  <div class="panel" style="margin-top:15px">
+    <div class="eyebrow">ALERT LOGIC</div>
+    <h3>Prototype thresholds</h3>
+    <div class="logic">
+      <div class="metric"><b style="color:#ff7185">CRITICAL</b><strong>≥ 90% probability</strong><span>Immediate priority monitoring</span></div>
+      <div class="metric"><b style="color:#f7c25a">HIGH</b><strong>75–89% probability</strong><span>Escalated preparedness</span></div>
+      <div class="metric"><b style="color:#60dfcf">WATCH</b><strong>55–74% probability</strong><span>Continue monitoring</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. GEO-SPATIAL IMPACT & RISK MAP VIEW -->
+<section id="map" class="view">
+  <div class="intro">
+    <div>
+      <div class="eyebrow">GEO-SPATIAL INTELLIGENCE</div>
+      <h2>Impact & risk map</h2>
+      <p>Combine rainfall risk with exposure, hospitals, shelters, and critical infrastructure.</p>
+    </div>
+  </div>
+  <div class="mapLayout">
+    <div class="panel layers">
+      <div class="eyebrow">MAP LAYERS</div>
+      <div id="layers"></div>
+      <hr style="border-color:var(--line);border-width:1px 0 0;margin:12px 0">
+      <div class="eyebrow">RISK FILTER</div>
+      <div class="segment" id="riskFilter"></div>
+      <div id="selectedZone" class="selectedZone"></div>
+    </div>
+    <div class="panel" style="padding:8px">
+      <div id="fullMap" class="map"></div>
+      <div class="regionPredictionWrap" style="padding:8px 4px 4px">
+        <div class="eyebrow">REGIONAL PREDICTION GRID</div>
+        <div style="font-size:10px;color:var(--muted);margin:3px 0 8px">Risk prediction around the currently selected monitoring location.</div>
+        <div id="regionPredictionGrid" class="regionPredictionGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. EXPLAINABLE AI VIEW -->
 <section id="xai" class="view">
-  <!-- 1. Header -->
   <div class="intro">
     <div>
       <div class="eyebrow">EXPLAINABLE AI</div>
@@ -2280,261 +2395,146 @@ button {
   </div>
 </section>
 
-<section id="map" class="view">
-<div class="intro"><div><div class="eyebrow">GEO-SPATIAL INTELLIGENCE</div><h2>Impact & risk map</h2><p>Combine rainfall risk with exposure and critical infrastructure.</p></div></div>
-<div class="mapLayout"><div class="panel layers"><div class="eyebrow">MAP LAYERS</div><div id="layers"></div><hr style="border-color:#1b2d42;border-width:1px 0 0;margin:12px 0"><div class="eyebrow">RISK FILTER</div><div class="segment" id="riskFilter"></div><div id="selectedZone" class="selectedZone"></div></div><div class="panel" style="padding:8px"><div id="fullMap" class="map"></div></div></div>
-<div class="stats" style="grid-template-columns:repeat(4,1fr)"><div class="panel stat"><span>High-risk zones</span><div class="statValue">6</div><div class="statFoot">Priority monitoring</div></div><div class="panel stat"><span>Population exposure</span><div class="statValue">48.2K</div><div class="statFoot">Scenario estimate</div></div><div class="panel stat"><span>Road segments</span><div class="statValue">19</div><div class="statFoot">Potentially affected</div></div><div class="panel stat"><span>Critical facilities</span><div class="statValue">3</div><div class="statFoot">Within high-risk zones</div></div></div>
-
-<div class="panel" style="margin-top:15px">
-  <div class="sectionHead"><div><div class="eyebrow">IMPACT-FIRST MAPPING</div><h3>Rainfall is only the first layer</h3><p>Switch between hazard, vulnerability and consequence layers to find where the same rain becomes dangerous.</p></div></div>
-  <div class="uniqueGrid3">
-    <div class="stat"><span>Rainfall severity</span><div class="statValue" id="mapRainRisk">--</div></div>
-    <div class="stat"><span>Local impact index</span><div class="statValue" id="mapImpactRisk">--</div></div>
-    <div class="stat"><span>Model reliability</span><div class="statValue" id="mapReliability">--</div></div>
-  </div>
-</div>
-
-</section>
-
-<section id="simulation" class="view">
-<div class="intro"><div><div class="eyebrow">SCENARIO ENGINE</div><h2>What-if impact simulation</h2><p>Explore how changing rainfall conditions can alter estimated exposure and priority zones.</p></div><button class="btn secondary" id="resetSim">↻ Reset</button></div>
-<div class="simGrid"><div class="panel"><div class="eyebrow">SCENARIO INPUTS</div><h3>Adjust conditions</h3>
-<div class="sliderBlock"><label>Rainfall intensity <strong><span id="rainVal">82</span> mm/h</strong></label><input id="rainSlider" type="range" min="20" max="150" value="82"><div class="rangeLabels"><span>20</span><span>150</span></div></div>
-<div class="sliderBlock"><label>Duration <strong><span id="durationVal">3</span> hours</strong></label><input id="durationSlider" type="range" min="1" max="6" value="3"><div class="rangeLabels"><span>1h</span><span>6h</span></div></div>
-<div class="sliderBlock"><label>Terrain sensitivity <strong><span id="elevVal">50</span>%</strong></label><input id="elevSlider" type="range" min="0" max="100" value="50"><div class="rangeLabels"><span>Higher impact</span><span>Lower impact</span></div></div>
-<div class="note">ⓘ Scenario simulation only. It is not a validated hydrological or flood forecast.</div></div>
-<div class="panel"><div class="eyebrow">SIMULATION OUTPUT</div><div class="simRisk" id="simRisk">HIGH</div><p style="color:#71869d;font-size:10px">Estimated exposure under the selected scenario.</p><div class="scenarioCards"><div class="panel stat"><span>Affected zones</span><div class="statValue" id="simZones">14</div></div><div class="panel stat"><span>Population exposure</span><div class="statValue" id="simPop">48.2K</div></div><div class="panel stat"><span>Road segments</span><div class="statValue" id="simRoads">19</div></div><div class="panel stat"><span>Priority level</span><div class="statValue" id="simPriority" style="font-size:17px">HIGH</div></div></div><div class="scenarioBar"><div id="scenarioBar" style="--w:69%"></div></div></div></div>
-
-<div class="panel" style="margin-top:15px">
-  <div class="eyebrow">CASCADE SIMULATION</div><h3>See the consequences, not just the rain</h3>
-  <div class="cascade">
-    <div class="cascadeNode"><b id="simRainNode">82</b><span>mm/h rain</span></div><div class="cascadeArrow">→</div>
-    <div class="cascadeNode"><b id="simSoil">--</b><span>soil saturation</span></div><div class="cascadeArrow">→</div>
-    <div class="cascadeNode"><b id="simDrain">--</b><span>drainage stress</span></div><div class="cascadeArrow">→</div>
-    <div class="cascadeNode"><b id="simAccess">--</b><span>accessibility risk</span></div>
-  </div>
-</div>
-
-</section>
-
+<!-- 10. HISTORICAL VIEW -->
 <section id="historical" class="view">
-<div class="intro"><div><div class="eyebrow">MODEL VALIDATION</div><h2>Historical event analysis</h2><p>Compare observed and predicted signals and inspect detection lead time.</p></div></div>
-<div class="panel"><div class="sectionHead"><div><div class="eyebrow">DEMO EVENT</div><h3>Observed vs predicted rainfall</h3></div></div><div id="historyChart" class="chart"></div><div style="text-align:center;color:#71869d;font-size:9px">● Observed &nbsp;&nbsp; <span style="color:#2dd4bf">●</span> Predicted</div></div>
-<div class="events" id="historyEvents"><div class="panel event"><div class="eyebrow">12 AUG 2025</div><h3>Demo monsoon event — Bengaluru</h3><div class="eventStats"><div><span>Observed</span><b>96 mm/h</b></div><div><span>Predicted</span><b>91 mm/h</b></div><div><span>Lead</span><b>2.3 h</b></div></div></div><div class="panel event"><div class="eyebrow">24 JUL 2025</div><h3>Demo high-impact event — Mysuru</h3><div class="eventStats"><div><span>Observed</span><b>84 mm/h</b></div><div><span>Predicted</span><b>80 mm/h</b></div><div><span>Lead</span><b>1.8 h</b></div></div></div><div class="panel event"><div class="eyebrow">03 AUG 2025</div><h3>Demo heavy rainfall — Shivamogga</h3><div class="eventStats"><div><span>Observed</span><b>112 mm/h</b></div><div><span>Predicted</span><b>105 mm/h</b></div><div><span>Lead</span><b>2.7 h</b></div></div></div></div>
-<div class="panel"><div class="eyebrow">EVALUATION</div><h3>Confusion-matrix metrics</h3><div class="metrics"><div class="metric"><b>True positive</b><strong>128</strong><span>Detected high-risk events</span></div><div class="metric"><b>False positive</b><strong>17</strong><span>False alarms</span></div><div class="metric"><b>True negative</b><strong>244</strong><span>Normal conditions</span></div><div class="metric"><b>False negative</b><strong>11</strong><span>Missed high-risk events</span></div></div><div class="note">All event and metric values are placeholders and must be replaced by real validation results before being presented as research findings.</div></div>
-
-<div class="panel" style="margin-top:15px">
-  <div class="eyebrow">CLIMATE MEMORY</div><h3>Has this happened here before?</h3>
-  <div class="uniqueGrid3">
-    <div class="stat"><span>Historical maximum</span><div class="statValue" id="histMax">--</div><div class="statFoot">Prototype analogue</div></div>
-    <div class="stat"><span>Similar events</span><div class="statValue" id="histSimilar">--</div><div class="statFoot">Pattern matches</div></div>
-    <div class="stat"><span>Return-period context</span><div class="statValue" id="histReturn">--</div><div class="statFoot">Scenario estimate</div></div>
+  <div class="intro">
+    <div>
+      <div class="eyebrow">MODEL VALIDATION</div>
+      <h2>Historical event analysis</h2>
+      <p>Compare observed and predicted signals and inspect detection lead time.</p>
+    </div>
   </div>
-  <div class="commandAnswer" id="climateMemoryText">Select a location to load its climate-memory summary.</div>
-</div>
+  <div class="panel">
+    <div class="sectionHead"><div><div class="eyebrow">DEMO EVENT</div><h3>Observed vs predicted rainfall</h3></div></div>
+    <div id="historyChart" class="chart"></div>
+    <div style="text-align:center;color:#71869d;font-size:9px">● Observed &nbsp;&nbsp; <span style="color:#2dd4bf">●</span> Predicted</div>
+  </div>
 
-</section>
-
-<section id="alerts" class="view">
-<div class="intro"><div><div class="eyebrow">EARLY WARNING</div><h2>Alert center</h2><p>Prioritized rainfall warnings generated from model risk outputs.</p></div></div>
-<div class="alertSummary"><div class="summary"><b>⚠ 6 active signals</b><span>2 critical · 3 high · 1 watch</span></div><div class="summary"><b>♧ Notification engine</b><span>Ready for SMS / email / app integration</span></div></div>
-<div class="alertList" id="allAlerts"></div>
-<div class="panel" style="margin-top:15px"><div class="eyebrow">ALERT LOGIC</div><h3>Prototype thresholds</h3><div class="logic"><div class="metric"><b style="color:#ff7185">CRITICAL</b><strong>≥ 90% probability</strong><span>Immediate priority monitoring</span></div><div class="metric"><b style="color:#f7c25a">HIGH</b><strong>75–89% probability</strong><span>Escalated preparedness</span></div><div class="metric"><b style="color:#60dfcf">WATCH</b><strong>55–74% probability</strong><span>Continue monitoring</span></div></div></div>
-<div class="panel" style="margin-top:15px">
-  <div class="eyebrow">ACTIONABLE ALERT</div><h3>Alert → action plan</h3>
-  <div class="actionList" id="alertActionList"></div>
-</div>
+  <div class="events" id="historyEvents"></div>
 </section>
 
 </div></main></div>
 
-<!-- REUSABLE GLOBAL LOCATION MODAL -->
-<div id="locationModal" style="display:none;position:fixed;inset:0;background:rgba(23,53,47,0.45);backdrop-filter:blur(4px);z-index:1000;place-items:center;padding:20px" onclick="if(event.target===this)closeLocationModal()">
-  <div class="panel" style="width:100%;max-width:540px;padding:24px;box-shadow:var(--shadow-md);border-radius:12px;background:var(--panel)">
-    <!-- Modal Header -->
+<!-- FLOATING CITIZEN SOS TRIGGER BUTTON -->
+<button class="floatingSosBtn" onclick="openCitizenSosModal()">
+  <span style="font-size:16px">🚨</span>
+  <span>REQUEST RESCUE (SOS)</span>
+</button>
+
+<!-- CITIZEN SOS MODAL -->
+<div id="sosModal" style="display:none;position:fixed;inset:0;background:rgba(23,53,47,0.6);backdrop-filter:blur(4px);z-index:1100;place-items:center;padding:20px" onclick="if(event.target===this)closeCitizenSosModal()">
+  <div class="panel" style="width:100%;max-width:540px;padding:24px;border-radius:12px;background:var(--panel)">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
-      <div>
-        <div class="eyebrow">LOCATION SELECTION</div>
-        <h3 style="font-family:var(--font-serif);font-size:22px;font-weight:400;margin:4px 0 2px">Choose a location to monitor</h3>
-        <p style="font-size:11px;color:var(--muted);margin:0">Search or pick a location below. Click Apply location to update the application.</p>
+      <h3 style="font-family:var(--font-serif);font-size:22px;margin:0">Request Immediate Rescue</h3>
+      <button type="button" onclick="closeCitizenSosModal()" style="background:none;border:none;font-size:20px;cursor:pointer">&times;</button>
+    </div>
+    <form onsubmit="handleCitizenSosSubmit(event)">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <label style="font-size:11px;font-weight:700">FULL NAME<input type="text" id="sosName" required style="width:100%;padding:8px;margin-top:4px"></label>
+        <label style="font-size:11px;font-weight:700">PHONE<input type="tel" id="sosPhone" required style="width:100%;padding:8px;margin-top:4px"></label>
       </div>
-      <button type="button" onclick="closeLocationModal()" style="background:none;border:none;font-size:20px;color:var(--muted);cursor:pointer;padding:0;line-height:1">&times;</button>
-    </div>
-
-    <!-- Current Location Banner -->
-    <div style="padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
-      <div>
-        <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">CURRENT LOCATION</div>
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-top:2px" id="modalCurrentLocation">Ranchi, Jharkhand, India</div>
-      </div>
-      <span class="status" style="font-size:9px">ACTIVE</span>
-    </div>
-
-    <!-- Direct Search Input -->
-    <div style="margin-bottom:14px">
-      <div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase">SEARCH CITY, DISTRICT, OR PLACE</div>
-      <input type="text" id="locSearchInput" placeholder="Type a city or district (e.g. Ranchi, Bengaluru, Bhubaneswar, Mumbai)..." style="width:100%;padding:10px 14px;border:1px solid var(--line-strong);border-radius:8px;background:#FFFFFF;font-size:13px" oninput="onLocationSearchInput(this.value)">
-    </div>
-
-    <!-- Quick Preset Location Tags -->
-    <div style="margin-bottom:16px">
-      <div style="font-size:10px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase">QUICK SELECT</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px" id="quickSelectTags">
-        <button type="button" class="btn secondary locTagBtn" data-loc="Ranchi, Jharkhand, India" onclick="selectTempCity('Ranchi','Jharkhand','India',this)">📍 Ranchi, Jharkhand</button>
-        <button type="button" class="btn secondary locTagBtn" data-loc="Bengaluru, Karnataka, India" onclick="selectTempCity('Bengaluru','Karnataka','India',this)">📍 Bengaluru, Karnataka</button>
-        <button type="button" class="btn secondary locTagBtn" data-loc="Bhubaneswar, Odisha, India" onclick="selectTempCity('Bhubaneswar','Odisha','India',this)">📍 Bhubaneswar, Odisha</button>
-        <button type="button" class="btn secondary locTagBtn" data-loc="Mumbai, Maharashtra, India" onclick="selectTempCity('Mumbai','Maharashtra','India',this)">📍 Mumbai, Maharashtra</button>
-        <button type="button" class="btn secondary locTagBtn" data-loc="Delhi, NCR, India" onclick="selectTempCity('Delhi','NCR','India',this)">📍 Delhi, NCR</button>
-        <button type="button" class="btn secondary locTagBtn" data-loc="Mysuru, Karnataka, India" onclick="selectTempCity('Mysuru','Karnataka','India',this)">📍 Mysuru, Karnataka</button>
-        <button type="button" class="btn secondary locTagBtn" data-loc="Balasore, Odisha, India" onclick="selectTempCity('Balasore','Odisha','India',this)">📍 Balasore, Odisha</button>
-      </div>
-    </div>
-
-    <!-- Temporary Selection Preview Banner -->
-    <div style="padding:10px 14px;border:1px solid var(--teal-border);border-radius:8px;background:var(--teal-light);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
-      <div>
-        <div style="font-size:9px;font-weight:700;color:var(--teal);text-transform:uppercase">NEW SELECTION (PREVIEW)</div>
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-top:2px" id="modalTempLocation">Ranchi, Jharkhand, India</div>
-      </div>
-    </div>
-
-    <!-- Advanced Worldwide Cascading Selector (Optional Fallback) -->
-    <details style="margin-top:8px;border-top:1px solid var(--line);padding-top:10px">
-      <summary style="font-size:11px;font-weight:700;color:var(--teal);cursor:pointer">Worldwide Country → State selector</summary>
-      <div class="controls" style="margin-top:10px;flex-wrap:wrap;gap:10px">
-        <label style="min-width:140px;flex:1">Country
-          <select id="globalCountry"><option value="">Select a country</option></select>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <label style="font-size:11px;font-weight:700">TRAPPED COUNT<input type="number" id="sosCount" min="1" value="2" required style="width:100%;padding:8px;margin-top:4px"></label>
+        <label style="font-size:11px;font-weight:700">WATER LEVEL
+          <select id="sosWaterLevel" style="width:100%;padding:8px;margin-top:4px">
+            <option value="Ankle">Ankle deep</option>
+            <option value="Knee">Knee deep</option>
+            <option value="Waist" selected>Waist deep</option>
+            <option value="Rooftop">Rooftop level</option>
+          </select>
         </label>
-        <label style="min-width:140px;flex:1">State / Region
-          <select id="globalState" disabled><option>Select country first</option></select>
-        </label>
-        <label style="min-width:140px;flex:1">City / Place
-          <select id="globalCity" disabled><option>Select state/region first</option></select>
-        </label>
-        <button type="button" class="btn secondary" id="globalSelectTemp" style="height:36px;align-self:flex-end" onclick="selectTempFromDropdowns()">Select place</button>
       </div>
-      <div class="note" id="globalLocationStatus" style="margin-top:6px;font-size:10px">Loading worldwide location database…</div>
-    </details>
+      <div style="margin-bottom:14px">
+        <label style="font-size:11px;font-weight:700">MEDICAL CONDITION
+          <select id="sosMedical" style="width:100%;padding:8px;margin-top:4px">
+            <option value="None">None (Evacuate to Relief Shelter)</option>
+            <option value="Oxygen / Dialysis Required">Critical (Require Hospital ICU)</option>
+            <option value="Injured">Injured (Require Trauma Hospital)</option>
+          </select>
+        </label>
+      </div>
+      <div style="margin-bottom:16px">
+        <label style="font-size:11px;font-weight:700">LANDMARK<input type="text" id="sosLandmark" required style="width:100%;padding:8px;margin-top:4px"></label>
+      </div>
+      <div style="display:flex;justify-content:flex-end;gap:10px">
+        <button type="button" class="btn secondary" onclick="closeCitizenSosModal()">Cancel</button>
+        <button type="submit" class="btn primary" style="background:var(--red);border-color:var(--red)">🚨 Submit SOS</button>
+      </div>
+    </form>
+  </div>
+</div>
 
-    <!-- Modal Action Buttons (Cancel / Apply location) -->
-    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:12px">
-      <button type="button" class="btn secondary" onclick="closeLocationModal()">Cancel</button>
-      <button type="button" class="btn primary" id="applyLocationBtn">Apply location</button>
+<!-- REUSABLE LOCATION MODAL -->
+<div id="locationModal" style="display:none;position:fixed;inset:0;background:rgba(23,53,47,0.45);backdrop-filter:blur(4px);z-index:1000;place-items:center;padding:20px" onclick="if(event.target===this)closeLocationModal()">
+  <div class="panel" style="width:100%;max-width:540px;padding:24px;border-radius:12px;background:var(--panel)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+      <h3 style="font-family:var(--font-serif);font-size:22px;margin:0">Choose Monitoring Location</h3>
+      <button type="button" onclick="closeLocationModal()" style="background:none;border:none;font-size:20px;cursor:pointer">&times;</button>
+    </div>
+    <div class="locationSearchWrap">
+      <input id="locationSearchInput" type="text" placeholder="Search any city, district or place..." onkeydown="if(event.key==='Enter')searchLocation()">
+      <button type="button" class="btn primary" onclick="searchLocation()">Search</button>
+    </div>
+    <div id="locationSearchStatus" style="font-size:10px;color:var(--muted);margin:-4px 0 10px"></div>
+    <div id="locationResults" class="locationResults"></div>
+    <div style="font-size:9px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px">Quick locations</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <button type="button" class="btn secondary" onclick="selectLocationDirect('Ranchi','Jharkhand','India',23.344,85.309)">📍 Ranchi, Jharkhand</button>
+      <button type="button" class="btn secondary" onclick="selectLocationDirect('Bokaro','Jharkhand','India',23.669,86.151)">📍 Bokaro, Jharkhand</button>
+      <button type="button" class="btn secondary" onclick="selectLocationDirect('Bengaluru','Karnataka','India',12.971,77.594)">📍 Bengaluru, Karnataka</button>
+      <button type="button" class="btn secondary" onclick="selectLocationDirect('Bhubaneswar','Odisha','India',20.296,85.824)">📍 Bhubaneswar, Odisha</button>
+      <button type="button" class="btn secondary" onclick="selectLocationDirect('Mumbai','Maharashtra','India',19.076,72.877)">📍 Mumbai, Maharashtra</button>
     </div>
   </div>
 </div>
 
-<script>
-(function(){
-function q(id){return document.getElementById(id)}
-function num(id,f){var e=q(id),v=e?parseFloat(e.value):NaN;return isFinite(v)?v:f}
-window.varshaaAsk=function(){var input=q('commanderInput'),out=q('commanderAnswer');if(!input||!out)return;var text=input.value.trim();if(!text){out.innerHTML='<b>Ask VARSHAA</b><br>Try: <b>What happens if rainfall reaches 120 mm/h?</b> or <b>What happens if it rains for 20 minutes?</b>';return}var rain=num('inRain',42),humidity=num('inHumidity',82),cloud=num('inCloud',78);var dm=text.match(/(\d+(?:\.\d+)?)\s*(?:min|mins|minutes)/i),rm=text.match(/(\d+(?:\.\d+)?)\s*(?:mm\/?h|mm per hour|mm)/i);var duration=dm?parseFloat(dm[1]):60;if(rm)rain=parseFloat(rm[1]);var prob=parseFloat((q('calcProb')||{}).textContent)||55;var impact=Math.min(99,Math.round(prob*.45+Math.min(40,duration*.45)+humidity*.08+cloud*.05));var drainage=Math.min(99,Math.round(rain*.55+humidity*.25+duration*.18));var risk=impact>=80?'HIGH':impact>=60?'MODERATE':'LOW';var lead=Math.max(10,Math.round(125-prob*1.08));var loc=(window.VARSHAA_APP_STATE&&window.VARSHAA_APP_STATE.location)?window.VARSHAA_APP_STATE.location.label:((q('predictionLocation')||q('monitoringLocation')||{}).textContent||'selected location');out.innerHTML='<b>VARSHAA decision brief</b><br><b>'+loc+'</b><br><br>Scenario: <b>'+Math.round(rain)+' mm/h for '+Math.round(duration)+' minutes</b>.<br>Estimated rainfall impact: <b>'+impact+'/100 ('+risk+')</b>.<br>Estimated drainage stress: <b>'+drainage+'%</b>.<br>Available warning lead time: <b>'+lead+' minutes</b>.<br><br>'+(risk==='HIGH'?'🚨 Escalate localized warning, pre-position drainage teams and inspect vulnerable roads.':risk==='MODERATE'?'⚠️ Increase monitoring of drainage and road segments; prepare a localized advisory.':'🟢 Continue monitoring; no immediate high-impact action is indicated by this scenario.')+'<br><small>Prototype scenario analysis — replace with the trained ML model before operational use.</small>'}
-window.varshaaMode=function(mode,btn){document.querySelectorAll('[data-mode]').forEach(function(b){b.classList.remove('sel')});if(btn)btn.classList.add('sel');var title=q('modeTitle'),content=q('modeContent'),loc=(window.VARSHAA_APP_STATE&&window.VARSHAA_APP_STATE.location)?window.VARSHAA_APP_STATE.location.label:((q('predictionLocation')||q('monitoringLocation')||{}).textContent||'selected location'),prob=(q('calcProb')||{}).textContent||'--';if(mode==='citizen'){if(title)title.textContent='Citizen mode';if(content)content.innerHTML='<b>'+loc+'</b><br>Current rainfall-risk probability: <b>'+prob+'%</b>.<br>Follow local authority warnings. Avoid low-lying roads, underpasses and river-edge areas during high-impact rainfall.'}else{if(title)title.textContent='Government mode';if(content)content.innerHTML='<b>Operational priority</b><br>Use the predicted risk to prioritize drainage response, road monitoring and critical-facility readiness for <b>'+loc+'</b>.'}}
-window.varshaaRefreshActions=function(){var p=parseFloat((q('calcProb')||{}).textContent)||55,loc=(window.VARSHAA_APP_STATE&&window.VARSHAA_APP_STATE.location)?window.VARSHAA_APP_STATE.location.label:((q('predictionLocation')||q('monitoringLocation')||{}).textContent||'selected location'),lead=parseFloat((q('leadTime')||{}).textContent)||44,a;if(p>=80)a=['🚨 Escalate a localized high-impact rainfall alert for '+loc+'.','💧 Pre-position drainage teams and pumps at predicted stress zones.','🛣️ Inspect vulnerable underpasses and prepare road diversion messaging.','🏥 Check readiness of hospitals, schools and other critical facilities.','⏱️ Use the '+Math.round(lead)+'-minute warning window for response preparation.'];else if(p>=60)a=['⚠️ Increase rainfall and drainage monitoring for '+loc+'.','💧 Inspect known low-lying points and drainage bottlenecks.','🛣️ Monitor vulnerable road segments and underpasses.','🏥 Keep critical facilities on watch.','⏱️ Reassess within the '+Math.round(lead)+'-minute lead-time window.'];else a=['🟢 Continue rainfall and drainage monitoring for '+loc+'.','💧 Inspect known low-lying points as a precaution.','🛣️ Keep vulnerable road segments under observation.','🏥 Maintain critical-facility readiness.','⏱️ Recheck the prediction before the '+Math.round(lead)+'-minute window expires.'];['actionList','alertActionList'].forEach(function(id){var box=q(id);if(box)box.innerHTML=a.map(function(x,i){return '<div class="actionItem"><div class="num">0'+(i+1)+'</div><span>'+x+'</span></div>'}).join('')})}
-})();
-</script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="services/predictionService.js"></script>
 <script src="services/featureProvider.js"></script>
 <script>
-let forecast=[42,61,82,74,58,46], labels=["Now","+1h","+2h","+3h","+4h","+5h"];
-var maps = {};
-
-const VIEW_NAMES={
- dashboard:"Command Center",
- prediction:"Rainfall Prediction",
- xai:"Explainable AI",
- map:"Impact & Risk Map",
- simulation:"What-if Simulation",
- historical:"Historical Events",
- alerts:"Alert Center"
+window.VARSHAA_APP_STATE = {
+  currentRainfall: 82,
+  peakRainfall: 95,
+  peakTime: "+1.5 h",
+  probability: 91.4,
+  riskLevel: "HIGH",
+  reliability: "HIGH",
+  forecast: [82, 88, 95, 84, 62, 45],
+  location: { city: "Ranchi", state: "Jharkhand", country: "India", label: "Ranchi, Jharkhand, India", lat: 23.344, lng: 85.309 },
+  environmental: { humidity: 82, cloud: 78, temp: 25, wind: 24, elevation: 900, soil: 68 },
+  regionZones: [],
+  activeRescue: null
 };
 
-function go(view){
-  const target=document.getElementById(view);
-  if(!target)return;
-  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
-  target.classList.add("active");
-  document.querySelectorAll(".nav button").forEach(b=>{
-    b.classList.toggle("active",b.getAttribute("data-view")===view);
-  });
-  const name=VIEW_NAMES[view]||view;
-  const title=document.getElementById("title");
-  const crumb=document.getElementById("crumb");
-  if(title)title.textContent=name;
-  if(crumb)crumb.textContent=name.toUpperCase();
-  if(view==="map"){
-    setTimeout(()=>{if(typeof initFullMap==="function")initFullMap();},80);
-  }
-  if(view==="dashboard"){
-    setTimeout(()=>{if(typeof initDashMap==="function")initDashMap();},80);
-  }
-  if(view==="historical"){
-    setTimeout(()=>{if(typeof drawHistory==="function")drawHistory();},80);
-  }
-  const sidebar=document.getElementById("sidebar");
-  if(sidebar)sidebar.classList.remove("open");
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-/* Direct listeners + event delegation as a fallback. */
-window.go=go;
-
-function wireNavigation(){
-  document.querySelectorAll(".nav button[data-view]").forEach(button=>{
-    button.onclick=function(event){
-      event.preventDefault();
-      event.stopPropagation();
-      go(this.getAttribute("data-view"));
-      return false;
-    };
-  });
-  document.addEventListener("click",function(event){
-    const button=event.target.closest?.(".nav button[data-view]");
-    if(button){
-      event.preventDefault();
-      event.stopPropagation();
-      go(button.getAttribute("data-view"));
-    }
-  },false);
-}
-wireNavigation();
-
-
-function openHashView(){
-  const v=(location.hash||"").replace("#","");
-  if(v && document.getElementById(v) && VIEW_NAMES[v]) go(v);
-}
-window.addEventListener("hashchange",openHashView);
-
-const menuButton=document.getElementById("menu");
-if(menuButton){
-  menuButton.onclick=function(event){
-    event.preventDefault();
-    document.getElementById("sidebar")?.classList.toggle("open");
-  };
-}
-
-const alerts=[
- {s:"CRITICAL",area:"North Bengaluru",p:91,win:"Next 1–3 hours",msg:"High-impact rainfall probability is elevated."},
- {s:"HIGH",area:"East Bengaluru",p:82,win:"Next 2–4 hours",msg:"Rapid rainfall intensification detected."},
- {s:"WATCH",area:"Central Bengaluru",p:68,win:"Next 3–6 hours",msg:"Rainfall conditions are developing."}
+const alerts = [
+  { s: "CRITICAL", area: "North Ranchi Corridor", p: 91, win: "Next 1–3 hours", msg: "High-impact rainfall probability is elevated." },
+  { s: "HIGH", area: "Morabadi Lowlands", p: 82, win: "Next 2–4 hours", msg: "Rapid rainfall intensification detected." },
+  { s: "WATCH", area: "Central Urban Basin", p: 68, win: "Next 3–6 hours", msg: "Rainfall conditions are developing." }
 ];
-const factors=[["Atmospheric moisture",31,"High precipitable water signal"],["Cloud characteristics",27,"Rapid cloud-top cooling / development"],["Temperature profile",18,"Convective instability signal"],["Wind pattern",14,"Convergent moisture transport"],["Elevation",7,"Local terrain influence"],["Historical rainfall",3,"Recent antecedent rainfall"]];
-const zones=[
- {id:"Z-01",name:"North Bengaluru",risk:"HIGH",rain:88,people:12400,roads:5,lat:13.08,lng:77.59},
- {id:"Z-02",name:"East Bengaluru",risk:"HIGH",rain:82,people:9700,roads:4,lat:12.99,lng:77.68},
- {id:"Z-03",name:"Central Bengaluru",risk:"MODERATE",rain:67,people:11800,roads:3,lat:12.97,lng:77.59},
- {id:"Z-04",name:"South Bengaluru",risk:"LOW",rain:41,people:6200,roads:2,lat:12.89,lng:77.59},
- {id:"Z-05",name:"West Bengaluru",risk:"MODERATE",rain:59,people:8100,roads:3,lat:12.98,lng:77.52}
+
+const zones = [
+  { id: "Z-01", name: "North Sector A", risk: "HIGH", rain: 88, people: 12400, roads: 5, lat: 23.375, lng: 85.330 },
+  { id: "Z-02", name: "East Drain Basin", risk: "HIGH", rain: 82, people: 9700, roads: 4, lat: 23.350, lng: 85.360 },
+  { id: "Z-03", name: "Central Urban Core", risk: "MODERATE", rain: 67, people: 11800, roads: 3, lat: 23.344, lng: 85.309 },
+  { id: "Z-04", name: "South Elevated Ridge", risk: "LOW", rain: 41, people: 6200, roads: 2, lat: 23.310, lng: 85.290 }
 ];
-const colors={HIGH:"#D9531E",MODERATE:"#D97706",LOW:"#2A7E51",CRITICAL:"#C92A2A"};
 
+const colors = { HIGH: "#D9531E", MODERATE: "#D97706", LOW: "#2A7E51", CRITICAL: "#C92A2A" };
 
+window.VARSHAA_SHELTERS = [
+  { id: "SH-01", name: "Ranchi District Multipurpose Cyclone Shelter", capacity: 800, occupied: 340, lat: 23.352, lng: 85.321, contact: "1077" },
+  { id: "SH-02", name: "Morabadi Flood Evacuation Center", capacity: 650, occupied: 410, lat: 23.385, lng: 85.334, contact: "+91 651 240011" }
+];
 
-const WORLD_COUNTRIES=[{"name": "Afghanistan", "code": "AF"}, {"name": "Albania", "code": "AL"}, {"name": "Algeria", "code": "DZ"}, {"name": "Andorra", "code": "AD"}, {"name": "Angola", "code": "AO"}, {"name": "Antigua and Barbuda", "code": "AG"}, {"name": "Argentina", "code": "AR"}, {"name": "Armenia", "code": "AM"}, {"name": "Australia", "code": "AU"}, {"name": "Austria", "code": "AT"}, {"name": "Azerbaijan", "code": "AZ"}, {"name": "Bahamas", "code": "BS"}, {"name": "Bahrain", "code": "BH"}, {"name": "Bangladesh", "code": "BD"}, {"name": "Barbados", "code": "BB"}, {"name": "Belarus", "code": "BY"}, {"name": "Belgium", "code": "BE"}, {"name": "Belize", "code": "BZ"}, {"name": "Benin", "code": "BJ"}, {"name": "Bhutan", "code": "BT"}, {"name": "Bolivia", "code": "BO"}, {"name": "Bosnia and Herzegovina", "code": "BA"}, {"name": "Botswana", "code": "BW"}, {"name": "Brazil", "code": "BR"}, {"name": "Brunei", "code": "BN"}, {"name": "Bulgaria", "code": "BG"}, {"name": "Burkina Faso", "code": "BF"}, {"name": "Burundi", "code": "BI"}, {"name": "Cabo Verde", "code": "CV"}, {"name": "Cambodia", "code": "KH"}, {"name": "Cameroon", "code": "CM"}, {"name": "Canada", "code": "CA"}, {"name": "Central African Republic", "code": "CF"}, {"name": "Chad", "code": "TD"}, {"name": "Chile", "code": "CL"}, {"name": "China", "code": "CN"}, {"name": "Colombia", "code": "CO"}, {"name": "Comoros", "code": "KM"}, {"name": "Congo", "code": "CG"}, {"name": "Costa Rica", "code": "CR"}, {"name": "Croatia", "code": "HR"}, {"name": "Cuba", "code": "CU"}, {"name": "Cyprus", "code": "CY"}, {"name": "Czechia", "code": "CZ"}, {"name": "Denmark", "code": "DK"}, {"name": "Djibouti", "code": "DJ"}, {"name": "Dominica", "code": "DM"}, {"name": "Dominican Republic", "code": "DO"}, {"name": "Ecuador", "code": "EC"}, {"name": "Egypt", "code": "EG"}, {"name": "El Salvador", "code": "SV"}, {"name": "Equatorial Guinea", "code": "GQ"}, {"name": "Eritrea", "code": "ER"}, {"name": "Estonia", "code": "EE"}, {"name": "Eswatini", "code": "SZ"}, {"name": "Ethiopia", "code": "ET"}, {"name": "Fiji", "code": "FJ"}, {"name": "Finland", "code": "FI"}, {"name": "France", "code": "FR"}, {"name": "Gabon", "code": "GA"}, {"name": "Gambia", "code": "GM"}, {"name": "Georgia", "code": "GE"}, {"name": "Germany", "code": "DE"}, {"name": "Ghana", "code": "GH"}, {"name": "Greece", "code": "GR"}, {"name": "Grenada", "code": "GD"}, {"name": "Guatemala", "code": "GT"}, {"name": "Guinea", "code": "GN"}, {"name": "Guinea-Bissau", "code": "GW"}, {"name": "Guyana", "code": "GY"}, {"name": "Haiti", "code": "HT"}, {"name": "Honduras", "code": "HN"}, {"name": "Hungary", "code": "HU"}, {"name": "Iceland", "code": "IS"}, {"name": "India", "code": "IN"}, {"name": "Indonesia", "code": "ID"}, {"name": "Iran", "code": "IR"}, {"name": "Iraq", "code": "IQ"}, {"name": "Ireland", "code": "IE"}, {"name": "Israel", "code": "IL"}, {"name": "Italy", "code": "IT"}, {"name": "Jamaica", "code": "JM"}, {"name": "Japan", "code": "JP"}, {"name": "Jordan", "code": "JO"}, {"name": "Kazakhstan", "code": "KZ"}, {"name": "Kenya", "code": "KE"}, {"name": "Kiribati", "code": "KI"}, {"name": "Kuwait", "code": "KW"}, {"name": "Kyrgyzstan", "code": "KG"}, {"name": "Laos", "code": "LA"}, {"name": "Latvia", "code": "LV"}, {"name": "Lebanon", "code": "LB"}, {"name": "Lesotho", "code": "LS"}, {"name": "Liberia", "code": "LR"}, {"name": "Libya", "code": "LY"}, {"name": "Liechtenstein", "code": "LI"}, {"name": "Lithuania", "code": "LT"}, {"name": "Luxembourg", "code": "LU"}, {"name": "Madagascar", "code": "MG"}, {"name": "Malawi", "code": "MW"}, {"name": "Malaysia", "code": "MY"}, {"name": "Maldives", "code": "MV"}, {"name": "Mali", "code": "ML"}, {"name": "Malta", "code": "MT"}, {"name": "Marshall Islands", "code": "MH"}, {"name": "Mauritania", "code": "MR"}, {"name": "Mauritius", "code": "MU"}, {"name": "Mexico", "code": "MX"}, {"name": "Micronesia", "code": "FM"}, {"name": "Moldova", "code": "MD"}, {"name": "Monaco", "code": "MC"}, {"name": "Mongolia", "code": "MN"}, {"name": "Montenegro", "code": "ME"}, {"name": "Morocco", "code": "MA"}, {"name": "Mozambique", "code": "MZ"}, {"name": "Myanmar", "code": "MM"}, {"name": "Namibia", "code": "NA"}, {"name": "Nauru", "code": "NR"}, {"name": "Nepal", "code": "NP"}, {"name": "Netherlands", "code": "NL"}, {"name": "New Zealand", "code": "NZ"}, {"name": "Nicaragua", "code": "NI"}, {"name": "Niger", "code": "NE"}, {"name": "Nigeria", "code": "NG"}, {"name": "North Korea", "code": "KP"}, {"name": "North Macedonia", "code": "MK"}, {"name": "Norway", "code": "NO"}, {"name": "Oman", "code": "OM"}, {"name": "Pakistan", "code": "PK"}, {"name": "Palau", "code": "PW"}, {"name": "Palestine", "code": "PS"}, {"name": "Panama", "code": "PA"}, {"name": "Papua New Guinea", "code": "PG"}, {"name": "Paraguay", "code": "PY"}, {"name": "Peru", "code": "PE"}, {"name": "Philippines", "code": "PH"}, {"name": "Poland", "code": "PL"}, {"name": "Portugal", "code": "PT"}, {"name": "Qatar", "code": "QA"}, {"name": "Romania", "code": "RO"}, {"name": "Russia", "code": "RU"}, {"name": "Rwanda", "code": "RW"}, {"name": "Saint Kitts and Nevis", "code": "KN"}, {"name": "Saint Lucia", "code": "LC"}, {"name": "Saint Vincent and the Grenadines", "code": "VC"}, {"name": "Samoa", "code": "WS"}, {"name": "San Marino", "code": "SM"}, {"name": "Sao Tome and Principe", "code": "ST"}, {"name": "Saudi Arabia", "code": "SA"}, {"name": "Senegal", "code": "SN"}, {"name": "Serbia", "code": "RS"}, {"name": "Seychelles", "code": "SC"}, {"name": "Sierra Leone", "code": "SL"}, {"name": "Singapore", "code": "SG"}, {"name": "Slovakia", "code": "SK"}, {"name": "Slovenia", "code": "SI"}, {"name": "Solomon Islands", "code": "SB"}, {"name": "Somalia", "code": "SO"}, {"name": "South Africa", "code": "ZA"}, {"name": "South Korea", "code": "KR"}, {"name": "South Sudan", "code": "SS"}, {"name": "Spain", "code": "ES"}, {"name": "Sri Lanka", "code": "LK"}, {"name": "Sudan", "code": "SD"}, {"name": "Suriname", "code": "SR"}, {"name": "Sweden", "code": "SE"}, {"name": "Switzerland", "code": "CH"}, {"name": "Syria", "code": "SY"}, {"name": "Taiwan", "code": "TW"}, {"name": "Tajikistan", "code": "TJ"}, {"name": "Tanzania", "code": "TZ"}, {"name": "Thailand", "code": "TH"}, {"name": "Timor-Leste", "code": "TL"}, {"name": "Togo", "code": "TG"}, {"name": "Tonga", "code": "TO"}, {"name": "Trinidad and Tobago", "code": "TT"}, {"name": "Tunisia", "code": "TN"}, {"name": "Turkey", "code": "TR"}, {"name": "Turkmenistan", "code": "TM"}, {"name": "Tuvalu", "code": "TV"}, {"name": "Uganda", "code": "UG"}, {"name": "Ukraine", "code": "UA"}, {"name": "United Arab Emirates", "code": "AE"}, {"name": "United Kingdom", "code": "GB"}, {"name": "United States", "code": "US"}, {"name": "Uruguay", "code": "UY"}, {"name": "Uzbekistan", "code": "UZ"}, {"name": "Vanuatu", "code": "VU"}, {"name": "Vatican City", "code": "VA"}, {"name": "Venezuela", "code": "VE"}, {"name": "Vietnam", "code": "VN"}, {"name": "Yemen", "code": "YE"}, {"name": "Zambia", "code": "ZM"}, {"name": "Zimbabwe", "code": "ZW"}];
+window.VARSHAA_HOSPITALS = [
+  { id: "HOSP-01", name: "Rajendra Institute of Medical Sciences (RIMS)", icuFree: 18, lat: 23.375, lng: 85.358, contact: "+91 651 2541533" },
+  { id: "HOSP-02", name: "Sadar District Trauma Hospital", icuFree: 11, lat: 23.361, lng: 85.328, contact: "108" }
+];
 
-let selectedRegion={country:"India",state:"Karnataka",city:"Bengaluru"};
+window.VARSHAA_SOS_QUEUE = [
+  { id: "SOS-101", name: "Ramesh Verma", phone: "+91 98351 22910", count: 4, waterLevel: "Rooftop", medical: "Oxygen / Dialysis Required", landmark: "Lowland Riverbank Colony", priority: "P1 CRITICAL", status: "Awaiting Allotment", timeAgo: "3 mins ago", distStraightKm: 3.2, distSafeRouteKm: 4.6, assignedTeam: null, assignedFacility: "RIMS Trauma Center", lat: 23.360, lng: 85.325 },
+  { id: "SOS-102", name: "Anand Murthy", phone: "+91 94311 08821", count: 2, waterLevel: "Waist", medical: "None", landmark: "Ground Floor Apt, Market Road", priority: "P2 HIGH", status: "Awaiting Allotment", timeAgo: "11 mins ago", distStraightKm: 2.1, distSafeRouteKm: 2.9, assignedTeam: null, assignedFacility: "Ranchi District Cyclone Shelter", lat: 23.330, lng: 85.300 }
+];
 
 function optionize(select,items,placeholder){
   select.innerHTML="";
@@ -3613,206 +3613,114 @@ function onLocationSearchInput(val){
   });
 }
 
-document.addEventListener("keydown", function(e){
-  if(e.key === "Escape"){
-    closeLocationModal();
-  }
-});
-
-window.openLocationModal = openLocationModal;
-window.closeLocationModal = closeLocationModal;
-window.selectTempCity = selectTempCity;
-window.selectTempFromDropdowns = selectTempFromDropdowns;
-window.applyTempLocation = applyTempLocation;
-
-if(typeof MutationObserver !== "undefined"){
-  const viewObserver = new MutationObserver((mutations) => {
-    mutations.forEach((m) => {
-      if (m.attributeName === "class" && m.target.classList.contains("active")) {
-        requestAnimationFrame(()=>{
-          if (typeof updateAllViews === "function") updateAllViews();
-        });
-      }
-    });
-  });
-  document.querySelectorAll(".view").forEach((v) => {
-    viewObserver.observe(v, { attributes: true, attributeFilter: ["class"] });
-  });
-}
-function renderAlerts(id){document.getElementById(id).innerHTML=alerts.map(a=>`<div class="alert ${a.s.toLowerCase()}"><div class="alertIcon">⚠</div><div class="alertMain"><div class="alertTitle"><b>${a.s}</b><span>${a.p}% probability</span></div><h4>${a.area}</h4><p>${a.msg}</p><small>${a.win}</small></div></div>`).join("")}
-function renderXai(){document.getElementById("xaiFactors").innerHTML=factors.map(f=>`<div class="factor"><div class="factorTop"><span>${f[0]}</span><b>${f[1]}%</b></div><div class="track"><i style="width:${f[1]}%"></i></div><div style="font-size:8px;color:#5e748a;margin-top:4px">${f[2]}</div></div>`).join("")}
-
-function makeMap(id){
- if(maps[id]){maps[id].invalidateSize();return maps[id]}
- const map=L.map(id,{zoomControl:true}).setView([12.97,77.60],10);
- L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap contributors"}).addTo(map);
- regionData.karnataka.districts.forEach(z=>{
-  const c=L.circle([z.lat,z.lng],{radius:16000,color:colors[z.risk],fillColor:colors[z.risk],fillOpacity:.24,weight:2}).addTo(map);
-  c.bindPopup(`<b>${z.name}</b><br>Region: Karnataka<br>Risk: <b>${z.risk}</b><br>Demo rainfall: ${z.rain} mm/h<br>Demo probability: ${z.prob}%<br>Population exposure: ${z.people.toLocaleString()}<br>Road segments: ${z.roads}`);
-  c.on("click",()=>selectZone(z));
- });
- maps[id]=map;return map;
-}
-function initDashMap(){makeMap("dashMap")}
-function initFullMap(){const m=makeMap("fullMap");m.invalidateSize()}
-function selectZone(z){const e=document.getElementById("selectedZone");if(e)e.innerHTML=`<div class="eyebrow">SELECTED ZONE</div><h3>${z.name}</h3><b style="color:${colors[z.risk]}">${z.risk} RISK</b><p>${z.rain} mm/h · ${z.people.toLocaleString()} exposed · ${z.roads} road segments</p>`}
-
-const layerNames=[["rain","Rainfall intensity"],["hazard","Hazard zones"],["elev","Elevation"],["population","Population"],["roads","Road network"],["hospitals","Hospitals"],["schools","Schools"]];
-function renderLayers(){document.getElementById("layers").innerHTML=layerNames.map(x=>`<button class="on" data-layer="${x[0]}" onclick="this.classList.toggle('on')">◉ <span>${x[1]}</span><i class="switch"></i></button>`).join("");document.getElementById("riskFilter").innerHTML=["ALL","HIGH","MODERATE","LOW"].map(x=>`<button class="${x==="ALL"?"sel":""}" onclick="filterRisk(this,'${x}')">${x}</button>`).join("")}
-function filterRisk(btn,risk){
- document.querySelectorAll("#riskFilter button").forEach(x=>x.classList.remove("sel"));
- btn.classList.add("sel");
- const m=maps.fullMap;if(!m)return;
- m.eachLayer(l=>{
-   if(l instanceof L.Circle && l!==m._varshaaSearchMarker){
-     const popup=l.getPopup()?.getContent()||"";
-     const show=risk==="ALL" || popup.includes("Risk: <b>"+risk+"</b>");
-     l.setStyle({opacity:show?1:0,fillOpacity:show?.24:0});
-   }
- });
-}
-function getRegion(state,district){
-  return regionData[state].districts.find(d=>d.name===district) || regionData[state].districts[0];
-}
-function updateRegionUI(state,district){
-  const r=getRegion(state,district);
-  const full=`${r.name}, ${regionData[state].label}`;
-  selectedRegion={state,district:r.name};
-  ["heroLocation", "monitoringLocation", "predictionLocation", "selectedLocation"].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.textContent=full;
-  });
-  const conditionTitle=document.getElementById("conditionTitle");
-  if(conditionTitle) conditionTitle.textContent=full;
-
-  // Convert the regional demo record into the common prediction input format.
-  setPredictionInputs({
-    rain:r.rain,
-    humidity:r.humidity ?? 70,
-    cloud:r.cloud ?? 70,
-    temp:r.temp ?? 25,
-    wind:r.wind ?? 20,
-    elevation:r.elevation ?? 200
-  });
-
-  const s=window.VARSHAA_CURRENT_SCENARIO;
-  if(s){
-    const conditionText=document.getElementById("conditionText");
-    if(conditionText) conditionText.textContent=`Selected: ${full}. Risk: ${s.risk}. All downstream modules now use the same scenario.`;
+function renderAlerts(){
+  const box = document.getElementById("allAlerts");
+  if(box){
+    box.innerHTML = alerts.map(a => `
+      <div class="alert ${a.s.toLowerCase()}">
+        <div class="alertIcon">⚠</div>
+        <div class="alertMain">
+          <div class="alertTitle"><b>${a.s}</b><span>${a.p}% probability</span></div>
+          <h4>${a.area}</h4>
+          <p>${a.msg}</p>
+          <small>${a.win}</small>
+        </div>
+      </div>
+    `).join("");
   }
 }
-function renderRegionCircles(map,state){
-  if(!map) return;
-  map.eachLayer(l=>{if(l instanceof L.Circle){map.removeLayer(l)}});
-  regionData[state].districts.forEach(z=>{
-    const c=L.circle([z.lat,z.lng],{radius:state==="odisha"?19000:16000,color:colors[z.risk],fillColor:colors[z.risk],fillOpacity:.24,weight:2}).addTo(map);
-    c.bindPopup(`<b>${z.name}</b><br>Region: ${regionData[state].label}<br>Risk: <b>${z.risk}</b><br>Demo rainfall: ${z.rain} mm/h<br>Demo probability: ${z.prob}%<br>Population exposure: ${z.people.toLocaleString()}<br>Road segments: ${z.roads}`);
-    c.on("click",()=>selectZone(z));
-  });
+
+function renderXai(){
+  const factors = [
+    ["Atmospheric moisture", 31, "High precipitable water signal"],
+    ["Cloud characteristics", 27, "Rapid cloud-top cooling / development"],
+    ["Rainfall intensity", 18, "Surface rain rate observation"],
+    ["Wind pattern", 14, "Convergent moisture transport"],
+    ["Elevation", 7, "Local terrain lifting effect"],
+    ["Temperature profile", 3, "Convective instability signature"]
+  ];
+  const el = document.getElementById("xaiFactors");
+  if(el){
+    el.innerHTML = factors.map(f => `
+      <div class="factor" style="margin-bottom:14px">
+        <div class="factorTop"><span>${f[0]}</span><b>${f[1]}%</b></div>
+        <div class="track"><i style="width:${f[1]}%"></i></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px">${f[2]}</div>
+      </div>
+    `).join("");
+  }
 }
-
-
-
-
 
 function drawHistory(){
- const el=document.getElementById("historyChart");if(!el)return;
- const obs=[18,31,55,72,96,78,52,36],pred=[16,29,49,68,91,74,56,39],w=el.clientWidth||700,h=260,p=30,max=110;
- const pts=a=>a.map((v,i)=>[p+i*(w-2*p)/(a.length-1),h-p-v/max*(h-2*p)]);
- const po=pts(obs),pp=pts(pred),path=a=>a.map((q,i)=>(i?"L":"M")+q[0]+" "+q[1]).join(" ");
- el.innerHTML=`<svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" preserveAspectRatio="none"><g stroke="#1c3045" stroke-dasharray="3 4">${[25,50,75,100].map(v=>`<line x1="${p}" x2="${w-p}" y1="${h-p-v/max*(h-2*p)}" y2="${h-p-v/max*(h-2*p)}"/>`).join("")}</g><path d="${path(po)}" fill="none" stroke="#ff4d67" stroke-width="3"/><path d="${path(pp)}" fill="none" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="7 4"/>${po.map((q,i)=>`<circle cx="${q[0]}" cy="${q[1]}" r="3" fill="#ff4d67"/>`).join("")}</svg>`;
+  const el = document.getElementById("historyChart");
+  if(!el) return;
+  const obs = [18, 31, 55, 72, 96, 78, 52, 36], pred = [16, 29, 49, 68, 91, 74, 56, 39], w = el.clientWidth || 700, h = 260, p = 30, max = 110;
+  const pts = a => a.map((v, i) => [p + i * (w - 2 * p) / (a.length - 1), h - p - (v / max) * (h - 2 * p)]);
+  const po = pts(obs), pp = pts(pred), path = a => a.map((q, i) => (i ? "L" : "M") + q[0] + " " + q[1]).join(" ");
+  el.innerHTML = `
+    <svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" preserveAspectRatio="none">
+      <g stroke="#1c3045" stroke-dasharray="3 4">${[25, 50, 75, 100].map(v => `<line x1="${p}" x2="${w-p}" y1="${h-p-(v/max)*(h-2*p)}" y2="${h-p-(v/max)*(h-2*p)}"/>`).join("")}</g>
+      <path d="${path(po)}" fill="none" stroke="#ff4d67" stroke-width="3"/>
+      <path d="${path(pp)}" fill="none" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="7 4"/>
+      ${po.map(q => `<circle cx="${q[0]}" cy="${q[1]}" r="3" fill="#ff4d67"/>`).join("")}
+    </svg>
+  `;
 }
 
-window.addEventListener("resize",()=>{
-  if(typeof updateAllViews === "function") updateAllViews();
-  if(maps.dashMap)maps.dashMap.invalidateSize();
-  if(maps.fullMap)maps.fullMap.invalidateSize();
-});
-
-
-
-/* ===== LOCATION-AWARE FEATURE REPAIR ===== */
-let currentPredictionResult=null;
-let currentPlace={country:"India",state:"Karnataka",city:"Bengaluru",lat:12.9716,lng:77.5946,label:"Bengaluru, Karnataka, India"};
-
-function setCurrentPlaceFromSelection(){
-  const text=(document.getElementById("predictionLocation")?.textContent||"").trim();
-  if(text && !/select a location|select a state/i.test(text)) currentPlace.label=text;
-  const pc=document.getElementById("predCountry"),ps=document.getElementById("predState"),py=document.getElementById("predCity");
-  if(pc?.value && ps?.value && py?.value){
-    currentPlace.country=countryNameFromCode(pc.value);
-    currentPlace.state=ps.options[ps.selectedIndex]?.textContent||ps.value;
-    currentPlace.city=py.options[py.selectedIndex]?.textContent||py.value;
-    currentPlace.label=`${currentPlace.city}, ${currentPlace.state}, ${currentPlace.country}`;
-  }
+function renderHistoryEvents(){
+  const el = document.getElementById("historyEvents");
+  if(!el) return;
+  el.innerHTML = window.VARSHAA_HISTORY_EVENTS.map(ev => `
+    <div class="panel event">
+      <div class="eyebrow">${ev.date}</div>
+      <h3>${ev.name}</h3>
+      <div class="eventStats">
+        <div><span>Peak rain</span><b>${ev.peakRain} mm/h</b></div>
+        <div><span>Lead time</span><b>${ev.leadTimeMin} min</b></div>
+        <div><span>Accuracy</span><b>${ev.accuracy}%</b></div>
+      </div>
+    </div>
+  `).join("");
 }
 
 function simUpdate(){
-  const rain=Math.max(20,Math.min(150,Number(document.getElementById("rainSlider")?.value)||82));
-  const duration=Math.max(1,Number(document.getElementById("durationSlider")?.value)||3);
-  const terrain=Math.max(0,Math.min(100,Number(document.getElementById("elevSlider")?.value)||50));
-  const base=currentPredictionResult||{prob:55};
-  const prob=Math.max(1,Math.min(99,base.prob + (rain-(base.rain||rain))*.42 + (duration-3)*4 + (terrain-50)*.10));
-  const zones=Math.max(1,Math.round(3+prob/8));
-  const pop=Math.max(1,Math.round((18+prob*.37+duration*2.2)*10)/10);
-  const roads=Math.max(1,Math.round(4+prob*.18+terrain*.04));
-  const priority=prob>=80?"HIGH":prob>=60?"MODERATE":"LOW";
-  const soil=Math.round(Math.min(99,terrain*.28+rain*.42+duration*3));
-  const drain=Math.round(Math.min(99,rain*.48+terrain*.18+duration*5));
-  const access=Math.round(Math.min(99,drain*.62+prob*.25));
-  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
-  set("rainVal",Math.round(rain));set("durationVal",duration);set("elevVal",Math.round(terrain));
-  set("simRisk",priority);set("simZones",zones);set("simPop",pop.toFixed(1)+"K");set("simRoads",roads);set("simPriority",priority);
-  const bar=document.getElementById("scenarioBar");if(bar)bar.style.setProperty("--w",Math.round(prob)+"%");
-  set("simRainNode",Math.round(rain));set("simSoil",soil);set("simDrain",drain+"%");set("simAccess",access+"%");
+  const rain = Number(document.getElementById("rainSlider")?.value) || 82;
+  const duration = Number(document.getElementById("durationSlider")?.value) || 3;
+  const terrain = Number(document.getElementById("elevSlider")?.value) || 50;
+  
+  const prob = Math.max(1, Math.min(99, 55 + (rain - 82) * 0.42 + (duration - 3) * 4));
+  const priority = prob >= 80 ? "HIGH" : prob >= 60 ? "MODERATE" : "LOW";
+  
+  setText("rainVal", rain);
+  setText("durationVal", duration);
+  setText("elevVal", terrain);
+  setText("simRisk", priority);
+  setText("simZones", Math.round(3 + prob / 8));
+  setText("simPop", (18 + prob * 0.37).toFixed(1) + "K");
+  setText("simRoads", Math.round(4 + prob * 0.18));
+  setText("simPriority", priority);
+  setText("simRainNode", rain);
+  setText("simSoil", Math.round(terrain * 0.28 + rain * 0.42));
+  setText("simDrain", Math.round(rain * 0.48 + terrain * 0.18) + "%");
+  setText("simAccess", Math.round(prob * 0.65) + "%");
+
+  const bar = document.getElementById("scenarioBar");
+  if(bar) bar.style.setProperty("--w", Math.round(prob) + "%");
 }
+
 function resetSimulation(){
-  const r=currentPredictionResult||{rain:82};
-  const rs=document.getElementById("rainSlider"),ds=document.getElementById("durationSlider"),es=document.getElementById("elevSlider");
-  if(rs)rs.value=Math.max(20,Math.min(150,Math.round(r.rain||82)));
-  if(ds)ds.value=3;
-  if(es)es.value=50;
+  document.getElementById("rainSlider").value = 82;
+  document.getElementById("durationSlider").value = 3;
+  document.getElementById("elevSlider").value = 50;
   simUpdate();
 }
-["rainSlider","durationSlider","elevSlider"].forEach(id=>document.getElementById(id)?.addEventListener("input",simUpdate));
-document.getElementById("resetSim")?.addEventListener("click",resetSimulation);
 
-function renderVisualMap(id){
-  const el=document.getElementById(id);if(!el)return;
-  const r=currentPredictionResult||{rain:42,prob:55,risk:"LOW",confidence:80,impact:45};
-  const riskColor=r.risk==="HIGH"?"#ff4d67":r.risk==="MODERATE"?"#f5b63d":"#39d98a";
-  const safe=(currentPlace.city||"Selected location").replace(/[<&>]/g,"");
-  const label=(currentPlace.label||safe).replace(/[<&>]/g,"");
-  el.innerHTML=`<div style="position:relative;width:100%;height:100%;overflow:hidden;background:radial-gradient(circle at 52% 48%,#17344a 0 7%,#0e2435 8% 23%,#0b1a29 24% 100%);">
-    <svg viewBox="0 0 1000 410" width="100%" height="100%" preserveAspectRatio="none" aria-label="VARSHAA impact map">
-      <g stroke="#274257" stroke-width="1" opacity=".55">${[80,180,280,380].map(y=>`<path d="M0 ${y} Q250 ${y-35} 500 ${y} T1000 ${y}" fill="none"/>`).join("")}${[120,300,500,700,880].map(x=>`<path d="M${x} 0 Q${x-40} 205 ${x} 410" fill="none"/>`).join("")}</g>
-      <path d="M120 300 C210 190 300 260 370 150 S540 80 620 170 S770 260 900 110" fill="none" stroke="#31566d" stroke-width="16" opacity=".42"/>
-      <path d="M100 90 C260 120 310 40 470 110 S730 170 910 80" fill="none" stroke="#1e4359" stroke-width="26" opacity=".38"/>
-      <circle cx="500" cy="205" r="88" fill="${riskColor}" opacity=".10"/><circle cx="500" cy="205" r="54" fill="${riskColor}" opacity=".17"/><circle cx="500" cy="205" r="10" fill="${riskColor}"/><circle cx="500" cy="205" r="17" fill="none" stroke="${riskColor}" opacity=".65"/>
-      <text x="520" y="194" fill="#e8f1f7" font-size="18" font-weight="700">${safe}</text><text x="520" y="216" fill="#7f97aa" font-size="12">${Math.round(r.rain)} mm/h · ${Math.round(r.prob)}% risk</text>
-      ${[[180,145,"Zone A"],[770,135,"Zone B"],[240,300,"Zone C"],[760,300,"Zone D"]].map((z,i)=>`<circle cx="${z[0]}" cy="${z[1]}" r="${18+i*3}" fill="${riskColor}" opacity=".08" stroke="${riskColor}"/><text x="${z[0]+24}" y="${z[1]+4}" fill="#698198" font-size="10">${z[2]}</text>`).join("")}
-    </svg>
-    <div style="position:absolute;left:12px;top:12px;background:#07111ee8;border:1px solid #263b51;border-radius:8px;padding:8px 10px;font-size:9px;color:#d8e5ef"><b>IMPACT MAP</b><br>${label}<br><span style="color:${riskColor}">${r.risk} RISK</span> · Impact ${Math.round(r.impact||45)}/100</div>
-    <div style="position:absolute;right:12px;bottom:12px;background:#07111ee8;border:1px solid #263b51;border-radius:8px;padding:8px 10px;font-size:9px;color:#71879b">Rainfall · Hazard · Exposure · Infrastructure</div>
-  </div>`;
-}
-function refreshMapsForPlace(){
-  // Always render a visible location-aware prototype map. If Leaflet is available,
-  // it is additionally updated below; the SVG layer guarantees the map never appears blank.
-  renderVisualMap("dashMap");renderVisualMap("fullMap");
-  if(typeof L!=="undefined" && Object.keys(maps).length){
-    const r=currentPredictionResult||{risk:"LOW",rain:42,prob:55};
-    Object.entries(maps).forEach(([id,map])=>{
-      if(!map||!map.setView)return;
-      if(currentPlace.lat&&currentPlace.lng)map.setView([currentPlace.lat,currentPlace.lng],10);
-      if(map._varshaaSearchMarker)map.removeLayer(map._varshaaSearchMarker);
-      if(currentPlace.lat&&currentPlace.lng){
-        map._varshaaSearchMarker=L.circle([currentPlace.lat,currentPlace.lng],{radius:15000,color:colors[r.risk],fillColor:colors[r.risk],fillOpacity:.18,weight:2}).addTo(map);
-        map._varshaaSearchMarker.bindPopup(`<b>${currentPlace.city}</b><br>${currentPlace.state}, ${currentPlace.country}<br>Risk: <b>${r.risk}</b><br>Rainfall: ${r.rain} mm/h<br>Probability: ${r.prob}%`);
-      }
-    });
-  }
-}
+function renderDispatchBoard(){
+  const pendingCount = window.VARSHAA_SOS_QUEUE.filter(s => s.status.includes("Awaiting")).length;
+  const availableCount = window.VARSHAA_RESCUE_TEAMS.filter(t => t.status === "Available").length;
+  setText("statPendingSos", pendingCount);
+  setText("statAvailableUnits", availableCount);
+  setText("dispatchBadge", pendingCount);
 
 function refreshLocationAlerts(r){
   const p=Math.round(r.prob||55),loc=currentPlace.city||"Selected location",risk=r.risk||"LOW";
@@ -3856,89 +3764,175 @@ function refreshXai(r){
   }
 }
 
-function refreshAllLocationFeatures(r){
-  currentPredictionResult=r;setCurrentPlaceFromSelection();
-  refreshMapsForPlace();refreshLocationAlerts(r);refreshHistorical(r);refreshXai(r);resetSimulation();
+function renderFacilitiesView(){
+  const shelterBox = document.getElementById("shelterListContainer");
+  if(shelterBox){
+    shelterBox.innerHTML = window.VARSHAA_SHELTERS.map(sh => `
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="display:flex;justify-content:space-between">
+          <b>⛺ ${sh.name}</b>
+          <span class="status" style="font-size:9px">${sh.capacity - sh.occupied} FREE</span>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin:4px 0">Helpline: ${sh.contact}</div>
+        <div class="miniBar"><i style="width:${Math.round((sh.occupied/sh.capacity)*100)}%"></i></div>
+      </div>
+    `).join("");
+  }
+
+  const hospBox = document.getElementById("hospitalListContainer");
+  if(hospBox){
+    hospBox.innerHTML = window.VARSHAA_HOSPITALS.map(h => `
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="display:flex;justify-content:space-between">
+          <b>🏥 ${h.name}</b>
+          <span class="status" style="font-size:9px;color:var(--green)">${h.icuFree} ICU BEDS FREE</span>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:4px">Emergency: ${h.contact}</div>
+      </div>
+    `).join("");
+  }
 }
 
-// Hook the existing prediction engine without rewriting it.
-const __oldUpdateUniqueFeatures=updateUniqueFeatures;
-updateUniqueFeatures=function(r){__oldUpdateUniqueFeatures(r);refreshAllLocationFeatures(r)};
+function renderHydrologyModule(){
+  const el = document.getElementById("soilHistoryChart");
+  if(el){
+    const dailyHistory = [18, 24, 12, 38, 55, 68, window.VARSHAA_APP_STATE.currentRainfall];
+    const w = el.clientWidth || 450, h = 210, pad = 30, maxVal = Math.max(...dailyHistory, 80);
+    const dayLabels = ["-6d", "-5d", "-4d", "-3d", "-2d", "Yest", "Today"];
+    const barWidth = Math.max(16, Math.floor((w - 2 * pad) / 7 - 12));
 
-// Make initialization safe even when Leaflet CDN is unavailable.
-const __oldMakeMap=makeMap;
-makeMap=function(id){
-  if(typeof L==="undefined"){renderVisualMap(id);return {invalidateSize:()=>renderVisualMap(id),setView:()=>renderVisualMap(id)}}
-  return __oldMakeMap(id);
+    el.innerHTML = `
+      <svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" preserveAspectRatio="none">
+        <text x="6" y="14" fill="#5A7067" font-size="9" font-weight="600">Daily Rain Absorption (mm)</text>
+        ${dailyHistory.map((val, i) => {
+          const x = pad + i * ((w - 2 * pad) / 7) + 6;
+          const barH = (val / maxVal) * (h - 2 * pad);
+          const y = h - pad - barH;
+          return `
+            <rect x="${x}" y="${y}" width="${barWidth}" height="${barH}" rx="4" fill="${i===6?'var(--teal)':'var(--line-strong)'}"></rect>
+            <text x="${x + barWidth/2}" y="${y - 4}" text-anchor="middle" fill="#17352F" font-size="9" font-weight="700">${val}</text>
+            <text x="${x + barWidth/2}" y="${h - 10}" text-anchor="middle" fill="${i===6?'#17352F':'#5A7067'}" font-size="9">${dayLabels[i]}</text>
+          `;
+        }).join("")}
+      </svg>
+    `;
+  }
+}
+
+var mapInstance = null;
+
+function renderVisualMap(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.innerHTML = `
+    <div style="position:relative;width:100%;height:100%;min-height:410px;background:radial-gradient(circle at 52% 48%,#17344a 0 7%,#0e2435 8% 23%,#0b1a29 24% 100%);border-radius:6px;overflow:hidden">
+      <svg viewBox="0 0 1000 410" width="100%" height="100%" preserveAspectRatio="none">
+        <g stroke="#274257" stroke-width="1" opacity=".55">
+          ${[80,180,280,380].map(y=>`<path d="M0 ${y} Q250 ${y-35} 500 ${y} T1000 ${y}" fill="none"/>`).join("")}
+          ${[120,300,500,700,880].map(x=>`<path d="M${x} 0 Q${x-40} 205 ${x} 410" fill="none"/>`).join("")}
+        </g>
+        <path d="M120 300 C210 190 300 260 370 150 S540 80 620 170 S770 260 900 110" fill="none" stroke="#31566d" stroke-width="16" opacity=".42"/>
+        <circle cx="500" cy="205" r="70" fill="#D9531E" opacity=".18"/>
+        <circle cx="500" cy="205" r="10" fill="#D9531E"/>
+        <text x="520" y="200" fill="#FAF8F5" font-size="16" font-weight="700">Ranchi Command Center</text>
+        <text x="520" y="218" fill="#9ED4CE" font-size="11">82 mm/h · 91.4% High Risk</text>
+        <circle cx="280" cy="140" r="8" fill="#238C83"/>
+        <text x="296" y="144" fill="#E4F2EE" font-size="11">⛺ Cyclone Shelter (460 Free Beds)</text>
+        <circle cx="720" cy="280" r="9" fill="#C92A2A"/>
+        <text x="736" y="284" fill="#FDE8E8" font-size="11">🏥 RIMS Trauma Hospital (18 ICU Free)</text>
+      </svg>
+      <div style="position:absolute;left:12px;top:12px;background:rgba(7,17,30,0.85);border:1px solid #263b51;border-radius:8px;padding:8px 12px;font-size:10px;color:#d8e5ef">
+        <b>GEOSPATIAL INCIDENT MATRIX</b><br>Ranchi, Jharkhand<br><span style="color:#D9531E">HIGH RISK INUNDATION</span>
+      </div>
+    </div>
+  `;
+}
+
+function initFullMap(){
+  const container = document.getElementById("fullMap");
+  if(!container) return;
+
+  renderVisualMap("fullMap");
+
+  if(typeof L !== "undefined"){
+    try {
+      if(!mapInstance){
+        mapInstance = L.map("fullMap", { zoomControl: true }).setView([23.344, 85.309], 11);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "© OpenStreetMap contributors" }).addTo(mapInstance);
+
+        zones.forEach(z => {
+          L.circle([z.lat, z.lng], { radius: 3500, color: colors[z.risk], fillColor: colors[z.risk], fillOpacity: 0.25, weight: 2 }).addTo(mapInstance)
+            .bindPopup(`<b>${z.name}</b><br>Risk: <b>${z.risk}</b><br>Rainfall: ${z.rain} mm/h<br>Exposed Pop: ${z.people.toLocaleString()}`);
+        });
+
+        window.VARSHAA_SHELTERS.forEach(sh => {
+          L.circleMarker([sh.lat, sh.lng], { radius: 8, color: "#238C83", fillColor: "#238C83", fillOpacity: 0.9 }).addTo(mapInstance)
+            .bindPopup(`<b>⛺ ${sh.name}</b><br>Capacity: <b>${sh.capacity - sh.occupied} free beds</b><br>Contact: ${sh.contact}`);
+        });
+
+        window.VARSHAA_HOSPITALS.forEach(h => {
+          L.circleMarker([h.lat, h.lng], { radius: 9, color: "#C92A2A", fillColor: "#C92A2A", fillOpacity: 0.95 }).addTo(mapInstance)
+            .bindPopup(`<b>🏥 ${h.name}</b><br>Free ICU Beds: <b>${h.icuFree}</b><br>Emergency: ${h.contact}`);
+        });
+      }
+      setTimeout(() => { if(mapInstance) mapInstance.invalidateSize(); }, 150);
+    } catch(e) {
+      console.warn("Leaflet tile fallback active");
+    }
+  }
+}
+
+function renderLayers(){
+  const layerNames = [["rain", "Rainfall intensity"], ["hazard", "Hazard zones"], ["shelters", "Relief Shelters"], ["hospitals", "Hospitals & ICU"]];
+  const el = document.getElementById("layers");
+  if(el){
+    el.innerHTML = layerNames.map(x => `
+      <button class="on" onclick="this.classList.toggle('on')">◉ <span>${x[1]}</span><i class="switch"></i></button>
+    `).join("");
+  }
+  const rf = document.getElementById("riskFilter");
+  if(rf){
+    rf.innerHTML = ["ALL", "HIGH", "MODERATE", "LOW"].map(x => `<button class="${x==='ALL'?'sel':''}">${x}</button>`).join("");
+  }
+}
+
+const VIEW_NAMES = {
+  dashboard: "Command Center",
+  prediction: "Rainfall Prediction",
+  xai: "Explainable AI",
+  map: "Impact & Risk Map",
+  simulation: "What-if Simulation",
+  historical: "Historical Events",
+  alerts: "Alert Center",
+  dispatch: "Rescue Operations & Routing",
+  facilities: "Shelters & Hospitals",
+  hydrology: "Soil Moisture & Hydrology"
 };
-const __oldInitDashMap=initDashMap; initDashMap=function(){try{return __oldInitDashMap()}catch(e){renderVisualMap("dashMap")}};
-const __oldInitFullMap=initFullMap; initFullMap=function(){try{return __oldInitFullMap()}catch(e){renderVisualMap("fullMap")}};
 
-// Rebind navigation entry points so each feature always refreshes for the current place.
-const __oldGo=go; go=function(view){__oldGo(view);setTimeout(()=>{if(currentPredictionResult){if(view==="map")refreshMapsForPlace();if(view==="historical")refreshHistorical(currentPredictionResult);if(view==="xai")refreshXai(currentPredictionResult);if(view==="simulation")simUpdate();if(view==="alerts")refreshLocationAlerts(currentPredictionResult)}},120)};window.go=go;
-
-// Keep the selected place after country/state/city changes and re-run every dependent feature.
-const __oldApplySelected=applySelected;applySelected=async function(prefix){await __oldApplySelected(prefix);setCurrentPlaceFromSelection();if(selectedRegion?.lat&&selectedRegion?.lng){currentPlace.lat=selectedRegion.lat;currentPlace.lng=selectedRegion.lng;}if(currentPredictionResult)refreshAllLocationFeatures(currentPredictionResult)};
-
-// Initialize controls and ensure the first prediction also populates every dependent view.
-renderAlerts("dashAlerts");renderAlerts("allAlerts");renderXai();renderLayers();
-try{initDashMap()}catch(e){renderVisualMap("dashMap")}
-
-// ===== LOCATION SELECTOR WIRING =====
-// Keep both the Prediction selector and the global selector synchronized.
-// This was accidentally lost in the previous single-source patch.
-function wireLocationSelectors(){
-  const pairs=["pred","global"];
-  pairs.forEach(prefix=>{
-    const country=document.getElementById(prefix+"Country");
-    const state=document.getElementById(prefix+"State");
-    const city=document.getElementById(prefix+"City");
-    if(!country||!state||!city)return;
-
-    country.addEventListener("change",async()=>{
-      city.disabled=true;
-      optionize(city,[],"Select state / region first");
-      await loadStates(prefix);
-    });
-
-    state.addEventListener("change",async()=>{
-      city.disabled=true;
-      optionize(city,[],"Loading cities / places…");
-      await loadCities(prefix);
-    });
-
-    city.addEventListener("change",async()=>{
-      if(!country.value||!state.value||!city.value)return;
-      const countryName=countryNameFromCode(country.value);
-      const stateName=state.options[state.selectedIndex]?.textContent||state.value;
-      const cityName=city.options[city.selectedIndex]?.textContent||city.value;
-
-      // Mirror the same selection into the other selector.
-      const other=prefix==="pred"?"global":"pred";
-      const oc=document.getElementById(other+"Country");
-      const os=document.getElementById(other+"State");
-      const oy=document.getElementById(other+"City");
-      if(oc)oc.value=country.value;
-
-      // Do not make the user's selection depend on geocoding.
-      const label=`${cityName}, ${stateName}, ${countryName}`;
-      ["heroLocation", "monitoringLocation", "predictionLocation", "selectedLocation"].forEach(id=>{
-        const el=document.getElementById(id);
-        if(el) el.textContent=label;
-      });
-
-      if(os){
-        const match=[...os.options].find(o=>o.value===state.value||o.textContent===stateName);
-        if(match)os.value=match.value;
-      }
-      if(oy){
-        const match=[...oy.options].find(o=>o.value===city.value||o.textContent===cityName);
-        if(match)oy.value=match.value;
-      }
-
-      await applySelected(prefix);
-    });
+function go(view){
+  const target = document.getElementById(view);
+  if(!target) return;
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  target.classList.add("active");
+  document.querySelectorAll(".nav button").forEach(b => {
+    b.classList.toggle("active", b.getAttribute("data-view") === view);
   });
+  const name = VIEW_NAMES[view] || view;
+  setText("title", name);
+  setText("crumb", name.toUpperCase());
+
+  if(view === "dashboard" || view === "prediction") setTimeout(renderDashboardCharts, 60);
+  if(view === "map") setTimeout(initFullMap, 80);
+  if(view === "dispatch") renderDispatchBoard();
+  if(view === "facilities") renderFacilitiesView();
+  if(view === "hydrology") setTimeout(renderHydrologyModule, 60);
+  if(view === "alerts") renderAlerts();
+  if(view === "simulation") simUpdate();
+  if(view === "xai") renderXai();
+  if(view === "historical"){ setTimeout(drawHistory, 60); renderHistoryEvents(); }
+
+  document.getElementById("sidebar")?.classList.remove("open");
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 initCountryLists();
@@ -4090,11 +4084,468 @@ function initializeVarshaaApp(){
   });
 }
 
-if(document.readyState === "loading"){
-  document.addEventListener("DOMContentLoaded", initializeVarshaaApp);
-} else {
-  initializeVarshaaApp();
+function renderRegionalPredictionGrid(){
+  const el=document.getElementById("regionPredictionGrid");
+  if(!el) return;
+  buildRegionalZones();
+  el.innerHTML=window.VARSHAA_APP_STATE.regionZones.map(z=>{
+    const c=colors[z.risk] || colors.MODERATE;
+    return `<div class="regionCell" style="background:${c}" title="${z.risk} · ${z.probability.toFixed(0)}%">
+      <span>${z.risk}</span><small>${z.probability.toFixed(0)}%</small>
+    </div>`;
+  }).join("");
 }
+
+function updateLocationDependentData(){
+  const s=window.VARSHAA_APP_STATE, p=getLocationProfile();
+  s.currentRainfall=p.rain;
+  s.forecast=[
+    p.rain,
+    Math.round(p.rain*1.07),
+    Math.round(p.rain*1.16),
+    Math.round(p.rain*1.03),
+    Math.round(p.rain*0.78),
+    Math.round(p.rain*0.58)
+  ];
+  s.peakRainfall=Math.max(...s.forecast);
+  s.peakTime="+1 h";
+  s.probability=clamp(54 + p.rain*0.42 + (p.humidity-70)*0.18 + (p.cloud-60)*0.08, 35, 98);
+  s.riskLevel=s.probability>=90?"CRITICAL":s.probability>=75?"HIGH":s.probability>=55?"MODERATE":"LOW";
+  s.environmental=p;
+  buildRegionalZones();
+
+  setText("heroConfidence",s.probability.toFixed(1)+"%");
+  setText("heroRain",Math.round(s.currentRainfall));
+  setText("dashPeakRain",s.peakRainfall);
+  setText("forecastCurrentVal",s.currentRainfall);
+  setText("forecastPeakVal",s.peakRainfall);
+  setText("forecastPeakTimeVal",s.peakTime);
+  setText("calcPeak",s.peakRainfall);
+  setText("calcPeakTime",s.peakTime);
+  setText("readRain",Math.round(p.rain));
+  setText("readHumidity",Math.round(p.humidity));
+  setText("readCloud",Math.round(p.cloud));
+  setText("readTemp",Math.round(p.temp));
+  setText("readWind",Math.round(p.wind));
+  setText("readElevation",Math.round(p.elevation));
+
+  const riskColor=s.riskLevel==="CRITICAL"?"var(--red)":s.riskLevel==="HIGH"?"var(--orange)":s.riskLevel==="MODERATE"?"var(--amber)":"var(--green)";
+  document.querySelectorAll("#conditionBadge,.scoreRisk").forEach(el=>{
+    el.textContent=s.riskLevel==="CRITICAL"?"CRITICAL RISK":s.riskLevel==="HIGH"?"HIGH RISK":s.riskLevel==="MODERATE"?"MODERATE RISK":"LOW RISK";
+    el.style.color=riskColor;
+  });
+  const riskLabel=document.getElementById("heroRiskLabel");
+  if(riskLabel) riskLabel.textContent="CURRENT "+s.riskLevel+" RISK";
+  const riskHead=document.querySelector("#dashboard .heroMain h2");
+  if(riskHead) riskHead.textContent=s.riskLevel;
+}
+
+function renderXai(){
+  const s=window.VARSHAA_APP_STATE, p=s.environmental || getLocationProfile();
+  const factors=[
+    {name:"Rainfall intensity",value:`${Math.round(p.rain)} mm/h`,score:31,impact:p.rain>=70?"up":"neutral",
+      short:p.rain>=70?"High rainfall intensity":"Moderate rainfall intensity",
+      explain:`Rainfall is currently ${Math.round(p.rain)} mm/h in ${s.location.city}. Higher intensity means more water reaches the surface in a shorter period, increasing runoff and the likelihood of waterlogging or flash flooding.`,
+      detail:`This factor matters because drainage systems and soil infiltration have limited capacity. When rainfall arrives faster than water can drain or infiltrate, accumulated surface water rises.`},
+    {name:"Atmospheric moisture",value:`${Math.round(p.humidity)}% humidity`,score:24,impact:p.humidity>=78?"up":"neutral",
+      short:p.humidity>=78?"Moist air supports heavier precipitation":"Moderate atmospheric moisture",
+      explain:`Humidity is ${Math.round(p.humidity)}%. Moist air provides more available water vapour for cloud formation and can support sustained heavy rainfall when other atmospheric conditions are favourable.`,
+      detail:`Humidity alone does not cause flooding. Its contribution is interpreted together with rainfall intensity, cloud development and wind-driven moisture transport.`},
+    {name:"Cloud cover / development",value:`${Math.round(p.cloud)}% cloud cover`,score:17,impact:p.cloud>=75?"up":"neutral",
+      short:p.cloud>=75?"Strong cloud development signal":"Moderate cloud development signal",
+      explain:`Cloud cover is ${Math.round(p.cloud)}% around the selected region. More extensive cloud development can indicate a stronger rain-producing system, especially when paired with high humidity.`,
+      detail:`The model treats this as supporting evidence rather than a standalone flood trigger.`},
+    {name:"Soil saturation",value:`${Math.round(p.soil)}% estimated saturation`,score:13,impact:p.soil>=65?"up":"neutral",
+      short:p.soil>=65?"Reduced absorption capacity":"Available soil absorption",
+      explain:`Estimated soil saturation is ${Math.round(p.soil)}%. Saturated soil has less capacity to absorb additional rainfall, so a larger fraction can become surface runoff.`,
+      detail:`This factor connects rainfall to local hydrology: the same rainfall amount can produce different impacts depending on how wet the ground already is.`},
+    {name:"Wind pattern",value:`${Math.round(p.wind)} km/h`,score:9,impact:p.wind>=22?"up":"neutral",
+      short:p.wind>=22?"Stronger moisture transport":"Moderate wind conditions",
+      explain:`Wind speed is approximately ${Math.round(p.wind)} km/h. Stronger winds can transport moist air and influence the organisation and movement of rain-producing systems.`,
+      detail:`Wind is interpreted as a supporting atmospheric signal and does not by itself indicate a flood.`},
+    {name:"Elevation / terrain",value:`${Math.round(p.elevation)} m`,score:6,impact:"neutral",
+      short:"Terrain modifies local runoff",
+      explain:`The selected region has an estimated elevation of ${Math.round(p.elevation)} m. Terrain influences where water can accumulate and how quickly runoff moves across the landscape.`,
+      detail:`Low-lying basins and drainage depressions can experience greater accumulation, while elevated terrain can alter runoff pathways.`}
+  ];
+  const el=document.getElementById("xaiFactors");
+  if(el){
+    el.innerHTML=factors.map((f,i)=>`
+      <div class="xaiExplainCard" id="xaiCard${i}">
+        <div class="xaiExplainHead"><b>${f.name}</b><span class="xaiImpact ${f.impact}">${f.impact==="up"?"INCREASES RISK":f.impact==="down"?"REDUCES RISK":"SUPPORTING FACTOR"}</span></div>
+        <div class="xaiValue">${f.value} · contribution ${f.score}%</div>
+        <div class="track"><i style="width:${f.score}%"></i></div>
+        <div class="xaiExplain">${f.explain}</div>
+        <button class="xaiLearn" type="button" onclick="toggleXaiDetail(${i})">Why does this matter? +</button>
+        <div class="xaiDetail">${f.detail}</div>
+      </div>`).join("");
+  }
+  setText("xaiRegionSummary",
+    `<strong>Region-specific explanation:</strong> For ${s.location.label}, VARSHAA-X estimates a <strong>${s.probability.toFixed(1)}%</strong> probability of a ${s.riskLevel.toLowerCase()} heavy-rain event. The explanations above use the current environmental values for this selected region.`
+  );
+  const overview=document.getElementById("xaiFactorsOverview");
+  if(overview) overview.innerHTML=factors.slice(0,4).map(f=>`<div class="factor"><div class="factorTop"><span>${f.name}</span><b>+${f.score}%</b></div><div class="track"><i style="width:${f.score}%"></i></div></div>`).join("");
+}
+function toggleXaiDetail(i){ document.getElementById("xaiCard"+i)?.classList.toggle("open"); }
+
+async function searchLocation(){
+  const input=document.getElementById("locationSearchInput");
+  const status=document.getElementById("locationSearchStatus");
+  const results=document.getElementById("locationResults");
+  const q=input?.value.trim();
+  if(!q) return;
+  if(status) status.textContent="Searching location…";
+  if(results) results.innerHTML="";
+  try{
+    const url="https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&addressdetails=1&q="+encodeURIComponent(q);
+    const res=await fetch(url,{headers:{"Accept":"application/json"}});
+    if(!res.ok) throw new Error("Search failed");
+    const data=await res.json();
+    if(!data.length){
+      if(status) status.textContent="No matching location found.";
+      return;
+    }
+    if(status) status.textContent=`${data.length} location${data.length>1?"s":""} found`;
+    if(results) results.innerHTML=data.map((r,i)=>`
+      <button type="button" class="locationResult" onclick='selectSearchLocation(${JSON.stringify({
+        city:(r.address?.city||r.address?.town||r.address?.village||r.address?.municipality||r.name||"Selected location"),
+        state:r.address?.state||"",
+        country:r.address?.country||"",
+        lat:Number(r.lat),lng:Number(r.lon),
+        display:r.display_name
+      }).replace(/'/g,"&#39;")})'>
+        <strong>${escapeHtml(r.name||"Selected location")}</strong>
+        <div class="locationMeta">${escapeHtml(r.display_name||"")}</div>
+      </button>`).join("");
+  }catch(err){
+    if(status) status.textContent="Search service unavailable. Use one of the quick locations below.";
+  }
+}
+function escapeHtml(v){ return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function selectSearchLocation(loc){
+  selectLocationDirect(loc.city,loc.state||"Selected region",loc.country||"",loc.lat,loc.lng);
+}
+
+function selectLocationDirect(city,state,country,lat,lng){
+  window.VARSHAA_APP_STATE.location={city,state,country,label:`${city}${state?", "+state:""}${country?", "+country:""}`,lat:Number(lat),lng:Number(lng)};
+  updateLocationDependentData();
+  closeLocationModal();
+  updateAllViews();
+  if(mapInstance){
+    mapInstance.setView([Number(lat),Number(lng)],11);
+    rebuildRiskMapLayers();
+  }
+  if(rescueMap) rescueMap.setView([Number(lat),Number(lng)],11);
+}
+
+function updateAllViews(){
+  updateLocationDependentData();
+  const s=window.VARSHAA_APP_STATE, loc=s.location.label;
+  ["heroLocation","monitoringLocation","predictionLocation"].forEach(id=>setText(id,loc));
+  setText("forecastCurrentVal",s.currentRainfall);
+  setText("forecastPeakVal",Math.max(...s.forecast));
+  setText("calcPeak",Math.max(...s.forecast));
+  renderDashboardCharts();
+  renderAlerts();
+  renderDispatchBoard();
+  renderFacilitiesView();
+  renderHydrologyModule();
+  renderXai();
+  drawHistory();
+  renderHistoryEvents();
+  simUpdate();
+  renderRegionalPredictionGrid();
+  if(mapInstance) setTimeout(rebuildRiskMapLayers,80);
+}
+
+function runPrediction(){
+  const hours=Number(document.getElementById("window")?.value||3);
+  const s=window.VARSHAA_APP_STATE;
+  const factor=hours===1?0.92:hours===6?1.08:1;
+  s.forecast=s.forecast.map((v,i)=>Math.round(v*factor));
+  s.peakRainfall=Math.max(...s.forecast);
+  s.peakTime=s.forecast.indexOf(s.peakRainfall)===0?"Now":`+${s.forecast.indexOf(s.peakRainfall)*0.5} h`;
+  updateAllViews();
+}
+
+function haversine(a,b){
+  const R=6371, dLat=(b.lat-a.lat)*Math.PI/180, dLng=(b.lng-a.lng)*Math.PI/180;
+  const x=Math.sin(dLat/2)**2+Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLng/2)**2;
+  return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+}
+
+async function getShortestRoadRoute(start,end){
+  const fallback=[
+    [start.lat,start.lng],
+    [(start.lat*0.66+end.lat*0.34),(start.lng*0.66+end.lng*0.34)],
+    [(start.lat*0.34+end.lat*0.66),(start.lng*0.34+end.lng*0.66)],
+    [end.lat,end.lng]
+  ];
+  try{
+    const url=`https://router.project-osrm.org/route/v1/driving/${start.lng},${start.lat};${end.lng},${end.lat}?overview=full&geometries=geojson&steps=false`;
+    const res=await fetch(url);
+    if(!res.ok) throw new Error("Routing failed");
+    const data=await res.json();
+    if(data.code!=="Ok"||!data.routes?.[0]) throw new Error("No route");
+    return {coords:data.routes[0].geometry.coordinates.map(c=>[c[1],c[0]]),distanceKm:data.routes[0].distance/1000,durationMin:data.routes[0].duration/60,source:"OSRM"};
+  }catch(e){
+    const d=haversine(start,end);
+    return {coords:fallback,distanceKm:d,durationMin:0,source:"prototype fallback"};
+  }
+}
+
+function initRescueMap(){
+  const el=document.getElementById("rescueTrackingMap");
+  if(!el || typeof L==="undefined") return;
+  if(!rescueMap){
+    rescueMap=L.map("rescueTrackingMap",{zoomControl:true}).setView([23.344,85.309],11);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap contributors"}).addTo(rescueMap);
+  }
+  setTimeout(()=>rescueMap.invalidateSize(),100);
+}
+
+function clearRescueLayers(){
+  if(rescueRouteLayer){rescueMap?.removeLayer(rescueRouteLayer);rescueRouteLayer=null;}
+  if(rescueTeamMarker){rescueMap?.removeLayer(rescueTeamMarker);rescueTeamMarker=null;}
+  if(rescueCitizenMarker){rescueMap?.removeLayer(rescueCitizenMarker);rescueCitizenMarker=null;}
+  if(rescueStartMarker){rescueMap?.removeLayer(rescueStartMarker);rescueStartMarker=null;}
+}
+
+function makeIcon(symbol,background){
+  return L.divIcon({className:"",html:`<div style="width:30px;height:30px;border-radius:50%;background:${background};border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);display:grid;place-items:center;font-size:15px">${symbol}</div>`,iconSize:[30,30],iconAnchor:[15,15]});
+}
+
+async function startRescueMission(sosId){
+  const sos=window.VARSHAA_SOS_QUEUE.find(x=>x.id===sosId);
+  if(!sos) return;
+  let team=window.VARSHAA_RESCUE_TEAMS.find(t=>t.status==="Available");
+  if(!team) team=window.VARSHAA_RESCUE_TEAMS[0];
+  if(!team) return;
+
+  clearInterval(rescueAnimationTimer);
+  initRescueMap();
+  if(!rescueMap) return;
+
+  const citizen={lat:Number(sos.lat??window.VARSHAA_APP_STATE.location.lat),lng:Number(sos.lng??window.VARSHAA_APP_STATE.location.lng)};
+  const start={lat:Number(team.lat),lng:Number(team.lng)};
+  const route=await getShortestRoadRoute(start,citizen);
+
+  team.status="En Route";
+  team.activeSosId=sos.id;
+  sos.assignedTeam=team.id;
+  sos.status="En Route";
+  sos.routeDistanceKm=route.distanceKm;
+  sos.distSafeRouteKm=Number(route.distanceKm.toFixed(2));
+  sos.etaMin=route.durationMin>0?route.durationMin:(route.distanceKm/Math.max(team.speedKmH,1))*60;
+  sos.routeSource=route.source;
+  window.VARSHAA_APP_STATE.activeRescue={sosId:sos.id,teamId:team.id,route};
+  rescueRouteCoords=route.coords;
+  rescueProgress=0;
+
+  clearRescueLayers();
+  rescueRouteLayer=L.polyline(route.coords,{color:"#238C83",weight:5,opacity:.88,dashArray:"8 8"}).addTo(rescueMap);
+  rescueTeamMarker=L.marker(route.coords[0],{icon:makeIcon("🚑","#238C83")}).addTo(rescueMap).bindPopup(`<b>${escapeHtml(team.name)}</b><br>Status: En Route`);
+  rescueCitizenMarker=L.marker(route.coords[route.coords.length-1],{icon:makeIcon("🆘","#C92A2A")}).addTo(rescueMap).bindPopup(`<b>${escapeHtml(sos.name)}</b><br>Emergency SOS`);
+  rescueMap.fitBounds(rescueRouteLayer.getBounds(),{padding:[25,25]});
+
+  setText("rescueTeamName",team.name);
+  setText("rescueStatusText","EN ROUTE");
+  setText("rescueStatusBadge","● EN ROUTE");
+  setText("rescueLiveMessage",`<strong>${escapeHtml(team.name)}</strong> is moving toward ${escapeHtml(sos.name)} using the shortest available road route. Route source: ${route.source}.`);
+  updateRescueMetrics();
+
+  rescueAnimationTimer=setInterval(()=>advanceRescueMission(),1000);
+  renderDispatchBoard();
+}
+
+function pointAtProgress(coords,t){
+  if(coords.length<2) return coords[0];
+  const total=coords.length-1;
+  const x=clamp(t,0,1)*total;
+  const i=Math.min(Math.floor(x),coords.length-2);
+  const f=x-i;
+  return [coords[i][0]+(coords[i+1][0]-coords[i][0])*f,coords[i][1]+(coords[i+1][1]-coords[i][1])*f];
+}
+
+function routeRemainingKm(coords,t){
+  let total=0;
+  const scaled=clamp(t,0,1)*(coords.length-1);
+  const idx=Math.min(Math.floor(scaled),coords.length-2);
+  for(let i=idx;i<coords.length-1;i++) total+=haversine({lat:coords[i][0],lng:coords[i][1]},{lat:coords[i+1][0],lng:coords[i+1][1]});
+  const frac=scaled-idx;
+  if(idx<coords.length-1){
+    const a=coords[idx],b=coords[idx+1];
+    const seg=haversine({lat:a[0],lng:a[1]},{lat:b[0],lng:b[1]});
+    total-=seg;
+    total+=seg*(1-frac);
+  }
+  return total;
+}
+
+function advanceRescueMission(){
+  const active=window.VARSHAA_APP_STATE.activeRescue;
+  if(!active || !rescueRouteCoords.length){ clearInterval(rescueAnimationTimer);return; }
+  rescueProgress=Math.min(1,rescueProgress+0.012);
+  const pos=pointAtProgress(rescueRouteCoords,rescueProgress);
+  rescueTeamMarker?.setLatLng(pos);
+  updateRescueMetrics();
+  if(rescueProgress>=1){
+    clearInterval(rescueAnimationTimer);
+    const sos=window.VARSHAA_SOS_QUEUE.find(x=>x.id===active.sosId);
+    const team=window.VARSHAA_RESCUE_TEAMS.find(x=>x.id===active.teamId);
+    if(sos) sos.status="Arrived";
+    if(team){team.status="Available";team.activeSosId=null;}
+    setText("rescueStatusText","ARRIVED");
+    setText("rescueStatusBadge","✓ ARRIVED");
+    setText("rescueLiveMessage","<strong>Rescue team has arrived.</strong> The citizen location has been reached.");
+    updateRescueMetrics();
+    renderDispatchBoard();
+  }
+}
+
+function updateRescueMetrics(){
+  const active=window.VARSHAA_APP_STATE.activeRescue;
+  if(!active) return;
+  const team=window.VARSHAA_RESCUE_TEAMS.find(x=>x.id===active.teamId);
+  const sos=window.VARSHAA_SOS_QUEUE.find(x=>x.id===active.sosId);
+  const rem=routeRemainingKm(rescueRouteCoords,rescueProgress);
+  const eta=team?rem/Math.max(team.speedKmH,1)*60:0;
+  setText("rescueDistance",rem<0.05?"0 m":rem.toFixed(2)+" km");
+  setText("rescueEta",rescueProgress>=1?"0 min":eta<1?"<1 min":Math.ceil(eta)+" min");
+  if(sos){sos.distSafeRouteKm=Number(rem.toFixed(2));sos.etaMin=eta;}
+}
+
+function assignFirstPendingSOS(){
+  const sos=window.VARSHAA_SOS_QUEUE.find(x=>x.status.includes("Awaiting"));
+  if(sos) startRescueMission(sos.id);
+}
+
+function renderDispatchBoard(){
+  const pendingCount=window.VARSHAA_SOS_QUEUE.filter(s=>s.status.includes("Awaiting")).length;
+  const availableCount=window.VARSHAA_RESCUE_TEAMS.filter(t=>t.status==="Available").length;
+  setText("statPendingSos",pendingCount);
+  setText("statAvailableUnits",availableCount);
+  setText("dispatchBadge",pendingCount);
+
+  const sosContainer=document.getElementById("sosQueueContainer");
+  if(sosContainer){
+    sosContainer.innerHTML=window.VARSHAA_SOS_QUEUE.map(s=>{
+      const active=s.status==="En Route";
+      const arrived=s.status==="Arrived";
+      return `<div class="alert ${s.priority.includes("P1")?"critical":"high"}" style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;width:100%">
+          <b>${s.priority} · ${s.id}</b><span style="font-size:10px;color:var(--muted)">${s.timeAgo}</span>
+        </div>
+        <div><h4 style="margin:2px 0">${escapeHtml(s.name)} (${s.count} stranded) · 📞 ${escapeHtml(s.phone)}</h4>
+        <p>Water: <strong>${escapeHtml(s.waterLevel)}</strong> | Medical: <strong>${escapeHtml(s.medical)}</strong></p>
+        <small>📍 ${escapeHtml(s.landmark)} · ${Number(s.lat||0).toFixed(4)}, ${Number(s.lng||0).toFixed(4)}</small></div>
+        <div style="padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);font-size:11px">
+          <div>Route: <strong>${s.distSafeRouteKm??"—"} km</strong>${s.etaMin?` · ETA: <strong>${s.etaMin<1?"<1":Math.ceil(s.etaMin)} min</strong>`:""}</div>
+          <div style="font-size:10px;margin-top:2px">🏥 Destination: <strong>${escapeHtml(s.assignedFacility)}</strong></div>
+        </div>
+        <div style="display:flex;gap:7px;align-items:center">
+          <span class="status" style="font-size:9px">${escapeHtml(s.status)}</span>
+          ${s.status==="Awaiting Allotment"?`<button class="btn primary" type="button" onclick="startRescueMission('${s.id}')">Assign & Track →</button>`:
+            active?`<button class="btn secondary" type="button" onclick="go('dispatch');setTimeout(()=>initRescueMap(),100)">View Live Team →</button>`:
+            arrived?`<button class="btn secondary" type="button" disabled>✓ Mission Arrived</button>`:""}
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  const rosterContainer=document.getElementById("unitRosterContainer");
+  if(rosterContainer){
+    rosterContainer.innerHTML=window.VARSHAA_RESCUE_TEAMS.map(t=>`
+      <div style="padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);display:flex;justify-content:space-between;align-items:center">
+        <div><b style="font-size:12px">${escapeHtml(t.name)}</b>
+        <div style="font-size:10px;color:var(--muted)">${escapeHtml(t.type)} · Speed: ${t.speedKmH} km/h · Position: ${Number(t.lat).toFixed(4)}, ${Number(t.lng).toFixed(4)}</div></div>
+        <span class="status" style="font-size:9px;color:${t.status==="Available"?"var(--green)":t.status==="En Route"?"var(--orange)":"var(--amber)"}">${escapeHtml(t.status)}</span>
+      </div>`).join("");
+  }
+}
+
+function rebuildRiskMapLayers(){
+  if(!mapInstance || typeof L==="undefined") return;
+  mapInstance.eachLayer(layer=>{
+    if(layer instanceof L.Circle || layer instanceof L.CircleMarker || layer._varshaaRiskLayer) mapInstance.removeLayer(layer);
+  });
+  buildRegionalZones();
+  window.VARSHAA_APP_STATE.regionZones.forEach(z=>{
+    const layer=L.circle([z.lat,z.lng],{radius:2200,color:colors[z.risk],fillColor:colors[z.risk],fillOpacity:.20,weight:2});
+    layer._varshaaRiskLayer=true;
+    layer.addTo(mapInstance).bindPopup(`<b>${escapeHtml(z.name)}</b><br>Risk: <b>${z.risk}</b><br>Probability: ${z.probability.toFixed(0)}%<br>Rainfall: ${z.rain} mm/h<br>Exposure: ${z.people.toLocaleString()}`);
+  });
+  window.VARSHAA_SHELTERS.forEach(sh=>{
+    const layer=L.circleMarker([sh.lat,sh.lng],{radius:8,color:"#238C83",fillColor:"#238C83",fillOpacity:.9});
+    layer._varshaaRiskLayer=true; layer.addTo(mapInstance).bindPopup(`<b>⛺ ${escapeHtml(sh.name)}</b><br>Capacity: ${sh.capacity-sh.occupied} free beds`);
+  });
+  window.VARSHAA_HOSPITALS.forEach(h=>{
+    const layer=L.circleMarker([h.lat,h.lng],{radius:9,color:"#C92A2A",fillColor:"#C92A2A",fillOpacity:.95});
+    layer._varshaaRiskLayer=true; layer.addTo(mapInstance).bindPopup(`<b>🏥 ${escapeHtml(h.name)}</b><br>Free ICU: ${h.icuFree}`);
+  });
+  const loc=window.VARSHAA_APP_STATE.location;
+  if(!window.VARSHAA_USER_LOCATION_MARKER) window.VARSHAA_USER_LOCATION_MARKER=L.marker([loc.lat,loc.lng]).addTo(mapInstance);
+  window.VARSHAA_USER_LOCATION_MARKER.setLatLng([loc.lat,loc.lng]).bindPopup(`<b>📍 ${escapeHtml(loc.label)}</b><br>Current monitoring location`);
+}
+
+const _oldInitFullMap=initFullMap;
+initFullMap=function(){
+  const container=document.getElementById("fullMap");
+  if(!container) return;
+  if(typeof L!=="undefined"){
+    if(!mapInstance){
+      mapInstance=L.map("fullMap",{zoomControl:true}).setView([window.VARSHAA_APP_STATE.location.lat,window.VARSHAA_APP_STATE.location.lng],11);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap contributors"}).addTo(mapInstance);
+    }
+    rebuildRiskMapLayers();
+    setTimeout(()=>mapInstance.invalidateSize(),150);
+  }
+  renderRegionalPredictionGrid();
+};
+
+const _oldGo=go;
+go=function(view){
+  _oldGo(view);
+  if(view==="map") setTimeout(initFullMap,100);
+  if(view==="dispatch") setTimeout(initRescueMap,100);
+};
+
+function handleCitizenSosSubmit(e){
+  e.preventDefault();
+  const name=document.getElementById("sosName").value.trim();
+  const phone=document.getElementById("sosPhone").value.trim();
+  const count=parseInt(document.getElementById("sosCount").value,10)||1;
+  const waterLevel=document.getElementById("sosWaterLevel").value;
+  const medical=document.getElementById("sosMedical").value;
+  const landmark=document.getElementById("sosLandmark").value.trim();
+  const loc=window.VARSHAA_APP_STATE.location;
+  const id="SOS-"+Math.floor(100+Math.random()*900);
+  const offset=(Math.random()-.5)*0.012;
+  window.VARSHAA_SOS_QUEUE.unshift({
+    id,name,phone,count,waterLevel,medical,landmark,
+    priority:waterLevel==="Rooftop"||medical.includes("Oxygen")?"P1 CRITICAL":"P2 HIGH",
+    status:"Awaiting Allotment",timeAgo:"Just now",
+    distStraightKm:0,distSafeRouteKm:null,etaMin:null,assignedTeam:null,
+    assignedFacility:medical.includes("Oxygen")?"RIMS Trauma Center":"Ranchi District Multipurpose Cyclone Shelter",
+    lat:Number(loc.lat)+offset,lng:Number(loc.lng)+offset
+  });
+  closeCitizenSosModal();
+  renderDispatchBoard();
+  go("dispatch");
+}
+
+window.startRescueMission=startRescueMission;
+window.searchLocation=searchLocation;
+window.selectSearchLocation=selectSearchLocation;
+window.selectLocationDirect=selectLocationDirect;
+window.toggleXaiDetail=toggleXaiDetail;
+window.runPrediction=runPrediction;
+window.assignFirstPendingSOS=assignFirstPendingSOS;
+
+window.onload = function(){
+  updateAllViews();
+  renderLayers();
+};
 </script>
 </body>
 </html>
