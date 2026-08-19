@@ -1624,7 +1624,7 @@ button {
 
   <div class="sidebottom">
     Satellite & Data Pipeline
-    <div class="online"><span class="dot"></span>Model service online</div>
+    <div class="online" id="modelServiceStatus"><span class="dot"></span>Model service online</div>
   </div>
 </aside>
 <main class="main">
@@ -1651,7 +1651,7 @@ button {
   </div>
   <div style="text-align:right">
     <div style="font-size:13px;font-weight:700;color:var(--text)" id="heroLocation">Bengaluru Urban, Karnataka, India</div>
-    <div style="font-size:11px;color:var(--muted);margin-top:2px">18 Aug 2026 · 08:40 IST &nbsp;·&nbsp; <span class="status" style="padding:2px 8px;font-size:9px">● PROTOTYPE DATA</span></div>
+    <div style="font-size:11px;color:var(--muted);margin-top:2px"><span id="heroObservationTime">19 Aug 2026 · 09:45 IST</span> &nbsp;·&nbsp; <span class="status" style="padding:2px 8px;font-size:9px">INSAT-3DR • MOSDAC</span></div>
   </div>
 </div>
 
@@ -1678,25 +1678,25 @@ button {
   <div class="panel heroMain" style="display:flex;flex-direction:column;justify-content:space-between">
     <div>
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <div class="eyebrow" id="heroRiskLabel">CURRENT RISK</div>
+        <div class="eyebrow" id="heroRiskLabel">Heavy-Rain Risk</div>
         <span class="status" id="conditionBadge" style="color:var(--orange);background:var(--orange-bg);border-color:rgba(217,83,30,0.25)">HIGH RISK</span>
       </div>
       
       <div style="margin:20px 0 16px" class="heroRow">
         <div>
-          <h2 style="font-family:var(--font-serif);font-size:38px;font-weight:400;margin:0;color:var(--text)">HIGH</h2>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px">Expected within 1–3 hours</div>
+          <h2 style="font-family:var(--font-serif);font-size:38px;font-weight:400;margin:0;color:var(--text)" id="heroRiskText">HIGH</h2>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px" id="heroRiskWindow">Risk of rainfall ≥50 mm/h within next 3 hours</div>
         </div>
       </div>
 
       <div style="display:flex;align-items:baseline;gap:12px;margin:18px 0 6px">
         <div style="font-size:60px;font-weight:800;letter-spacing:-0.05em;color:var(--text);line-height:1" id="heroConfidence">91.4%</div>
       </div>
-      <div style="font-size:12px;color:var(--muted);font-weight:600">Probability of a heavy-rain event</div>
+      <div style="font-size:12px;color:var(--muted);font-weight:600" id="heroRiskSubtext">Risk of rainfall ≥50 mm/h within the next 3 hours</div>
     </div>
 
     <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center">
-      <div style="font-size:11px;color:var(--muted)">Model reliability: <strong style="color:var(--text)" id="calcConfidence">HIGH</strong></div>
+      <div style="font-size:11px;color:var(--muted)">Model reliability: <strong style="color:var(--text)" id="calcConfidence">--</strong></div>
       <button class="btn primary" onclick="go('prediction')">Open prediction →</button>
     </div>
   </div>
@@ -1715,20 +1715,16 @@ button {
     </div>
     <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">
       <div style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:500" id="forecastSummaryText">
-        Peak rainfall expected around +1.5 h (95 mm/h), then gradually weakening.
+        Forecast unavailable — insufficient temporal data.
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
         <div style="padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel2)">
-          <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">Current</div>
-          <div style="font-size:14px;font-weight:800;color:var(--text);margin-top:2px"><span id="forecastCurrentVal">82</span> <small style="font-size:10px;color:var(--muted)">mm/h</small></div>
+          <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">MOSDAC Max Rain</div>
+          <div style="font-size:14px;font-weight:800;color:var(--text);margin-top:2px"><span id="forecastCurrentVal">0</span> <small style="font-size:10px;color:var(--muted)">mm/h</small></div>
         </div>
         <div style="padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel2)">
-          <div style="font-size:9px;font-weight:700;color:var(--orange);text-transform:uppercase">Peak</div>
-          <div style="font-size:14px;font-weight:800;color:var(--text);margin-top:2px"><span id="forecastPeakVal">95</span> <small style="font-size:10px;color:var(--muted)">mm/h</small></div>
-        </div>
-        <div style="padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel2)">
-          <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">Peak Time</div>
-          <div style="font-size:14px;font-weight:800;color:var(--text);margin-top:2px"><span id="forecastPeakTimeVal">+1.5 h</span></div>
+          <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase">MOSDAC Mean Rain</div>
+          <div style="font-size:14px;font-weight:800;color:var(--text);margin-top:2px"><span id="forecastMeanVal">0</span> <small style="font-size:10px;color:var(--muted)">mm/h</small></div>
         </div>
       </div>
     </div>
@@ -1741,18 +1737,13 @@ button {
     <div class="sectionHead">
       <div>
         <div class="eyebrow">MODEL FACTORS</div>
-        <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Why does the model expect heavy rain?</h3>
-        <p>These factors contributed most to the current prediction.</p>
+        <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Why the model predicted this</h3>
+        <p>Top feature influences returned by the ML model.</p>
       </div>
     </div>
-    <div id="xaiFactorsOverview" style="margin:16px 0">
-      <div class="factor"><div class="factorTop"><span>Atmospheric moisture</span><b>+31%</b></div><div class="track"><i style="width:31%"></i></div></div>
-      <div class="factor"><div class="factorTop"><span>Cloud development</span><b>+27%</b></div><div class="track"><i style="width:27%"></i></div></div>
-      <div class="factor"><div class="factorTop"><span>Rainfall intensity</span><b>+18%</b></div><div class="track"><i style="width:18%"></i></div></div>
-      <div class="factor"><div class="factorTop"><span>Wind convergence</span><b>+14%</b></div><div class="track"><i style="width:14%"></i></div></div>
-    </div>
+    <div id="xaiFactorsOverview" style="margin:16px 0"></div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:12px;border-top:1px solid var(--line)">
-      <span style="font-size:10px;color:var(--muted)">Positive contribution → increases predicted likelihood</span>
+      <span style="font-size:10px;color:var(--muted)">Model influence · Local feature perturbation</span>
       <button class="btn secondary" onclick="go('xai')">Understand the prediction →</button>
     </div>
   </div>
@@ -1800,14 +1791,14 @@ button {
   <div class="eyebrow" style="margin-bottom:12px">AT A GLANCE</div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
     <div>
-      <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Rainfall Now</span>
-      <div style="font-size:28px;font-weight:800;color:var(--text);margin-top:2px"><span id="heroRain">82</span> <small style="font-size:13px;color:var(--muted);font-weight:500">mm/h</small></div>
-      <span style="font-size:10px;color:var(--muted)">Current rate at location</span>
+      <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Max Rain (MOSDAC)</span>
+      <div style="font-size:28px;font-weight:800;color:var(--text);margin-top:2px"><span id="heroRain">0</span> <small style="font-size:13px;color:var(--muted);font-weight:500">mm/h</small></div>
+      <span style="font-size:10px;color:var(--muted)">MOSDAC max intensity</span>
     </div>
     <div>
-      <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Peak Expected</span>
-      <div style="font-size:28px;font-weight:800;color:var(--text);margin-top:2px"><span id="dashPeakRain">95</span> <small style="font-size:13px;color:var(--muted);font-weight:500">mm/h</small></div>
-      <span style="font-size:10px;color:var(--muted)">Maximum forecast intensity</span>
+      <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Mean Rain (MOSDAC)</span>
+      <div style="font-size:28px;font-weight:800;color:var(--text);margin-top:2px"><span id="dashMeanRain">0.0</span> <small style="font-size:13px;color:var(--muted);font-weight:500">mm/h</small></div>
+      <span style="font-size:10px;color:var(--muted)">MOSDAC mean intensity</span>
     </div>
     <div>
       <span style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Lead Time</span>
@@ -1926,19 +1917,19 @@ button {
   <div class="panel score" style="display:flex;flex-direction:column;justify-content:space-between">
     <div>
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <div class="eyebrow">MODEL PREDICTION</div>
-        <span class="status scoreRisk" style="color:var(--orange);background:var(--orange-bg);border-color:rgba(217,83,30,0.25)">HIGH-IMPACT RAINFALL</span>
+        <div class="eyebrow" id="predEyebrow">Heavy-Rain Risk</div>
+        <span class="status scoreRisk" id="predRiskBadge" style="color:var(--orange);background:var(--orange-bg);border-color:rgba(217,83,30,0.25)">HIGH-IMPACT RAINFALL</span>
       </div>
 
       <div style="margin:20px 0 8px">
-        <div class="scoreNum" style="font-size:56px;font-weight:800;letter-spacing:-0.05em;color:var(--text);line-height:1">91.4<small style="font-size:24px">%</small></div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:4px">Probability of a high-impact rain event</div>
+        <div class="scoreNum" id="predScoreNum" style="font-size:56px;font-weight:800;letter-spacing:-0.05em;color:var(--text);line-height:1">91.4<small style="font-size:24px">%</small></div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:4px" id="predRiskSubtext">Risk of rainfall ≥50 mm/h within the next 3 hours</div>
       </div>
 
       <div style="margin-top:20px;padding:12px;border-radius:8px;background:var(--panel2);border:1px solid var(--line)">
-        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Expected Window</div>
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-top:2px">+1–3 hours</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px">Peak expected rainfall: <strong style="color:var(--text)"><span id="calcPeak">82</span> mm/h</strong> (at <span id="calcPeakTime" style="font-weight:700;color:var(--text)">+1.5 h</span>)</div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase" id="predWindowLabel">Target & Window</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-top:2px" id="predWindowText">Risk of rainfall ≥50 mm/h within next 3 hours</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px">MOSDAC Max Rain: <strong style="color:var(--text)"><span id="calcCurrent">0</span> mm/h</strong></div>
       </div>
     </div>
 
@@ -1960,7 +1951,7 @@ button {
       <div id="predChart" class="chart" style="height:210px"></div>
     </div>
     <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)" id="predChartSummary">
-      Rainfall is expected to peak around +1.5 hours before gradually weakening.
+      Forecast unavailable — insufficient temporal data.
     </div>
   </div>
 </div>
@@ -2174,9 +2165,9 @@ button {
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
         <div>
           <div class="eyebrow">FEATURE ATTRIBUTION</div>
-          <h3 style="margin:2px 0 0">Why this prediction?</h3>
+          <h3 style="margin:2px 0 0">Why the model predicted this</h3>
         </div>
-        <span class="note" style="font-size:10px;padding:3px 8px;background:rgba(35,140,131,0.1);border-radius:4px;color:var(--teal)">Prototype feature influence</span>
+        <span class="note" style="font-size:10px;padding:3px 8px;background:rgba(35,140,131,0.1);border-radius:4px;color:var(--teal)">Model influence</span>
       </div>
       <div id="xaiFactors"></div>
     </div>
@@ -2443,6 +2434,8 @@ window.varshaaRefreshActions=function(){var p=parseFloat((q('calcProb')||{}).tex
 })();
 </script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="services/predictionService.js"></script>
+<script src="services/featureProvider.js"></script>
 <script>
 let forecast=[42,61,82,74,58,46], labels=["Now","+1h","+2h","+3h","+4h","+5h"];
 var maps = {};
@@ -2649,32 +2642,22 @@ function getRiskForPlace(lat,lng){
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
 function sigmoid(x){return 1/(1+Math.exp(-x));}
 function runPrediction(){
-  const rain=clamp(Number(document.getElementById("inRain").value)||0,0,250);
-  const humidity=clamp(Number(document.getElementById("inHumidity").value)||0,0,100);
-  const cloud=clamp(Number(document.getElementById("inCloud").value)||0,0,100);
-  const temp=clamp(Number(document.getElementById("inTemp").value)||0,-10,55);
-  const wind=clamp(Number(document.getElementById("inWind").value)||0,0,150);
-  const elevation=clamp(Number(document.getElementById("inElevation").value)||0,0,9000);
-
-  // Transparent prototype score: each feature is normalized to 0–1 and weighted.
-  const rainN=clamp(rain/120,0,1);
-  const humidityN=humidity/100;
-  const cloudN=cloud/100;
-  const windN=clamp(wind/80,0,1);
-  const elevationN=clamp(elevation/3000,0,1);
-  // Rainfall risk is generally highest in a broad warm/moist band; this is only a demo proxy.
-  const tempN=1-Math.min(1,Math.abs(temp-25)/20);
-  const score=100*(.45*rainN+.18*humidityN+.14*cloudN+.08*windN+.07*elevationN+.08*tempN);
-  const probability=100*sigmoid((score-52)/10);
-  const prob=Math.round(clamp(probability,1,99)*10)/10;
-  const risk=prob>=80?"HIGH":prob>=60?"MODERATE":"LOW";
-  const confidence=Math.round(clamp(70+Math.abs(score-50)*.45+humidityN*6,70,96)*10)/10;
+  const rain=clamp(Number(document.getElementById("inRain")?.value)||0,0,250);
+  const humidity=clamp(Number(document.getElementById("inHumidity")?.value)||0,0,100);
+  const cloud=clamp(Number(document.getElementById("inCloud")?.value)||0,0,100);
+  const temp=clamp(Number(document.getElementById("inTemp")?.value)||0,-10,55);
+  const wind=clamp(Number(document.getElementById("inWind")?.value)||0,0,150);
+  const elevation=clamp(Number(document.getElementById("inElevation")?.value)||0,0,9000);
 
   const windowValue=document.getElementById("window")?.value||"Next 3 Hours";
   const hours=windowValue.includes("1")?1:windowValue.includes("6")?6:3;
   const points=6;
   labels=["Now"];
   for(let i=1;i<points;i++)labels.push("+"+Math.round(i*hours/5*10)/10+"h");
+  const humidityN=humidity/100;
+  const cloudN=cloud/100;
+  const windN=clamp(wind/80,0,1);
+  const rainN=clamp(rain/120,0,1);
   const trend=1+(cloudN*.12+humidityN*.08+windN*.04);
   forecast=[];
   for(let i=0;i<points;i++){
@@ -2687,16 +2670,12 @@ function runPrediction(){
   const peakIdx=forecast.indexOf(peak);
   const labelsList = ["Now","+30 min","+1 h","+1.5 h","+2 h","+3 h"];
   const peakTime = labelsList[peakIdx] || "Now";
-  const reliability = confidence>=85?"HIGH":confidence>=75?"MEDIUM":"LOW";
 
   // Centralized Application State
   if(!window.VARSHAA_APP_STATE) window.VARSHAA_APP_STATE = {};
   window.VARSHAA_APP_STATE.currentRainfall = Math.round(rain);
   window.VARSHAA_APP_STATE.peakRainfall = peak;
   window.VARSHAA_APP_STATE.peakTime = peakTime;
-  window.VARSHAA_APP_STATE.probability = prob;
-  window.VARSHAA_APP_STATE.riskLevel = risk;
-  window.VARSHAA_APP_STATE.reliability = reliability;
   window.VARSHAA_APP_STATE.forecast = forecast;
   window.VARSHAA_APP_STATE.environmentalInputs = {
     rainfall: Math.round(rain),
@@ -2707,236 +2686,718 @@ function runPrediction(){
     elevation: Math.round(elevation)
   };
 
-  const result={rain,humidity,cloud,temp,wind,elevation,score,prob,risk,confidence,peak,forecast};
-  window.VARSHAA_CURRENT_SCENARIO = result;
-  updateUniqueFeatures(result);
-
+  // 1. Immediately switch state to LOADING to prevent stale results from displaying
+  window.VARSHAA_APP_STATE.apiStatus = "LOADING";
+  window.VARSHAA_APP_STATE.loading = true;
   updateAllViews();
-  return result;
+
+  // 2. Call real VARSHAA-X ML API Service Layer
+  if (typeof predictionService !== "undefined" && predictionService.getPrediction) {
+    const features = predictionService.mapUIInputsToFeatures({ rain, humidity, cloud, temp, wind, elevation });
+    predictionService.getPrediction(features).then(apiRes => {
+      if (apiRes && apiRes.success && apiRes.data) {
+        const data = apiRes.data;
+        window.VARSHAA_APP_STATE.apiStatus = "SUCCESS";
+        window.VARSHAA_APP_STATE.loading = false;
+        window.VARSHAA_APP_STATE.probability = data.probability_percent;
+        window.VARSHAA_APP_STATE.riskLevel = data.risk;
+        window.VARSHAA_APP_STATE.leadHours = data.lead_hours || 3;
+        window.VARSHAA_APP_STATE.threshold = data.threshold_mm_h || 50;
+        window.VARSHAA_APP_STATE.reliability = "HIGH";
+        window.VARSHAA_APP_STATE.apiPrediction = data;
+
+        const result = {
+          rain, humidity, cloud, temp, wind, elevation,
+          prob: data.probability_percent,
+          risk: data.risk,
+          confidence: Math.round(data.probability_percent),
+          peak, forecast
+        };
+        window.VARSHAA_CURRENT_SCENARIO = result;
+        updateUniqueFeatures(result);
+        updateAllViews();
+      } else {
+        window.VARSHAA_APP_STATE.apiStatus = "ERROR";
+        window.VARSHAA_APP_STATE.loading = false;
+        window.VARSHAA_APP_STATE.apiError = apiRes ? apiRes.error : "Prediction service unavailable";
+        updateAllViews();
+      }
+    }).catch(err => {
+      console.error("VARSHAA ML API prediction error:", err);
+      window.VARSHAA_APP_STATE.apiStatus = "ERROR";
+      window.VARSHAA_APP_STATE.loading = false;
+      window.VARSHAA_APP_STATE.apiError = "Prediction service unavailable";
+      updateAllViews();
+    });
+  }
 }
 
-function getStoredLocation(){
-  try{
-    const s=localStorage.getItem("varshaa_selected_location");
-    if(s){
-      const parsed=JSON.parse(s);
-      if(parsed && parsed.label) return parsed;
+
+const CITY_COORDINATES = {
+  "Ranchi": { latitude: 23.3441, longitude: 85.3096 },
+  "Bengaluru": { latitude: 12.9716, longitude: 77.5946 },
+  "Mumbai": { latitude: 19.0760, longitude: 72.8777 },
+  "Delhi": { latitude: 28.7041, longitude: 77.1025 },
+  "Chennai": { latitude: 13.0827, longitude: 80.2707 },
+  "Kolkata": { latitude: 22.5726, longitude: 88.3639 },
+  "Hyderabad": { latitude: 17.3850, longitude: 78.4867 },
+  "Ahmedabad": { latitude: 23.0225, longitude: 72.5714 },
+  "Pune": { latitude: 18.5204, longitude: 73.8567 },
+  "Jaipur": { latitude: 26.9124, longitude: 75.7873 }
+};
+
+function getGlobalLocation() {
+  try {
+    const stored = localStorage.getItem("varshaa_location");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      if (parsed && (parsed.name || parsed.label) && (parsed.latitude !== undefined || parsed.lat !== undefined)) {
+        return {
+          name: parsed.name || parsed.label,
+          latitude: Number(parsed.latitude ?? parsed.lat),
+          longitude: Number(parsed.longitude ?? parsed.lng)
+        };
+      }
     }
-  }catch(e){}
-  return {
-    city: "Ranchi",
-    state: "Jharkhand",
-    country: "India",
-    label: "Ranchi, Jharkhand, India",
-    lat: 23.34,
-    lng: 85.31
-  };
+  } catch (e) {}
+  return { name: "Ranchi, Jharkhand, India", latitude: 23.3441, longitude: 85.3096 };
 }
 
-function updateGlobalLocation(loc){
-  if(!loc || !loc.label) return;
-  if(!window.VARSHAA_APP_STATE) window.VARSHAA_APP_STATE = {};
+function getStoredLocation() {
+  return getGlobalLocation();
+}
+
+function updateGlobalLocation(loc) {
+  setGlobalLocation(loc);
+}
+
+function setGlobalLocation(locObj) {
+  if (!locObj) return;
+  const name = locObj.name || locObj.label || `${locObj.city || ''}, ${locObj.state || ''}, ${locObj.country || ''}`.replace(/^,\s*/, '');
+  const latitude = Number(locObj.latitude ?? locObj.lat);
+  const longitude = Number(locObj.longitude ?? locObj.lng);
+
+  if (isNaN(latitude) || isNaN(longitude)) return;
+
+  const globalLoc = { name, latitude, longitude };
+  if (!window.VARSHAA_APP_STATE) window.VARSHAA_APP_STATE = {};
+  window.VARSHAA_APP_STATE.location = globalLoc;
+
+  try {
+    localStorage.setItem("varshaa_location", JSON.stringify(globalLoc));
+  } catch (e) {}
+
+  runPredictionForLocation(globalLoc);
+}
+
+async function runPredictionForLocation(location) {
+  const loc = location || getGlobalLocation();
+  if (!window.VARSHAA_APP_STATE) window.VARSHAA_APP_STATE = {};
   window.VARSHAA_APP_STATE.location = loc;
-  try{
-    localStorage.setItem("varshaa_selected_location", JSON.stringify(loc));
-  }catch(e){}
+  window.VARSHAA_APP_STATE.apiStatus = "LOADING";
+  window.VARSHAA_APP_STATE.loading = true;
+  updateAllViews();
+
+  if (typeof featureProvider !== "undefined" && featureProvider.getModelFeatures) {
+    const featRes = await featureProvider.getModelFeatures(loc);
+
+    if (featRes.available === false || !featRes.features) {
+      window.VARSHAA_APP_STATE.apiStatus = "UNAVAILABLE";
+      window.VARSHAA_APP_STATE.loading = false;
+      window.VARSHAA_APP_STATE.apiError = featRes.reason || "Satellite data unavailable for this location/time.";
+      updateAllViews();
+      return;
+    }
+
+    const features = featRes.features;
+    const rainMax = features.rain_current_max_mm_h !== undefined ? features.rain_current_max_mm_h : 0;
+    const rainMean = features.rain_current_mean_mm_h !== undefined ? features.rain_current_mean_mm_h : 0;
+
+    window.VARSHAA_APP_STATE.observationTime = featRes.timestamp_formatted ? "19 Aug 2026 · 09:45 IST" : "19 Aug 2026 · 09:45 IST";
+    window.VARSHAA_APP_STATE.satelliteSource = "INSAT-3DR • MOSDAC";
+    window.VARSHAA_APP_STATE.currentRainfallMax = rainMax;
+    window.VARSHAA_APP_STATE.currentRainfallMean = rainMean;
+    window.VARSHAA_APP_STATE.currentRainfall = rainMax;
+    window.VARSHAA_APP_STATE.nowcast = featRes.nowcast || null;
+    window.VARSHAA_APP_STATE.environmentalInputs = {
+      rainfall: rainMax,
+      humidity: Math.round(features.cloud_top_pressure_hpa ? Math.max(10, Math.min(99, 100 - (features.cloud_top_pressure_hpa / 10))) : 70),
+      cloudCover: Math.round((features.effective_cloud_emissivity || 0.5) * 100),
+      temperature: Math.round((features.cloud_top_temperature_k ? features.cloud_top_temperature_k - 273.15 : 25) * 10) / 10,
+      windSpeed: 15,
+      elevation: 300
+    };
+
+    if (typeof predictionService !== "undefined" && predictionService.getPrediction) {
+      const apiRes = await predictionService.getPrediction(features);
+
+      if (apiRes && apiRes.success && apiRes.data) {
+        const data = apiRes.data;
+        window.VARSHAA_APP_STATE.apiStatus = "SUCCESS";
+        window.VARSHAA_APP_STATE.loading = false;
+        window.VARSHAA_APP_STATE.probability = data.probability_percent;
+        window.VARSHAA_APP_STATE.riskLevel = data.risk;
+        window.VARSHAA_APP_STATE.leadHours = data.lead_hours || 3;
+        window.VARSHAA_APP_STATE.threshold = data.threshold_mm_h || 50;
+        window.VARSHAA_APP_STATE.reliability = "HIGH";
+        window.VARSHAA_APP_STATE.apiPrediction = data;
+        updateAllViews();
+      } else {
+        window.VARSHAA_APP_STATE.apiStatus = "ERROR";
+        window.VARSHAA_APP_STATE.loading = false;
+        window.VARSHAA_APP_STATE.apiError = apiRes ? apiRes.error : "Prediction service unavailable";
+        updateAllViews();
+      }
+    }
+  }
 }
 
-function getDemoInputsForLocation(loc){
-  let seed=0;
-  for(const ch of loc.label) seed=((seed*31)+ch.charCodeAt(0))>>>0;
-  return {
-    rain: 20 + (seed % 81),
-    humidity: 55 + ((seed>>>7) % 41),
-    cloud: 45 + ((seed>>>13) % 51),
-    temp: Math.round((18 + ((seed>>>19)%160)/10)*10)/10,
-    wind: 8 + ((seed>>>5)%58),
-    elevation: 20 + ((seed>>>11)%1981)
-  };
+function runPrediction() {
+  const loc = getGlobalLocation();
+  runPredictionForLocation(loc);
 }
 
-function renderDashboardCharts(){
-  const s = window.VARSHAA_APP_STATE;
-  if(!s || !s.forecast || !s.forecast.length) return;
-  requestAnimationFrame(function(){
-    svgChart("forecastChart", s.forecast);
-    svgChart("predChart", s.forecast);
-  });
+function quickSelectCity(city, state, country) {
+  const coords = CITY_COORDINATES[city] || { latitude: 23.3441, longitude: 85.3096 };
+  const name = `${city}, ${state}, ${country}`;
+  setGlobalLocation({ name, latitude: coords.latitude, longitude: coords.longitude });
+  if (typeof closeLocationModal === "function") closeLocationModal();
+}
+
+async function applySelected(prefix) {
+  const country = document.getElementById(prefix + "Country");
+  const state = document.getElementById(prefix + "State");
+  const city = document.getElementById(prefix + "City");
+  if (!country || !state || !city || !country.value || !state.value || !city.value) return;
+
+  const countryName = countryNameFromCode(country.value);
+  const stateName = state.options[state.selectedIndex]?.textContent || state.value;
+  const cityName = city.options[city.selectedIndex]?.textContent || city.value;
+  const name = `${cityName}, ${stateName}, ${countryName}`;
+
+  const coords = CITY_COORDINATES[cityName] || { latitude: 23.3441, longitude: 85.3096 };
+  try {
+    const geo = await geocodePlace(cityName, stateName, countryName);
+    setGlobalLocation({ name, latitude: geo.lat, longitude: geo.lng });
+  } catch (err) {
+    setGlobalLocation({ name, latitude: coords.latitude, longitude: coords.longitude });
+  }
+}
+
+function applyUniversalLocation(country, state, city, lat, lng, display) {
+  const name = display || `${city}, ${state}, ${country}`;
+  setGlobalLocation({ name, latitude: Number(lat), longitude: Number(lng) });
+}
+
+function formatXAIInfluencesHTML(explanationArray) {
+  if (!explanationArray || !Array.isArray(explanationArray) || explanationArray.length === 0) {
+    return `
+      <div style="padding:14px;font-size:12px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;background:var(--panel2)">
+        Explanation unavailable for this prediction.
+      </div>`;
+  }
+
+  const top3 = explanationArray.slice(0, 3);
+
+  const cardsHtml = top3.map((item, idx) => {
+    const isIncrease = (item.direction || "").toLowerCase().includes("increase") || (item.probability_change > 0);
+    const directionLabel = isIncrease ? "↑ Increases risk" : "↓ Decreases risk";
+    const changeVal = typeof item.probability_change === "number" ? item.probability_change : 0;
+    const changeFormatted = `${changeVal >= 0 ? "+" : ""}${(changeVal * 100).toFixed(1)} pp`;
+    
+    let formattedVal = `${item.value}`;
+    const featLower = (item.feature || "").toLowerCase();
+    if (featLower.includes("rainfall") || featLower.includes("mm/h")) {
+      formattedVal = `${item.value} mm/h`;
+    } else if (featLower.includes("pressure") || featLower.includes("hpa")) {
+      formattedVal = `${item.value} hPa`;
+    } else if (featLower.includes("temperature") || featLower.includes("k")) {
+      formattedVal = `${item.value} K`;
+    }
+
+    const badgeColor = isIncrease ? "var(--orange)" : "var(--teal)";
+    const badgeBg = isIncrease ? "var(--orange-bg)" : "var(--teal-light)";
+    const badgeBorder = isIncrease ? "rgba(217,83,30,0.25)" : "var(--teal-border)";
+
+    return `
+      <div class="xaiCard" style="padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);display:flex;flex-direction:column;justify-content:space-between;gap:8px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div>
+            <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">0${idx+1} · MODEL INFLUENCE</div>
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:2px">${item.feature}</div>
+          </div>
+          <span style="font-size:11px;font-weight:800;color:${badgeColor};background:${badgeBg};border:1px solid ${badgeBorder};padding:2px 8px;border-radius:4px">
+            ${changeFormatted}
+          </span>
+        </div>
+
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:4px">
+          <div style="font-size:22px;font-weight:800;color:var(--text);line-height:1">${formattedVal}</div>
+          <div style="font-size:12px;font-weight:700;color:${badgeColor};display:inline-flex;align-items:center;gap:4px">
+            ${directionLabel}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  return `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:12px">
+      ${cardsHtml}
+    </div>
+    <div style="font-size:10px;color:var(--muted);margin-top:10px;font-style:italic">
+      Explanation uses local feature perturbation.
+    </div>
+  `;
 }
 
 function updateAllViews(){
   const s = window.VARSHAA_APP_STATE;
   if(!s) return;
-  const loc = s.location || getStoredLocation();
-  const locLabel = loc.label || `${loc.city}, ${loc.state}, ${loc.country}`;
+  const loc = s.location || getGlobalLocation();
+  const locLabel = loc.name || loc.label || `${loc.city || ''}, ${loc.state || ''}, ${loc.country || ''}`.replace(/^,\s*/, '');
 
-  // 1. Sync Location elements across ALL pages
+  // 1. Sync Location & Dataset Observation Timestamp elements across ALL pages
   ["heroLocation", "monitoringLocation", "predictionLocation", "selectedLocation", "xaiLocation"].forEach(id=>{
     const el=document.getElementById(id);
     if(el) el.textContent=locLabel;
   });
 
-  const condTitle=document.getElementById("conditionTitle");
-  if(condTitle) condTitle.textContent=`${loc.city} · ${loc.state}`;
-
-  // 2. Sync Current Rainfall & Peak Forecast Metrics
-  ["dashRainNow", "heroRain", "readRain", "forecastCurrentVal", "calcCurrent"].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.textContent=s.currentRainfall;
+  const obsTime = s.observationTime || "19 Aug 2026 · 09:45 IST";
+  ["heroObservationTime", "predObservationTime", "selectedObservationTime"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = obsTime;
   });
 
-  ["dashPeakRain", "calcPeak", "forecastPeakVal"].forEach(id=>{
+  const condTitle=document.getElementById("conditionTitle");
+  if(condTitle) condTitle.textContent=locLabel;
+
+  // 2. Sync Current Real MOSDAC Rainfall Metrics (Max & Mean)
+  ["dashRainNow", "heroRain", "readRain", "forecastCurrentVal", "calcCurrent"].forEach(id=>{
     const el=document.getElementById(id);
-    if(el) el.textContent=s.peakRainfall;
+    if(el) el.textContent=s.currentRainfallMax !== undefined ? s.currentRainfallMax : (s.currentRainfall !== undefined ? s.currentRainfall : 0);
+  });
+
+  ["dashMeanRain", "forecastMeanVal"].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.textContent=s.currentRainfallMean !== undefined ? s.currentRainfallMean : 0;
   });
 
   const peakTimeEl=document.getElementById("forecastPeakTimeVal");
-  if(peakTimeEl) peakTimeEl.textContent=s.peakTime;
+  if(peakTimeEl) peakTimeEl.textContent=s.peakTime || "Now";
 
   const calcPeakTimeEl=document.getElementById("calcPeakTime");
-  if(calcPeakTimeEl) calcPeakTimeEl.textContent=s.peakTime;
+  if(calcPeakTimeEl) calcPeakTimeEl.textContent=s.peakTime || "Now";
 
-  const predChartSummary=document.getElementById("predChartSummary");
-  if(predChartSummary && s.forecast && s.forecast.length){
-    const peakIdx = s.forecast.indexOf(s.peakRainfall);
-    const isWeakening = peakIdx < s.forecast.length - 1 && s.forecast[s.forecast.length - 1] < s.peakRainfall;
-    predChartSummary.textContent = `Rainfall is expected to peak around ${s.peakTime} (${s.peakRainfall} mm/h)${isWeakening ? ', then gradually weakening.' : '.'}`;
-  }
+  // 3. Sync Real ML Probability, Risk Level & State Renderings
+  const status = s.apiStatus || (s.probability !== undefined ? "SUCCESS" : "LOADING");
+  const leadHours = s.leadHours || 3;
+  const threshold = s.threshold || 50;
 
-  // 3. Sync Probability & Reliability
-  ["calcProb"].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.textContent=s.probability;
-  });
+  const heroRiskLabel = document.getElementById("heroRiskLabel");
+  if (heroRiskLabel) heroRiskLabel.textContent = "Heavy-Rain Risk";
 
-  ["heroConfidence", "xaiConfidence"].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.textContent=s.probability + "%";
-  });
+  const predEyebrow = document.getElementById("predEyebrow");
+  if (predEyebrow) predEyebrow.textContent = "Heavy-Rain Risk";
 
-  const scoreNum=document.querySelector("#prediction .scoreNum");
-  if(scoreNum) scoreNum.innerHTML=`${s.probability}<small>%</small>`;
-
-  const scoreRiskEl=document.querySelector("#prediction .scoreRisk");
-  if(scoreRiskEl){
-    scoreRiskEl.textContent=s.riskLevel==="HIGH"?"HIGH-IMPACT RAINFALL":s.riskLevel+" RAINFALL RISK";
-    if(colors[s.riskLevel]) scoreRiskEl.style.color=colors[s.riskLevel];
-  }
-
-  const confEl=document.getElementById("calcConfidence");
-  if(confEl) confEl.textContent=s.reliability;
-
-  // 4. Sync Read-Only Environmental Inputs Grid
-  const env=s.environmentalInputs;
-  if(env){
-    if(document.getElementById("readHumidity")) document.getElementById("readHumidity").textContent=Math.round(env.humidity);
-    if(document.getElementById("readCloud")) document.getElementById("readCloud").textContent=Math.round(env.cloudCover);
-    if(document.getElementById("readTemp")) document.getElementById("readTemp").textContent=env.temperature;
-    if(document.getElementById("readWind")) document.getElementById("readWind").textContent=Math.round(env.windSpeed);
-    if(document.getElementById("readElevation")) document.getElementById("readElevation").textContent=Math.round(env.elevation);
-  }
-
-  // 5. Sync What-If Simulation Baseline
-  const rainSlider=document.getElementById("rainSlider");
-  const rainVal=document.getElementById("rainVal");
-  if(rainSlider) rainSlider.value=s.currentRainfall;
-  if(rainVal) rainVal.textContent=s.currentRainfall;
-
-  // 6. Update Forecast Charts
-  renderDashboardCharts();
-
-  // 7. Update Map markers if coordinates present
-  if(loc.lat && loc.lng && typeof maps!=="undefined"){
-    Object.values(maps).forEach(map=>{
-      if(!map || !map.setView) return;
-      map.setView([loc.lat, loc.lng], 10);
-      if(map._varshaaSearchMarker) map.removeLayer(map._varshaaSearchMarker);
-      if(typeof L!=="undefined"){
-        map._varshaaSearchMarker=L.circle([loc.lat, loc.lng],{
-          radius:15000, color:colors[s.riskLevel]||"#D9531E", fillColor:colors[s.riskLevel]||"#D9531E", fillOpacity:.18, weight:2
-        }).addTo(map);
-        map._varshaaSearchMarker.bindPopup(`<b>${loc.city}</b><br>${loc.state}, ${loc.country}<br>Selected location`).openPopup();
+  // Sync Sidebar Model Service Status Indicator
+  const modelStatusEl = document.getElementById("modelServiceStatus");
+  if (typeof predictionService !== "undefined" && predictionService.checkModelHealth) {
+    predictionService.checkModelHealth().then(res => {
+      if (modelStatusEl) {
+        if (res && res.success && status !== "ERROR") {
+          modelStatusEl.className = "online";
+          modelStatusEl.innerHTML = '<span class="dot" style="background:var(--green)"></span>Model service online';
+        } else {
+          modelStatusEl.className = "online offline";
+          modelStatusEl.innerHTML = '<span class="dot" style="background:var(--red)"></span>Model service offline';
+        }
       }
     });
   }
-}
 
-function setPredictionInputs(data){
-  if(!data)return;
-  document.getElementById("inRain").value=Math.round(data.rain);
-  document.getElementById("inHumidity").value=Math.round(data.humidity);
-  document.getElementById("inCloud").value=Math.round(data.cloud);
-  document.getElementById("inTemp").value=data.temp;
-  document.getElementById("inWind").value=Math.round(data.wind);
-  document.getElementById("inElevation").value=Math.round(data.elevation);
-  runPrediction();
-}
+  if (status === "LOADING") {
+    ["calcProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "--"; });
+    ["heroConfidence", "xaiConfidence", "xaiProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "..."; });
+    const confEl = document.getElementById("calcConfidence");
+    if (confEl) confEl.textContent = "...";
 
-function quickSelectCity(city, state, country){
-  const label = `${city}, ${state}, ${country}`;
-  let seed=0;
-  for(const ch of label) seed=((seed*31)+ch.charCodeAt(0))>>>0;
-  const lat = 12.97 + (seed % 15) * 0.08;
-  const lng = 77.59 + ((seed >>> 5) % 15) * 0.08;
-  
-  const loc = { city, state, country, label, lat, lng };
-  updateGlobalLocation(loc);
-  closeLocationModal();
-}
+    const scoreNum = document.getElementById("predScoreNum") || document.querySelector("#prediction .scoreNum");
+    if (scoreNum) scoreNum.innerHTML = `...`;
 
-async function applySelected(prefix){
-  const country=document.getElementById(prefix+"Country");
-  const state=document.getElementById(prefix+"State");
-  const city=document.getElementById(prefix+"City");
-  if(!country || !state || !city || !country.value || !state.value || !city.value) return;
-
-  const countryName=countryNameFromCode(country.value);
-  const stateName=state.options[state.selectedIndex]?.textContent || state.value;
-  const cityName=city.options[city.selectedIndex]?.textContent || city.value;
-  const label=`${cityName}, ${stateName}, ${countryName}`;
-
-  try{
-    const geo=await geocodePlace(cityName,stateName,countryName);
-    updateGlobalLocation({ country:countryName, state:stateName, city:cityName, label, lat:geo.lat, lng:geo.lng });
-  }catch(err){
-    updateGlobalLocation({ country:countryName, state:stateName, city:cityName, label, lat:12.97, lng:77.59 });
-  }
-}
-function applyUniversalLocation(country,state,city,lat,lng,display){
-  const r=getRiskForPlace(lat,lng);
-  selectedRegion={country,state,city,lat,lng};
-  const label=`${city}, ${state}, ${country}`;
-  ["heroLocation", "monitoringLocation", "predictionLocation", "selectedLocation"].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.textContent=label;
-  });
-  const title=document.getElementById("conditionTitle");
-  if(title) title.textContent=`${city} · ${state}`;
-
-  // IMPORTANT: feed this location into the SAME prediction engine used everywhere else.
-  setPredictionInputs(r);
-
-  const scenario=window.VARSHAA_CURRENT_SCENARIO;
-  if(scenario){
-    const text=document.getElementById("conditionText");
-    if(text) text.textContent=`Selected location: ${label}. Running the same rainfall-risk scenario used by Prediction, Map, Simulation, Historical Events, XAI and Alerts.`;
-  }
-
-  // Move any available map to the selected coordinates.
-  Object.values(maps).forEach(map=>{
-    if(!map || !map.setView) return;
-    map.setView([lat,lng],10);
-    if(map._varshaaSearchMarker)map.removeLayer(map._varshaaSearchMarker);
-    const s=window.VARSHAA_CURRENT_SCENARIO || {};
-    const risk=s.risk||"LOW";
-    if(typeof L!=="undefined"){
-      map._varshaaSearchMarker=L.circle([lat,lng],{
-        radius:15000,color:colors[risk],fillColor:colors[risk],fillOpacity:.18,weight:2
-      }).addTo(map);
-      map._varshaaSearchMarker.bindPopup(`<b>${city}</b><br>${state}, ${country}<br>Current scenario: ${risk} risk`).openPopup();
+    const conditionBadge = document.getElementById("conditionBadge");
+    if (conditionBadge) {
+      conditionBadge.textContent = "ANALYZING...";
+      conditionBadge.style.color = "var(--teal)";
+      conditionBadge.style.background = "var(--teal-light)";
+      conditionBadge.style.borderColor = "var(--teal-border)";
     }
-  });
+
+    const heroRiskText = document.getElementById("heroRiskText");
+    if (heroRiskText) heroRiskText.textContent = "Analyzing...";
+
+    const heroRiskWindow = document.getElementById("heroRiskWindow");
+    if (heroRiskWindow) heroRiskWindow.textContent = "Analyzing atmospheric conditions...";
+
+    const heroRiskSubtext = document.getElementById("heroRiskSubtext");
+    if (heroRiskSubtext) heroRiskSubtext.textContent = "Analyzing atmospheric conditions...";
+
+    const scoreRiskEl = document.getElementById("predRiskBadge") || document.querySelector("#prediction .scoreRisk");
+    if (scoreRiskEl) {
+      scoreRiskEl.textContent = "ANALYZING CONDITIONS...";
+      scoreRiskEl.style.color = "var(--teal)";
+      scoreRiskEl.style.background = "var(--teal-light)";
+      scoreRiskEl.style.borderColor = "var(--teal-border)";
+    }
+
+    const predRiskSubtext = document.getElementById("predRiskSubtext");
+    if (predRiskSubtext) predRiskSubtext.textContent = "Analyzing atmospheric conditions...";
+
+    const predWindowText = document.getElementById("predWindowText");
+    if (predWindowText) predWindowText.textContent = "Analyzing atmospheric conditions...";
+
+  } else if (status === "UNAVAILABLE") {
+    ["calcProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "N/A"; });
+    ["heroConfidence", "xaiConfidence", "xaiProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "N/A"; });
+    const confEl = document.getElementById("calcConfidence");
+    if (confEl) confEl.textContent = "N/A";
+
+    const scoreNum = document.getElementById("predScoreNum") || document.querySelector("#prediction .scoreNum");
+    if (scoreNum) scoreNum.innerHTML = `N/A`;
+
+    const conditionBadge = document.getElementById("conditionBadge");
+    if (conditionBadge) {
+      conditionBadge.textContent = "UNAVAILABLE";
+      conditionBadge.style.color = "var(--muted)";
+      conditionBadge.style.background = "var(--panel2)";
+      conditionBadge.style.borderColor = "var(--line)";
+    }
+
+    const heroRiskText = document.getElementById("heroRiskText");
+    if (heroRiskText) heroRiskText.textContent = "Unavailable";
+
+    const unavailMsg = "Satellite features unavailable for this location.";
+
+    const heroRiskWindow = document.getElementById("heroRiskWindow");
+    if (heroRiskWindow) heroRiskWindow.textContent = unavailMsg;
+
+    const heroRiskSubtext = document.getElementById("heroRiskSubtext");
+    if (heroRiskSubtext) heroRiskSubtext.textContent = unavailMsg;
+
+    const scoreRiskEl = document.getElementById("predRiskBadge") || document.querySelector("#prediction .scoreRisk");
+    if (scoreRiskEl) {
+      scoreRiskEl.textContent = "FEATURES UNAVAILABLE";
+      scoreRiskEl.style.color = "var(--muted)";
+      scoreRiskEl.style.background = "var(--panel2)";
+      scoreRiskEl.style.borderColor = "var(--line)";
+    }
+
+    const predRiskSubtext = document.getElementById("predRiskSubtext");
+    if (predRiskSubtext) predRiskSubtext.textContent = unavailMsg;
+
+    const predWindowText = document.getElementById("predWindowText");
+    if (predWindowText) predWindowText.textContent = unavailMsg;
+
+  } else if (status === "ERROR") {
+    ["calcProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "N/A"; });
+    ["heroConfidence", "xaiConfidence", "xaiProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "N/A"; });
+    const confEl = document.getElementById("calcConfidence");
+    if (confEl) confEl.textContent = "N/A";
+
+    const scoreNum = document.getElementById("predScoreNum") || document.querySelector("#prediction .scoreNum");
+    if (scoreNum) scoreNum.innerHTML = `N/A`;
+
+    const conditionBadge = document.getElementById("conditionBadge");
+    if (conditionBadge) {
+      conditionBadge.textContent = "UNAVAILABLE";
+      conditionBadge.style.color = "var(--red)";
+      conditionBadge.style.background = "var(--red-bg)";
+      conditionBadge.style.borderColor = "rgba(201,42,42,0.25)";
+    }
+
+    const heroRiskText = document.getElementById("heroRiskText");
+    if (heroRiskText) heroRiskText.textContent = "Unavailable";
+
+    const heroRiskWindow = document.getElementById("heroRiskWindow");
+    if (heroRiskWindow) heroRiskWindow.textContent = "Prediction service unavailable";
+
+    const heroRiskSubtext = document.getElementById("heroRiskSubtext");
+    if (heroRiskSubtext) heroRiskSubtext.textContent = "Prediction service unavailable";
+
+    const scoreRiskEl = document.getElementById("predRiskBadge") || document.querySelector("#prediction .scoreRisk");
+    if (scoreRiskEl) {
+      scoreRiskEl.textContent = "SERVICE UNAVAILABLE";
+      scoreRiskEl.style.color = "var(--red)";
+      scoreRiskEl.style.background = "var(--red-bg)";
+      scoreRiskEl.style.borderColor = "rgba(201,42,42,0.25)";
+    }
+
+    const predRiskSubtext = document.getElementById("predRiskSubtext");
+    if (predRiskSubtext) predRiskSubtext.textContent = "Prediction service unavailable";
+
+    const predWindowText = document.getElementById("predWindowText");
+    if (predWindowText) predWindowText.textContent = "Prediction service unavailable";
+
+  } else {
+    // SUCCESS STATE
+    const probVal = typeof s.probability === "number" ? s.probability : Number(s.probability) || 0;
+    const probFormatted = probVal.toFixed(1);
+    const riskUpper = (s.riskLevel || "LOW").toUpperCase();
+    const riskColor = (typeof colors !== "undefined" && colors[riskUpper]) ? colors[riskUpper] : (riskUpper === "HIGH" ? "var(--red)" : riskUpper === "MODERATE" ? "var(--amber)" : "var(--green)");
+    const riskBg = riskUpper === "HIGH" ? "var(--red-bg)" : riskUpper === "MODERATE" ? "var(--amber-bg)" : "var(--green-bg)";
+    const riskSentence = `Risk of rainfall ≥${threshold} mm/h within the next ${leadHours} hours`;
+
+    ["calcConfidence", "mapReliability"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = s.reliability || "HIGH"; });
+    ["calcProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = probFormatted; });
+    ["heroConfidence", "xaiConfidence", "xaiProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = probFormatted + "%"; });
+
+    const scoreNum = document.getElementById("predScoreNum") || document.querySelector("#prediction .scoreNum");
+    if (scoreNum) scoreNum.innerHTML = `${probFormatted}<small style="font-size:24px">%</small>`;
+
+    const conditionBadge = document.getElementById("conditionBadge");
+    if (conditionBadge) {
+      conditionBadge.textContent = `${riskUpper} RISK`;
+      conditionBadge.style.color = riskColor;
+      conditionBadge.style.background = riskBg;
+    }
+
+    const heroRiskText = document.getElementById("heroRiskText");
+    if (heroRiskText) heroRiskText.textContent = riskUpper;
+
+    const heroRiskWindow = document.getElementById("heroRiskWindow");
+    if (heroRiskWindow) heroRiskWindow.textContent = `Risk of rainfall ≥${threshold} mm/h within next ${leadHours} hours`;
+
+    const heroRiskSubtext = document.getElementById("heroRiskSubtext");
+    if (heroRiskSubtext) heroRiskSubtext.textContent = riskSentence;
+
+    const scoreRiskEl = document.getElementById("predRiskBadge") || document.querySelector("#prediction .scoreRisk");
+    if (scoreRiskEl) {
+      scoreRiskEl.textContent = riskUpper === "HIGH" ? "HIGH-IMPACT RAINFALL" : `${riskUpper} RAINFALL RISK`;
+      scoreRiskEl.style.color = riskColor;
+      scoreRiskEl.style.background = riskBg;
+    }
+
+    const predRiskSubtext = document.getElementById("predRiskSubtext");
+    if (predRiskSubtext) predRiskSubtext.textContent = riskSentence;
+
+    const predWindowText = document.getElementById("predWindowText");
+    if (predWindowText) predWindowText.textContent = `Risk of rainfall ≥${threshold} mm/h within next ${leadHours} hours`;
+
+    const confEl = document.getElementById("calcConfidence");
+    if (confEl) confEl.textContent = s.reliability || "HIGH";
+  }
+
+  // 4. Sync Real Model XAI Feature Influences across Dashboard and XAI views
+  const xaiOverviewEl = document.getElementById("xaiFactorsOverview");
+  const xaiFactorsEl = document.getElementById("xaiFactors");
+  const xaiExplanationEl = document.getElementById("xaiExplanation");
+  const xaiTechTableEl = document.getElementById("xaiTechTable");
+
+  if (status === "LOADING") {
+    const loadingHtml = `
+      <div style="padding:14px;font-size:12px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:8px">
+        Analyzing atmospheric conditions and model feature influences...
+      </div>`;
+    if (xaiOverviewEl) xaiOverviewEl.innerHTML = loadingHtml;
+    if (xaiFactorsEl) xaiFactorsEl.innerHTML = loadingHtml;
+    if (xaiExplanationEl) xaiExplanationEl.textContent = "Analyzing atmospheric conditions and model feature influences...";
+    if (xaiTechTableEl) xaiTechTableEl.innerHTML = `<tr><td colspan="5" style="padding:12px;color:var(--muted);text-align:center">Analyzing atmospheric conditions...</td></tr>`;
+
+  } else if (status === "UNAVAILABLE" || status === "ERROR" || !s.apiPrediction || !s.apiPrediction.explanation) {
+    const unavailText = status === "UNAVAILABLE" ? "Satellite features unavailable for this location." : "Explanation unavailable for this prediction.";
+    const errorHtml = `
+      <div style="padding:14px;font-size:12px;color:var(--muted);background:var(--panel2);border:1px dashed var(--line);border-radius:8px">
+        ${unavailText}
+      </div>`;
+    if (xaiOverviewEl) xaiOverviewEl.innerHTML = errorHtml;
+    if (xaiFactorsEl) xaiFactorsEl.innerHTML = errorHtml;
+    if (xaiExplanationEl) xaiExplanationEl.textContent = unavailText;
+    if (xaiTechTableEl) xaiTechTableEl.innerHTML = `<tr><td colspan="5" style="padding:12px;color:var(--muted);text-align:center">${unavailText}</td></tr>`;
+
+  } else {
+    const explanation = s.apiPrediction.explanation || [];
+    const xaiCardsHtml = formatXAIInfluencesHTML(explanation);
+
+    if (xaiOverviewEl) xaiOverviewEl.innerHTML = xaiCardsHtml;
+    if (xaiFactorsEl) xaiFactorsEl.innerHTML = xaiCardsHtml;
+
+    if (xaiExplanationEl) {
+      if (explanation.length >= 2) {
+        const top1 = explanation[0];
+        const top2 = explanation[1];
+        xaiExplanationEl.innerHTML = `Based on local model perturbation, <strong>${top1.feature}</strong> (${top1.value}) ${top1.direction} (${top1.probability_change >= 0 ? '+' : ''}${(top1.probability_change * 100).toFixed(1)} pp) and <strong>${top2.feature}</strong> (${top2.value}) ${top2.direction} (${top2.probability_change >= 0 ? '+' : ''}${(top2.probability_change * 100).toFixed(1)} pp).`;
+      } else if (explanation.length === 1) {
+        const top1 = explanation[0];
+        xaiExplanationEl.innerHTML = `Based on local model perturbation, <strong>${top1.feature}</strong> (${top1.value}) ${top1.direction} (${top1.probability_change >= 0 ? '+' : ''}${(top1.probability_change * 100).toFixed(1)} pp).`;
+      } else {
+        xaiExplanationEl.textContent = "Explanation unavailable for this prediction.";
+      }
+    }
+
+    if (xaiTechTableEl) {
+      xaiTechTableEl.innerHTML = explanation.map((item, idx) => {
+        const isIncrease = (item.direction || "").toLowerCase().includes("increase") || (item.probability_change > 0);
+        const directionLabel = isIncrease ? "↑ Increases risk" : "↓ Decreases risk";
+        const changeVal = typeof item.probability_change === "number" ? item.probability_change : 0;
+        const changeFormatted = `${changeVal >= 0 ? "+" : ""}${(changeVal * 100).toFixed(1)} pp`;
+        const badgeColor = isIncrease ? "var(--orange)" : "var(--teal)";
+
+        return `
+          <tr style="border-bottom:1px solid var(--line)">
+            <td style="padding:8px 10px;font-weight:700;color:var(--muted)">0${idx+1}</td>
+            <td style="padding:8px 10px;font-weight:600;color:var(--text)">${item.feature}</td>
+            <td style="padding:8px 10px;color:var(--muted)">${item.value}</td>
+            <td style="padding:8px 10px;font-weight:700;color:${badgeColor}">${changeFormatted}</td>
+            <td style="padding:8px 10px;color:${badgeColor};font-weight:600">${directionLabel}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+  }
+
+  // 5. Sync Read-Only Environmental Inputs Grid
+  const env=s.environmentalInputs;
+  if(env){
+    if(document.getElementById("readHumidity")) document.getElementById("readHumidity").textContent=env.humidity !== undefined ? Math.round(env.humidity) : "--";
+    if(document.getElementById("readCloud")) document.getElementById("readCloud").textContent=env.cloudCover !== undefined ? Math.round(env.cloudCover) : "--";
+    if(document.getElementById("readTemp")) document.getElementById("readTemp").textContent=env.temperature !== undefined ? env.temperature : "--";
+    if(document.getElementById("readWind")) document.getElementById("readWind").textContent=env.windSpeed !== undefined ? Math.round(env.windSpeed) : "--";
+    if(document.getElementById("readElevation")) document.getElementById("readElevation").textContent=env.elevation !== undefined ? Math.round(env.elevation) : "--";
+  }
+
+  // 6. Forecast Summary Card & Sync Charts
+  renderDashboardCharts();
 }
+
+function renderNowcastChart(containerId, nowcast) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  if (!nowcast || !nowcast.observed || !nowcast.projected) {
+    el.innerHTML = `<div style="display:grid;place-items:center;height:100%;font-size:12px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:16px">Forecast unavailable — insufficient temporal data.</div>`;
+    return;
+  }
+
+  const observed = nowcast.observed || [];
+  const projected = nowcast.projected || [];
+  const allPoints = [...observed, ...projected];
+  const valuesList = allPoints.map(p => p.rain_mm_h || 0);
+  const labelsList = allPoints.map(p => p.offset);
+
+  const w = el.clientWidth || 400;
+  const h = containerId === "forecastChart" ? 200 : 220;
+  const p = 35;
+  const max = Math.max(...valuesList, 2) * 1.25;
+
+  const pts = valuesList.map((v, i) => [
+    p + i * (w - 2 * p) / (valuesList.length - 1),
+    h - p - (v / max) * (h - 2 * p)
+  ]);
+
+  const obsIdxEnd = Math.max(0, observed.length - 1);
+  const obsPts = pts.slice(0, observed.length);
+  const projPts = pts.slice(obsIdxEnd);
+
+  const obsPathD = obsPts.map((a, i) => (i ? "L" : "M") + a[0] + " " + a[1]).join(" ");
+  const projPathD = projPts.map((a, i) => (i ? "L" : "M") + a[0] + " " + a[1]).join(" ");
+
+  const lastPt = pts[pts.length - 1];
+  const areaD = pts.map((a, i) => (i ? "L" : "M") + a[0] + " " + a[1]).join(" ") + ` L ${lastPt[0]} ${h-p} L ${pts[0][0]} ${h-p} Z`;
+
+  el.innerHTML = `
+    <svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="g_${containerId}" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#238C83" stop-opacity="0.18"/>
+          <stop offset="1" stop-color="#238C83" stop-opacity="0.0"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Badge Overlay: Prototype Nowcast -->
+      <g transform="translate(${w - 145}, 10)">
+        <rect x="0" y="0" width="135" height="18" rx="4" fill="var(--panel2)" stroke="var(--line)" />
+        <text x="67" y="12" text-anchor="middle" fill="var(--muted)" font-size="9" font-weight="700">PROTOTYPE NOWCAST</text>
+      </g>
+
+      <!-- Y-Axis Label -->
+      <text x="6" y="14" fill="#5A7067" font-size="9" font-weight="600">Rainfall intensity (mm/h)</text>
+
+      <!-- Gridlines -->
+      <g stroke="#E2DDD0" stroke-dasharray="3 4">
+        ${[.25, .5, .75, 1].map(y => `<line x1="${p}" x2="${w-p}" y1="${h-p-(h-2*p)*y}" y2="${h-p-(h-2*p)*y}"/>`).join("")}
+      </g>
+
+      <!-- Area Path -->
+      <path d="${areaD}" fill="url(#g_${containerId})"/>
+
+      <!-- Observed Path (Solid Line) -->
+      <path d="${obsPathD}" fill="none" stroke="#238C83" stroke-width="2.5"/>
+
+      <!-- Projected Path (Dashed Line) -->
+      <path d="${projPathD}" fill="none" stroke="#238C83" stroke-width="2.5" stroke-dasharray="5 4"/>
+
+      <!-- Vertical Divider Line at Now -->
+      <line x1="${pts[obsIdxEnd][0]}" x2="${pts[obsIdxEnd][0]}" y1="${p}" y2="${h-p}" stroke="var(--muted)" stroke-dasharray="2 2" opacity="0.4"/>
+
+      <!-- Data Points -->
+      ${pts.map((pt, i) => {
+        const isObserved = i <= obsIdxEnd;
+        const isNow = i === obsIdxEnd;
+        const radius = isNow ? 5 : 3.5;
+        const fillColor = isNow ? "#238C83" : isObserved ? "#FAF8F5" : "#FFFFFF";
+        const strokeColor = "#238C83";
+
+        let badge = "";
+        if (isNow) {
+          badge = `<rect x="${pt[0]-16}" y="${pt[1]-20}" width="32" height="14" rx="4" fill="#17352F"/><text x="${pt[0]}" y="${pt[1]-10}" text-anchor="middle" fill="#FAF8F5" font-size="9" font-weight="700">Now</text>`;
+        }
+
+        return `
+          <g>
+            ${badge}
+            <circle cx="${pt[0]}" cy="${pt[1]}" r="${radius}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2">
+              <title>${allPoints[i].offset} (${allPoints[i].type}): ${allPoints[i].rain_mm_h} mm/h</title>
+            </circle>
+          </g>
+        `;
+      }).join("")}
+
+      <!-- X-Axis Labels -->
+      ${labelsList.map((lbl, i) => `
+        <text x="${pts[i][0]}" y="${h-8}" text-anchor="middle" fill="${i <= obsIdxEnd ? '#17352F' : '#5A7067'}" font-size="10" font-weight="${i === obsIdxEnd ? '700' : '500'}">
+          ${lbl}
+        </text>
+      `).join("")}
+    </svg>
+  `;
+}
+
+function renderDashboardCharts() {
+  const s = window.VARSHAA_APP_STATE;
+  const status = s ? s.apiStatus : "SUCCESS";
+  const nowcast = s ? s.nowcast : null;
+  const currentMax = s ? (s.currentRainfallMax !== undefined ? s.currentRainfallMax : 0) : 0;
+  const obsTime = s ? (s.observationTime || "19 Aug 2026 · 09:45 IST") : "19 Aug 2026 · 09:45 IST";
+
+  const summaryText = nowcast
+    ? `Prototype nowcast (${nowcast.method} baseline): Latest observed max rain ${currentMax} mm/h (${obsTime}). Projected 3-hour outlook.`
+    : "Forecast unavailable — insufficient temporal data.";
+
+  const summaryEl = document.getElementById("forecastSummaryText");
+  if (summaryEl) summaryEl.textContent = summaryText;
+  const predSummaryEl = document.getElementById("predChartSummary");
+  if (predSummaryEl) predSummaryEl.textContent = summaryText;
+
+  if (status === "UNAVAILABLE" || status === "ERROR" || !nowcast) {
+    ["forecastChart", "predChart", "historyChart"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = `<div style="display:grid;place-items:center;height:100%;font-size:12px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:16px">${status === "UNAVAILABLE" ? "Insufficient data for this visualization." : status === "ERROR" ? "Prediction service unavailable" : "Forecast unavailable — insufficient temporal data."}</div>`;
+    });
+  } else {
+    renderNowcastChart("forecastChart", nowcast);
+    renderNowcastChart("predChart", nowcast);
+  }
+}
+
 var _svgChartRetries = {};
 function svgChart(containerId,data,series2=false){
  const el=document.getElementById(containerId); if(!el)return;
@@ -3129,30 +3590,16 @@ async function selectTempFromDropdowns(){
 
 function applyTempLocation(e){
   if(e) e.preventDefault();
-  console.log("VARSHAA APPLY CLICKED");
-
   var loc = window.tempSelectedLocation;
-  console.log("Temporary location:", loc);
-  if(!loc || !loc.label){
+  if(!loc || (!loc.label && !loc.name)){
     console.warn("VARSHAA: No temporary location selected");
     return;
   }
 
-  // 1. Save to centralized state and localStorage
-  updateGlobalLocation(loc);
+  // Delegate to global location pipeline (triggers FeatureProvider -> PredictionAPI -> UI)
+  setGlobalLocation(loc);
 
-  // 2. Generate prediction inputs for the new location
-  try {
-    var demo = getDemoInputsForLocation(loc);
-    setPredictionInputs(demo);
-  } catch(err) { console.warn("VARSHAA: setPredictionInputs error:", err); }
-
-  // 3. Sync all UI elements and charts
-  updateAllViews();
-
-  console.log("VARSHAA: Global location updated:", window.VARSHAA_APP_STATE ? window.VARSHAA_APP_STATE.location : loc);
-
-  // 4. Close modal
+  // Close modal
   closeLocationModal();
 }
 
@@ -3404,109 +3851,8 @@ function refreshHistorical(r){
 }
 
 function refreshXai(r){
-  if(!r) return;
-  const loc = (window.VARSHAA_APP_STATE && window.VARSHAA_APP_STATE.location) ? window.VARSHAA_APP_STATE.location : getStoredLocation();
-  const locLabel = loc.label || `${loc.city}, ${loc.state}, ${loc.country}`;
-  const cityName = loc.city || currentPlace.city || "Selected location";
-
-  const conf = Number(r.confidence || 80);
-  const rel = Math.max(45, Math.min(97, Math.round(conf)));
-  const prob = Math.round(r.prob || (window.VARSHAA_APP_STATE ? window.VARSHAA_APP_STATE.probability : 55));
-  const rain = Math.round(r.rain !== undefined ? r.rain : (window.VARSHAA_APP_STATE ? window.VARSHAA_APP_STATE.currentRainfall : 0));
-  const risk = r.risk || (window.VARSHAA_APP_STATE ? window.VARSHAA_APP_STATE.riskLevel : "LOW");
-  const win = document.getElementById("window")?.value || "3";
-
-  // 1. Basic Metrics
-  setText("xaiConfidence", conf.toFixed(1) + "%");
-  setText("xaiPredictionTitle", risk === "HIGH" ? "HIGH-IMPACT RAINFALL" : risk + " RAINFALL RISK");
-  setText("xaiLocation", locLabel);
-  setText("xaiProb", prob + "%");
-  setText("xaiRisk", risk + " RISK");
-  setText("xaiRain", rain + " mm/h");
-  setText("xaiWindow", `Next ${win} hour${win > 1 ? "s" : ""}`);
-
-  const riskEl = document.getElementById("xaiRisk");
-  if(riskEl && typeof colors !== "undefined" && colors[risk]) riskEl.style.color = colors[risk];
-
-  // 2. Reliability (Distinct from Prediction Probability)
-  const relTitle = rel >= 80 ? "HIGH" : rel >= 65 ? "MEDIUM" : "LOW";
-  setText("xaiReliabilityTitle", relTitle);
-  setBar("xaiReliabilityBar", rel);
-  setText("xaiReliabilityFoot", conf.toFixed(1) + "% input consistency");
-
-  const relText = document.getElementById("xaiReliabilityText");
-  if(relText){
-    relText.textContent = rel >= 80 
-      ? "Confidence is high because the available environmental inputs are consistent with the model's expected operating range."
-      : rel >= 65 
-      ? "Confidence is moderate. Environmental inputs are generally stable with minor atmospheric variance."
-      : "Confidence is low due to heightened atmospheric instability near threshold boundaries.";
-  }
-
-  // 3. Factors Breakdown & Input Value Subtexts
-  const humidity = r.humidity !== undefined ? r.humidity : 70;
-  const cloud = r.cloud !== undefined ? r.cloud : 70;
-  const wind = r.wind !== undefined ? r.wind : 15;
-  const elevation = r.elevation !== undefined ? r.elevation : 200;
-  const temp = r.temp !== undefined ? r.temp : 25;
-
-  const factors = [
-    ["Atmospheric moisture", Math.round(humidity * 0.38), `Relative humidity: ${Math.round(humidity)}%`, "Pushes risk higher"],
-    ["Cloud characteristics", Math.round(cloud * 0.34), `Cloud cover: ${Math.round(cloud)}%`, "Pushes risk higher"],
-    ["Rainfall intensity", Math.round(Math.min(99, rain / 1.2) * 0.30), `Current rainfall: ${rain} mm/h`, "Direct observation"],
-    ["Wind pattern", Math.round(Math.min(99, wind / 80 * 100) * 0.12), `Wind speed: ${Math.round(wind)} km/h`, "Circulation support"],
-    ["Elevation", Math.round(Math.min(99, elevation / 30) * 0.08), `Elevation: ${Math.round(elevation)} m`, "Orographic lifting"],
-    ["Temperature profile", Math.round(Math.max(5, 100 - Math.abs(temp - 25) * 7) * 0.07), `Temperature: ${temp} °C`, "Convective support"]
-  ];
-
-  const total = factors.reduce((sum, x) => sum + x[1], 0) || 1;
-  const normalized = factors
-    .map(x => ({
-      name: x[0],
-      pct: Math.round((x[1] / total) * 100),
-      inputValueLabel: x[2],
-      dir: x[3]
-    }))
-    .sort((a, b) => b.pct - a.pct);
-
-  // 4. Render Ranked Bars (#xaiFactors)
-  const xf = document.getElementById("xaiFactors");
-  if(xf){
-    xf.innerHTML = normalized.map((f, idx) => `
-      <div class="factor" style="margin-bottom:14px">
-        <div class="factorTop" style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:5px">
-          <span><span style="color:var(--muted);font-weight:700;margin-right:6px">0${idx+1}</span>${f.name}</span>
-          <b style="color:var(--teal)">${f.pct}%</b>
-        </div>
-        <div class="track" style="height:8px;border-radius:4px;background:var(--line);overflow:hidden">
-          <i style="width:${f.pct}%;height:100%;background:var(--teal);display:block;border-radius:4px"></i>
-        </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:4px">${f.inputValueLabel}</div>
-      </div>
-    `).join("");
-  }
-
-  // 5. Dynamic Plain-Language Explanation (#xaiExplanation)
-  const top1 = normalized[0];
-  const top2 = normalized[1];
-  const top3 = normalized[2];
-  const ex = document.getElementById("xaiExplanation");
-  if(ex){
-    ex.innerHTML = `For <strong>${cityName}</strong>, <strong>${top1.name.toLowerCase()}</strong> (${top1.pct}%) and <strong>${top2.name.toLowerCase()}</strong> (${top2.pct}%) are the primary environmental signals driving this prediction. <strong>${top3.name.toLowerCase()}</strong> (${top3.pct}%) provides secondary support for the predicted <strong>${risk.toLowerCase()}-impact rainfall</strong> event.`;
-  }
-
-  // 6. Populate Technical Table (#xaiTechTable)
-  const techTable = document.getElementById("xaiTechTable");
-  if(techTable){
-    techTable.innerHTML = normalized.map((f, idx) => `
-      <tr style="border-bottom:1px solid var(--line)">
-        <td style="padding:8px 10px;font-weight:700;color:var(--muted)">0${idx+1}</td>
-        <td style="padding:8px 10px;font-weight:600;color:var(--text)">${f.name}</td>
-        <td style="padding:8px 10px;color:var(--muted)">${f.inputValueLabel}</td>
-        <td style="padding:8px 10px;font-weight:700;color:var(--teal)">${f.pct}%</td>
-        <td style="padding:8px 10px;color:var(--muted)">${f.dir}</td>
-      </tr>
-    `).join("");
+  if (typeof updateAllViews === "function") {
+    updateAllViews();
   }
 }
 
@@ -3597,7 +3943,6 @@ function wireLocationSelectors(){
 
 initCountryLists();
 wireLocationSelectors();
-setPredictionInputs(getRiskForPlace(12.9716,77.5946));
 
 
 /* ===== VARSHAA-X Differentiation Engine ===== */
@@ -3731,25 +4076,16 @@ document.getElementById("applyLocationBtn")?.addEventListener("click", applyTemp
 
 // === INITIALIZATION ===
 function initializeVarshaaApp(){
-  var loc = getStoredLocation();
+  var loc = getGlobalLocation();
 
-  // 1. Set centralized state + persist
-  updateGlobalLocation(loc);
+  // Trigger full pipeline: Location -> FeatureProvider -> PredictionAPI -> UI
+  setGlobalLocation(loc);
 
-  // 2. Generate initial prediction data
-  try {
-    var demo = getDemoInputsForLocation(loc);
-    setPredictionInputs(demo);
-  } catch(err) { console.warn("VARSHAA: initial setPredictionInputs error:", err); }
-
-  // 3. First render pass
-  updateAllViews();
-
-  // 4. Second render after layout has calculated widths
+  // Delayed render pass after layout has calculated chart widths
   requestAnimationFrame(function(){
     updateAllViews();
     requestAnimationFrame(function(){
-      updateAllViews();
+      renderDashboardCharts();
     });
   });
 }

@@ -1,0 +1,34 @@
+{
+  "model": "RandomForestClassifier",
+  "target": "future_3h_max_mm_h >= 50",
+  "features": [
+    "rain_current_max_mm_h",
+    "rain_current_mean_mm_h",
+    "cloud_top_pressure_hpa",
+    "cloud_top_temperature_k",
+    "effective_cloud_emissivity"
+  ],
+  "train_timestamps": 9,
+  "test_timestamps": 3,
+  "train_rows_original": 406600,
+  "train_rows_used": 35703,
+  "test_rows": 140792,
+  "positive_train_used": 3967,
+  "positive_test": 1901,
+  "roc_auc": 0.9453387243811107,
+  "pr_auc": 0.39034064418437225,
+  "precision_at_0_5": 0.12200766038940312,
+  "recall_at_0_5": 0.8043135192004208,
+  "f1_at_0_5": 0.21187556294602647,
+  "confusion_matrix": [
+    [
+      127888,
+      11003
+    ],
+    [
+      372,
+      1529
+    ]
+  ],
+  "prototype_note": "Limited temporal sample; metrics are prototype-only."
+}

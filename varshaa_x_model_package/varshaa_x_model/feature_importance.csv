@@ -1,0 +1,6 @@
+feature,importance
+rain_current_max_mm_h,0.3536699004747533
+rain_current_mean_mm_h,0.24860284478323486
+cloud_top_pressure_hpa,0.21906066477894984
+cloud_top_temperature_k,0.14971234739145972
+effective_cloud_emissivity,0.028954242571602243
