@@ -3355,5 +3355,1662 @@ window.onload = function(){
   renderLayers();
 };
 </script>
+  <style>
+/* ==========================================================
+   VARSHAA-X FRONTEND ENHANCEMENTS
+   ========================================================== */
+
+.monitorActions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.publicQuickTools{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px 18px;
+  margin-bottom:16px;
+  box-shadow:var(--shadow-sm);
+  display:flex;
+  gap:18px;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.publicQuickTools h3{
+  font-family:var(--font-serif);
+  font-size:20px;
+  font-weight:400;
+  margin:3px 0;
+}
+
+.publicQuickTools p{
+  font-size:10px;
+  color:var(--muted);
+  margin:0;
+}
+
+.quickToolGrid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:7px;
+  flex:1;
+  max-width:790px;
+}
+
+.quickToolGrid button{
+  min-width:0;
+  text-align:left;
+  border:1px solid var(--line);
+  background:var(--panel2);
+  border-radius:8px;
+  padding:10px;
+  cursor:pointer;
+  transition:.15s;
+}
+
+.quickToolGrid button:hover{
+  border-color:var(--teal-border);
+  background:var(--teal-light);
+  transform:translateY(-1px);
+}
+
+.quickToolGrid span{
+  display:block;
+  color:var(--teal);
+  font-size:16px;
+}
+
+.quickToolGrid b{
+  display:block;
+  font-size:10px;
+  color:var(--text);
+  margin-top:4px;
+}
+
+.quickToolGrid small{
+  display:block;
+  color:var(--muted);
+  font-size:8px;
+  margin-top:2px;
+}
+
+/* MAP */
+
+.mapControlsPanel{
+  min-width:245px;
+}
+
+.mapActionGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin:8px 0;
+}
+
+.mapAction{
+  border:1px solid var(--line-strong);
+  background:var(--panel2);
+  color:var(--text);
+  border-radius:7px;
+  padding:8px 7px;
+  font-size:9px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.mapAction:hover{
+  border-color:var(--teal);
+  color:var(--teal);
+}
+
+.mapSearch{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:6px;
+  margin-top:8px;
+}
+
+.mapSearch input{
+  min-width:0;
+  padding:9px 10px;
+  border:1px solid var(--line-strong);
+  border-radius:7px;
+  background:var(--panel2);
+  font-size:10px;
+}
+
+.mapSearchResults{
+  display:grid;
+  gap:5px;
+  max-height:130px;
+  overflow:auto;
+  margin-top:5px;
+}
+
+.mapSearchResults button{
+  text-align:left;
+  border:1px solid var(--line);
+  background:var(--panel2);
+  border-radius:7px;
+  padding:8px;
+  font-size:9px;
+  color:var(--text);
+  cursor:pointer;
+}
+
+.mapSearchResults button:hover{
+  border-color:var(--teal);
+}
+
+.mapLegendEnhanced{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+  margin:11px 0;
+  font-size:8px;
+  color:var(--muted);
+}
+
+.mapLegendEnhanced div{
+  display:flex;
+  gap:5px;
+  align-items:center;
+}
+
+.mapLegendEnhanced i{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  display:inline-block;
+}
+
+.mapContextCard{
+  border:1px solid var(--teal-border);
+  background:var(--teal-light);
+  border-radius:8px;
+  padding:10px;
+  margin-top:10px;
+}
+
+.mapContextCard>b{
+  display:block;
+  font-size:11px;
+  margin:3px 0 8px;
+}
+
+.mapContextMetrics{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-top:6px;
+}
+
+.mapContextMetrics span{
+  background:rgba(255,255,255,.45);
+  padding:7px;
+  border-radius:6px;
+}
+
+.mapContextMetrics small{
+  display:block;
+  font-size:7px;
+  color:var(--muted);
+  font-weight:800;
+}
+
+.mapContextMetrics strong{
+  display:block;
+  font-size:11px;
+  color:var(--text);
+  margin-top:2px;
+}
+
+.mapInstructionBar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  padding:9px 11px;
+  margin-bottom:7px;
+  background:var(--teal-light);
+  border:1px solid var(--teal-border);
+  border-radius:8px;
+  font-size:9px;
+  color:var(--muted);
+}
+
+.mapDetailStrip{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr auto;
+  gap:8px;
+  align-items:center;
+  padding:9px 4px 4px;
+}
+
+.mapDetailStrip>div{
+  padding:9px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  background:var(--panel2);
+}
+
+.mapDetailStrip span{
+  display:block;
+  color:var(--muted);
+  font-size:8px;
+  text-transform:uppercase;
+  font-weight:800;
+}
+
+.mapDetailStrip b{
+  display:block;
+  margin-top:2px;
+  font-size:11px;
+}
+
+/* ==========================================================
+   PUBLIC TOOL DRAWER
+   ========================================================== */
+
+.publicToolDrawerBack{
+  position:fixed;
+  inset:0;
+  background:rgba(23,53,47,.32);
+  z-index:1600;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.publicToolDrawerBack.open{
+  display:flex;
+}
+
+.publicToolDrawer{
+  width:min(760px,96vw);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:0 22px 75px rgba(23,53,47,.22);
+  padding:22px;
+  position:relative;
+}
+
+.publicToolDrawerClose{
+  position:absolute;
+  right:12px;
+  top:7px;
+  background:none;
+  border:0;
+  font-size:24px;
+  color:var(--muted);
+  cursor:pointer;
+}
+
+.publicToolDrawer h2{
+  font-family:var(--font-serif);
+  font-size:27px;
+  font-weight:400;
+  margin:4px 0;
+}
+
+.publicToolDrawer p{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.publicToolOutput{
+  margin-top:14px;
+  padding:14px;
+  border:1px solid var(--line);
+  background:var(--panel2);
+  border-radius:9px;
+}
+
+.publicMetricGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:10px;
+}
+
+.publicMetric{
+  padding:10px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:7px;
+}
+
+.publicMetric span{
+  display:block;
+  color:var(--muted);
+  font-size:8px;
+  text-transform:uppercase;
+}
+
+.publicMetric strong{
+  display:block;
+  margin-top:3px;
+  font-size:15px;
+}
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media(max-width:1050px){
+  .publicQuickTools{
+    display:block;
+  }
+
+  .quickToolGrid{
+    max-width:none;
+    margin-top:10px;
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .mapDetailStrip{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .mapDetailStrip .btn{
+    grid-column:1/-1;
+  }
+}
+
+@media(max-width:720px){
+  .mapInstructionBar{
+    display:block;
+  }
+
+  .mapInstructionBar span:last-child{
+    display:block;
+    margin-top:4px;
+  }
+}
+
+@media(max-width:520px){
+  .quickToolGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .mapDetailStrip{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .publicMetricGrid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+</style>
+
+
+<script>
+/* ==========================================================
+   VARSHAA-X PUBLIC FRONTEND ENHANCEMENT
+   ========================================================== */
+
+(function(){
+
+  let selectedRiskFilter = "ALL";
+  let enhancedLayers = {};
+  let mapInitialized = false;
+
+  /* --------------------------------------------------------
+     Helpers
+  -------------------------------------------------------- */
+
+  function state(){
+    return window.VARSHAA_APP_STATE || {};
+  }
+
+  function locationState(){
+    return state().location || {
+      label:"Selected location",
+      city:"Selected location",
+      lat:0,
+      lng:0
+    };
+  }
+
+  function setText(id,value){
+    const el=document.getElementById(id);
+    if(el) el.textContent=value;
+  }
+
+  function esc(value){
+    return String(value ?? "").replace(/[&<>"']/g,function(c){
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+      }[c];
+    });
+  }
+
+  function metrics(){
+    const s=state();
+    const e=s.environmental || {};
+    const forecast=s.forecast || [];
+
+    return {
+      location:locationState(),
+      rainfall:Number(s.currentRainfall || 0),
+      peak:Number(
+        s.peakRainfall ||
+        Math.max.apply(null,forecast.length ? forecast : [0])
+      ),
+      probability:Number(s.probability || 0),
+      risk:s.riskLevel || "LOW",
+      soil:Number(e.soil || 0),
+      humidity:Number(e.humidity || 0),
+      cloud:Number(e.cloud || 0),
+      temperature:Number(e.temp || e.temperature || 0),
+      wind:Number(e.wind || 0),
+      elevation:Number(e.elevation || 0),
+      forecast:forecast
+    };
+  }
+
+  function metric(label,value){
+    return `
+      <div class="publicMetric">
+        <span>${esc(label)}</span>
+        <strong>${esc(value)}</strong>
+      </div>
+    `;
+  }
+
+  /* --------------------------------------------------------
+     Quick dashboard actions
+  -------------------------------------------------------- */
+
+  window.openPublicTool=function(tool){
+
+    const actions={
+      location:function(){
+        if(typeof openLocationModal==="function"){
+          openLocationModal();
+        }
+      },
+
+      forecast:function(){
+        if(typeof go==="function") go("prediction");
+      },
+
+      risk:function(){
+        if(typeof go==="function") go("map");
+      },
+
+      xai:function(){
+        if(typeof go==="function") go("xai");
+      },
+
+      scenario:function(){
+        if(typeof go==="function") go("simulation");
+      },
+
+      response:function(){
+        if(typeof go==="function") go("dispatch");
+      }
+    };
+
+    if(actions[tool]) actions[tool]();
+  };
+
+  function insertQuickTools(){
+
+    if(document.getElementById("publicQuickTools"))
+      return;
+
+    const hero=document.querySelector(".hero");
+
+    if(!hero)
+      return;
+
+    const wrap=document.createElement("div");
+
+    wrap.id="publicQuickTools";
+    wrap.className="publicQuickTools";
+
+    wrap.innerHTML=`
+      <div>
+        <div class="eyebrow">QUICK INTELLIGENCE</div>
+        <h3>Use the analysis directly</h3>
+        <p>Choose a place once, then explore the intelligence you need.</p>
+      </div>
+
+      <div class="quickToolGrid">
+
+        <button onclick="openPublicTool('location')">
+          <span>📍</span>
+          <b>Select place</b>
+          <small>Search / map / GPS</small>
+        </button>
+
+        <button onclick="openPublicTool('forecast')">
+          <span>◒</span>
+          <b>Forecast</b>
+          <small>1h · 3h · 6h · 24h · 48h</small>
+        </button>
+
+        <button onclick="openPublicTool('risk')">
+          <span>◈</span>
+          <b>Impact & Risk</b>
+          <small>Risk + footprint</small>
+        </button>
+
+        <button onclick="openPublicTool('xai')">
+          <span>✦</span>
+          <b>Explain</b>
+          <small>Why this prediction?</small>
+        </button>
+
+        <button onclick="openPublicTool('scenario')">
+          <span>◍</span>
+          <b>What-if</b>
+          <small>Change rainfall</small>
+        </button>
+
+        <button onclick="openPublicTool('response')">
+          <span>↗</span>
+          <b>Respond</b>
+          <small>Route + rescue</small>
+        </button>
+
+      </div>
+    `;
+
+    hero.parentNode.insertBefore(wrap,hero);
+  }
+
+  /* --------------------------------------------------------
+     Map search
+  -------------------------------------------------------- */
+
+  window.searchMapPlace=async function(){
+
+    const input=document.getElementById("mapPlaceSearch");
+    const results=document.getElementById("mapSearchResults");
+
+    if(!input || !results)
+      return;
+
+    const query=input.value.trim();
+
+    if(!query)
+      return;
+
+    results.innerHTML=`
+      <div style="padding:7px;font-size:9px;color:var(--muted)">
+        Searching…
+      </div>
+    `;
+
+    try{
+
+      const response=await fetch(
+        "https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&q="+
+        encodeURIComponent(query),
+        {
+          headers:{
+            "Accept":"application/json"
+          }
+        }
+      );
+
+      const data=await response.json();
+
+      window.__mapSearchResults=data;
+
+      if(!data.length){
+
+        results.innerHTML=`
+          <div style="padding:7px;font-size:9px;color:var(--muted)">
+            No place found.
+          </div>
+        `;
+
+        return;
+      }
+
+      results.innerHTML=data.map(function(item,index){
+
+        return `
+          <button
+            onclick="selectMapSearchResult(${index})"
+            style="display:block;width:100%;text-align:left"
+          >
+            <b>${esc(item.display_name)}</b>
+            <small style="display:block;color:var(--muted)">
+              ${Number(item.lat).toFixed(4)},
+              ${Number(item.lon).toFixed(4)}
+            </small>
+          </button>
+        `;
+
+      }).join("");
+
+    }catch(error){
+
+      results.innerHTML=`
+        <div style="padding:7px;color:var(--red);font-size:9px">
+          Location search unavailable.
+        </div>
+      `;
+    }
+
+  };
+
+  window.selectMapSearchResult=function(index){
+
+    const data=(window.__mapSearchResults || [])[index];
+
+    if(!data)
+      return;
+
+    const lat=Number(data.lat);
+    const lng=Number(data.lon);
+
+    const address=data.address || {};
+
+    const city=
+      address.city ||
+      address.town ||
+      address.village ||
+      address.municipality ||
+      (data.display_name || "Selected location").split(",")[0];
+
+    const stateName=address.state || "";
+    const country=address.country || "";
+
+    if(typeof selectLocationDirect==="function"){
+
+      selectLocationDirect(
+        city,
+        stateName,
+        country,
+        lat,
+        lng
+      );
+
+    }
+
+    if(window.mapInstance){
+
+      window.mapInstance.setView(
+        [lat,lng],
+        12,
+        {animate:true}
+      );
+
+    }
+
+    const results=document.getElementById("mapSearchResults");
+
+    if(results)
+      results.innerHTML="";
+
+    setTimeout(updateMapContext,100);
+  };
+
+  /* --------------------------------------------------------
+     GPS
+  -------------------------------------------------------- */
+
+  window.locateOnMap=function(){
+
+    if(!navigator.geolocation){
+
+      if(typeof openLocationModal==="function")
+        openLocationModal();
+
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+      function(position){
+
+        const lat=position.coords.latitude;
+        const lng=position.coords.longitude;
+
+        if(typeof selectLocationDirect==="function"){
+
+          selectLocationDirect(
+            "My location",
+            "GPS",
+            "",
+            lat,
+            lng
+          );
+
+        }
+
+        if(window.mapInstance){
+
+          window.mapInstance.setView(
+            [lat,lng],
+            12,
+            {animate:true}
+          );
+
+        }
+
+        setTimeout(updateMapContext,100);
+
+      },
+
+      function(){
+
+        if(typeof openLocationModal==="function")
+          openLocationModal();
+
+      },
+
+      {
+        enableHighAccuracy:true,
+        timeout:8000,
+        maximumAge:30000
+      }
+
+    );
+  };
+
+  /* --------------------------------------------------------
+     Map context
+  -------------------------------------------------------- */
+
+  window.updateMapContext=function(){
+
+    const m=metrics();
+
+    setText(
+      "mapContextName",
+      m.location.label ||
+      m.location.city ||
+      "Selected location"
+    );
+
+    setText(
+      "mapContextLat",
+      Number(m.location.lat || 0).toFixed(4)
+    );
+
+    setText(
+      "mapContextLng",
+      Number(m.location.lng || 0).toFixed(4)
+    );
+
+    setText(
+      "mapContextRisk",
+      m.risk
+    );
+
+    setText(
+      "mapContextRain",
+      m.rainfall ?
+      m.rainfall.toFixed(1)+" mm/h" :
+      "—"
+    );
+
+    setText(
+      "mapDetailPlace",
+      m.location.label ||
+      m.location.city ||
+      "Selected location"
+    );
+
+    setText(
+      "mapDetailRain",
+      m.rainfall ?
+      m.rainfall.toFixed(1)+" mm/h" :
+      "—"
+    );
+
+    setText(
+      "mapDetailPeak",
+      m.peak ?
+      m.peak.toFixed(1)+" mm/h" :
+      "—"
+    );
+
+    setText(
+      "mapDetailRisk",
+      m.risk
+    );
+
+  };
+
+  /* --------------------------------------------------------
+     Map controls
+  -------------------------------------------------------- */
+
+  window.centerMapOnSelected=function(){
+
+    const map=window.mapInstance;
+
+    if(!map)
+      return;
+
+    const loc=locationState();
+
+    map.setView(
+      [Number(loc.lat),Number(loc.lng)],
+      12,
+      {animate:true}
+    );
+
+    setTimeout(function(){
+      map.invalidateSize();
+    },100);
+
+  };
+
+  window.zoomToRiskFootprint=function(){
+
+    const map=window.mapInstance;
+
+    if(!map)
+      return;
+
+    const loc=locationState();
+
+    map.setView(
+      [Number(loc.lat),Number(loc.lng)],
+      11,
+      {animate:true}
+    );
+
+  };
+
+  /* --------------------------------------------------------
+     Enhanced map layers
+  -------------------------------------------------------- */
+
+  function riskColor(risk){
+
+    const r=(risk || "").toUpperCase();
+
+    if(r==="CRITICAL")
+      return "#C92A2A";
+
+    if(r==="HIGH")
+      return "#D9531E";
+
+    if(r==="WATCH" || r==="MODERATE")
+      return "#D97706";
+
+    return "#2A7E51";
+  }
+
+  function clearEnhancedLayers(){
+
+    if(!window.mapInstance)
+      return;
+
+    Object.keys(enhancedLayers).forEach(function(key){
+
+      const items=enhancedLayers[key] || [];
+
+      items.forEach(function(layer){
+
+        if(window.mapInstance.hasLayer(layer))
+          window.mapInstance.removeLayer(layer);
+
+      });
+
+    });
+
+    enhancedLayers={};
+  }
+
+  function makeRiskFootprint(){
+
+    const map=window.mapInstance;
+
+    if(!map)
+      return;
+
+    const loc=locationState();
+    const m=metrics();
+
+    const color=riskColor(m.risk);
+
+    const circle=L.circle(
+      [Number(loc.lat),Number(loc.lng)],
+      {
+        radius:4500,
+        color:color,
+        fillColor:color,
+        fillOpacity:.15,
+        weight:2
+      }
+    );
+
+    circle.bindPopup(
+      "<b>Current impact footprint</b><br>"+
+      esc(loc.label || loc.city)+
+      "<br>Risk: <b>"+
+      esc(m.risk)+
+      "</b>"
+    );
+
+    circle.addTo(map);
+
+    enhancedLayers.risk=[circle];
+  }
+
+  function makeLocationMarker(){
+
+    const map=window.mapInstance;
+
+    if(!map)
+      return;
+
+    const loc=locationState();
+
+    const marker=L.marker(
+      [
+        Number(loc.lat),
+        Number(loc.lng)
+      ]
+    );
+
+    marker.bindPopup(
+      "<b>📍 "+
+      esc(loc.label || loc.city || "Monitoring location")+
+      "</b><br>Selected monitoring point."
+    );
+
+    marker.addTo(map);
+
+    enhancedLayers.location=[marker];
+  }
+
+  function makeFacilityLayers(){
+
+    const map=window.mapInstance;
+
+    if(!map)
+      return;
+
+    enhancedLayers.shelters=[];
+    enhancedLayers.hospitals=[];
+
+    const shelters=window.VARSHAA_SHELTERS || [];
+
+    shelters.forEach(function(shelter){
+
+      if(
+        typeof shelter.lat !== "number" ||
+        typeof shelter.lng !== "number"
+      )
+        return;
+
+      const marker=L.circleMarker(
+        [shelter.lat,shelter.lng],
+        {
+          radius:8,
+          color:"#238C83",
+          fillColor:"#238C83",
+          fillOpacity:.95
+        }
+      );
+
+      marker.bindPopup(
+        "<b>⛺ "+
+        esc(shelter.name)+
+        "</b><br>Available beds: "+
+        Math.max(
+          0,
+          Number(shelter.capacity || 0) -
+          Number(shelter.occupied || 0)
+        )
+      );
+
+      marker.addTo(map);
+      enhancedLayers.shelters.push(marker);
+
+    });
+
+    const hospitals=window.VARSHAA_HOSPITALS || [];
+
+    hospitals.forEach(function(hospital){
+
+      if(
+        typeof hospital.lat !== "number" ||
+        typeof hospital.lng !== "number"
+      )
+        return;
+
+      const marker=L.circleMarker(
+        [hospital.lat,hospital.lng],
+        {
+          radius:8,
+          color:"#2563EB",
+          fillColor:"#2563EB",
+          fillOpacity:.95
+        }
+      );
+
+      marker.bindPopup(
+        "<b>🏥 "+
+        esc(hospital.name)+
+        "</b><br>ICU available: "+
+        Number(hospital.icuFree || 0)
+      );
+
+      marker.addTo(map);
+      enhancedLayers.hospitals.push(marker);
+
+    });
+
+  }
+
+  window.toggleEnhancedLayer=function(layerName,button){
+
+    const map=window.mapInstance;
+
+    if(!map)
+      return;
+
+    const layers=enhancedLayers[layerName] || [];
+
+    const currentlyVisible=
+      layers.length &&
+      map.hasLayer(layers[0]);
+
+    layers.forEach(function(layer){
+
+      if(currentlyVisible)
+        map.removeLayer(layer);
+      else
+        map.addLayer(layer);
+
+    });
+
+    if(button)
+      button.classList.toggle(
+        "on",
+        !currentlyVisible
+      );
+
+  };
+
+  /* --------------------------------------------------------
+     Enhanced map initialization
+  -------------------------------------------------------- */
+
+  function buildEnhancedMap(){
+
+    const container=document.getElementById("fullMap");
+
+    if(!container)
+      return;
+
+    if(typeof L==="undefined")
+      return;
+
+    const loc=locationState();
+
+    if(!window.mapInstance){
+
+      window.mapInstance=L.map(
+        "fullMap",
+        {
+          zoomControl:true
+        }
+      ).setView(
+        [
+          Number(loc.lat),
+          Number(loc.lng)
+        ],
+        11
+      );
+
+      L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          attribution:"© OpenStreetMap contributors"
+        }
+      ).addTo(
+        window.mapInstance
+      );
+
+      /* IMPORTANT:
+         CLICK MAP → SELECT LOCATION
+      */
+
+      window.mapInstance.on(
+        "click",
+        async function(event){
+
+          const lat=event.latlng.lat;
+          const lng=event.latlng.lng;
+
+          if(
+            typeof selectLocationDirect==="function"
+          ){
+
+            selectLocationDirect(
+              "Selected point",
+              "Map",
+              "",
+              lat,
+              lng
+            );
+
+          }
+
+          /* Try reverse geocoding */
+
+          try{
+
+            const response=await fetch(
+              "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat="+
+              lat+
+              "&lon="+
+              lng+
+              "&zoom=10"
+            );
+
+            const data=await response.json();
+
+            const address=data.address || {};
+
+            const city=
+              address.city ||
+              address.town ||
+              address.village ||
+              address.municipality ||
+              "Selected point";
+
+            const stateName=
+              address.state || "";
+
+            const country=
+              address.country || "";
+
+            if(
+              typeof selectLocationDirect==="function"
+            ){
+
+              selectLocationDirect(
+                city,
+                stateName,
+                country,
+                lat,
+                lng
+              );
+
+            }
+
+          }catch(error){
+            /* Keep the selected coordinates even if reverse geocoding fails */
+          }
+
+          updateMapContext();
+
+          rebuildEnhancedLayers();
+
+        }
+      );
+
+    }
+
+    window.mapInstance.setView(
+      [
+        Number(loc.lat),
+        Number(loc.lng)
+      ],
+      11
+    );
+
+    rebuildEnhancedLayers();
+
+    setTimeout(
+      function(){
+        window.mapInstance.invalidateSize();
+      },
+      100
+    );
+
+  }
+
+  function rebuildEnhancedLayers(){
+
+    if(!window.mapInstance)
+      return;
+
+    clearEnhancedLayers();
+
+    makeRiskFootprint();
+    makeLocationMarker();
+    makeFacilityLayers();
+
+    updateMapContext();
+
+  }
+
+  /* --------------------------------------------------------
+     Inject richer map control UI
+  -------------------------------------------------------- */
+
+  function addMapControls(){
+
+    const mapLayout=document.querySelector(".mapLayout");
+
+    if(!mapLayout)
+      return;
+
+    const existingLayers=document.getElementById("layers");
+
+    if(!existingLayers)
+      return;
+
+    if(
+      document.getElementById(
+        "enhancedMapControls"
+      )
+    )
+      return;
+
+    const panel=
+      existingLayers.closest(".panel");
+
+    if(!panel)
+      return;
+
+    const enhanced=document.createElement("div");
+
+    enhanced.id="enhancedMapControls";
+
+    enhanced.innerHTML=`
+
+      <div class="eyebrow">
+        LOCATION CONTROL
+      </div>
+
+      <div class="mapActionGrid">
+
+        <button
+          class="mapAction"
+          onclick="openLocationModal()"
+        >
+          📍 Select place
+        </button>
+
+        <button
+          class="mapAction"
+          onclick="locateOnMap()"
+        >
+          ◎ My location
+        </button>
+
+        <button
+          class="mapAction"
+          onclick="centerMapOnSelected()"
+        >
+          ⌖ Recenter
+        </button>
+
+        <button
+          class="mapAction"
+          onclick="zoomToRiskFootprint()"
+        >
+          ＋ Risk footprint
+        </button>
+
+      </div>
+
+      <div class="mapSearch">
+
+        <input
+          id="mapPlaceSearch"
+          placeholder="Search a city or address…"
+        >
+
+        <button
+          class="btn secondary"
+          onclick="searchMapPlace()"
+        >
+          Search
+        </button>
+
+      </div>
+
+      <div
+        id="mapSearchResults"
+        class="mapSearchResults"
+      ></div>
+
+      <hr
+        style="
+          border-color:var(--line);
+          border-width:1px 0 0;
+          margin:14px 0
+        "
+      >
+
+      <div class="eyebrow">
+        ACTIVE POINT
+      </div>
+
+      <div class="mapContextCard">
+
+        <b id="mapContextName">
+          —
+        </b>
+
+        <div class="mapContextMetrics">
+
+          <span>
+            <small>LAT</small>
+            <strong id="mapContextLat">—</strong>
+          </span>
+
+          <span>
+            <small>LNG</small>
+            <strong id="mapContextLng">—</strong>
+          </span>
+
+        </div>
+
+        <div class="mapContextMetrics">
+
+          <span>
+            <small>RISK</small>
+            <strong id="mapContextRisk">—</strong>
+          </span>
+
+          <span>
+            <small>RAIN</small>
+            <strong id="mapContextRain">—</strong>
+          </span>
+
+        </div>
+
+      </div>
+
+      <hr
+        style="
+          border-color:var(--line);
+          border-width:1px 0 0;
+          margin:14px 0
+        "
+      >
+
+    `;
+
+    panel.insertBefore(
+      enhanced,
+      existingLayers
+    );
+
+  }
+
+  /* --------------------------------------------------------
+     Add map instruction + summary
+  -------------------------------------------------------- */
+
+  function addMapInstruction(){
+
+    const fullMap=document.getElementById(
+      "fullMap"
+    );
+
+    if(!fullMap)
+      return;
+
+    const parent=fullMap.parentElement;
+
+    if(!parent)
+      return;
+
+    if(
+      document.getElementById(
+        "enhancedMapInstruction"
+      )
+    )
+      return;
+
+    const instruction=document.createElement(
+      "div"
+    );
+
+    instruction.id=
+      "enhancedMapInstruction";
+
+    instruction.className=
+      "mapInstructionBar";
+
+    instruction.innerHTML=`
+      <span>
+        📍
+        <b>
+          Click anywhere on the map
+          to select a monitoring location.
+        </b>
+      </span>
+
+      <span>
+        Search, GPS and map selection all update the active analysis.
+      </span>
+    `;
+
+    parent.insertBefore(
+      instruction,
+      fullMap
+    );
+
+  }
+
+  function addMapSummary(){
+
+    const map=document.getElementById(
+      "fullMap"
+    );
+
+    if(!map)
+      return;
+
+    const parent=map.parentElement;
+
+    if(!parent)
+      return;
+
+    if(
+      document.getElementById(
+        "enhancedMapSummary"
+      )
+    )
+      return;
+
+    const summary=document.createElement(
+      "div"
+    );
+
+    summary.id=
+      "enhancedMapSummary";
+
+    summary.className=
+      "mapDetailStrip";
+
+    summary.innerHTML=`
+
+      <div>
+        <span>Selected place</span>
+        <b id="mapDetailPlace">—</b>
+      </div>
+
+      <div>
+        <span>Current rain</span>
+        <b id="mapDetailRain">—</b>
+      </div>
+
+      <div>
+        <span>Peak forecast</span>
+        <b id="mapDetailPeak">—</b>
+      </div>
+
+      <div>
+        <span>Impact</span>
+        <b id="mapDetailRisk">—</b>
+      </div>
+
+      <button
+        class="btn secondary"
+        onclick="go('prediction')"
+      >
+        Open forecast →
+      </button>
+
+    `;
+
+    parent.appendChild(summary);
+
+  }
+
+  /* --------------------------------------------------------
+     Patch location changes so map follows them
+  -------------------------------------------------------- */
+
+  function patchLocationFunction(){
+
+    if(
+      !window.selectLocationDirect ||
+      window.selectLocationDirect.__enhanced
+    )
+      return;
+
+    const original=
+      window.selectLocationDirect;
+
+    function enhancedSelectLocation(
+      city,
+      state,
+      country,
+      lat,
+      lng
+    ){
+
+      original(
+        city,
+        state,
+        country,
+        lat,
+        lng
+      );
+
+      setTimeout(
+        function(){
+
+          updateMapContext();
+
+          if(window.mapInstance){
+
+            window.mapInstance.setView(
+              [lat,lng],
+              11,
+              {animate:true}
+            );
+
+            rebuildEnhancedLayers();
+
+          }
+
+        },
+        100
+      );
+
+    }
+
+    enhancedSelectLocation.__enhanced=true;
+
+    window.selectLocationDirect=
+      enhancedSelectLocation;
+
+  }
+
+  /* --------------------------------------------------------
+     Initialize
+  -------------------------------------------------------- */
+
+  function initializeFrontend(){
+
+    insertQuickTools();
+
+    addMapInstruction();
+    addMapSummary();
+    addMapControls();
+
+    patchLocationFunction();
+
+    updateMapContext();
+
+  }
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      setTimeout(
+        function(){
+
+          initializeFrontend();
+
+        },
+        500
+      );
+
+    }
+  );
+
+  /* Also refresh after navigating to the map */
+
+  const originalGo=
+    window.go;
+
+  if(originalGo && !originalGo.__frontendEnhanced){
+
+    function enhancedGo(view){
+
+      originalGo(view);
+
+      setTimeout(
+        function(){
+
+          initializeFrontend();
+
+          if(view==="map"){
+
+            buildEnhancedMap();
+
+          }
+
+        },
+        150
+      );
+
+    }
+
+    enhancedGo.__frontendEnhanced=true;
+
+    window.go=enhancedGo;
+
+  }
+
+})();
+</script>
 </body>
 </html>
