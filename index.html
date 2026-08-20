@@ -1677,34 +1677,16 @@ button {
       <span>Explainable AI</span>
     </button>
     <button type="button" data-view="historical" onclick="go('historical'); return false;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span>Historical Events</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span>Model Validation</span>
     </button>
 
-    <div class="navtitle">OPERATIONS</div>
-    <button type="button" data-view="dispatch" onclick="go('dispatch'); return false;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 19l6-6-6-6"/><path d="M4 12h16"/><path d="M4 18v-2a4 4 0 0 1 4-4h4"/></svg>
-      <span>Rescue & Routing ETA</span>
-      <span class="badge" id="dispatchBadge" style="background:var(--orange)">3</span>
-    </button>
-    <button type="button" data-view="facilities" onclick="go('facilities'); return false;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l8-4v18M13 11h4v10"/></svg>
-      <span>Shelters & Hospitals</span>
-    </button>
-    <button type="button" data-view="hydrology" onclick="go('hydrology'); return false;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-      <span>Soil & Hydrology</span>
-    </button>
 
     <div class="navtitle">SYSTEM</div>
     <button type="button" data-view="alerts" onclick="go('alerts'); return false;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span>Alerts</span>
       <span class="badge">6</span>
-    </button>
-    <button type="button" data-view="historical" onclick="go('historical'); return false;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      <span>Model & Performance</span>
     </button>
   </nav>
 
@@ -1790,16 +1772,19 @@ button {
     <div>
       <div class="sectionHead">
         <div>
-          <div class="eyebrow">RAINFALL FORECAST</div>
-          <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Rainfall outlook — next 3 hours</h3>
-          <p>How rainfall intensity is expected to change at this location.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <div class="eyebrow">RAINFALL FORECAST</div>
+            <span class="note" style="font-size:10px;padding:3px 8px;background:rgba(35,140,131,0.1);border-radius:4px;color:var(--teal);font-weight:700">PERSISTENCE BASELINE</span>
+          </div>
+          <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400;margin:0 0 4px">Rainfall outlook — next 3 hours</h3>
+          <p style="margin:0;font-size:12px;color:var(--muted)">Latest observed rainfall: <strong style="color:var(--text)"><span id="forecastCurrentVal">0</span> mm/h</strong>. The rainfall trajectory is a persistence baseline, not a direct ML rainfall-intensity forecast.</p>
         </div>
       </div>
       <div id="forecastChart" class="chart" style="height:200px"></div>
     </div>
     <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)">
       <div style="font-size:11px;color:var(--muted);margin-bottom:10px;font-weight:500" id="forecastSummaryText">
-        Forecast unavailable — insufficient temporal data.
+        The ML model predicts heavy-rainfall probability. The rainfall trajectory shown here is a persistence baseline using the latest observed rainfall value.
       </div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
         <div style="padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel2)">
@@ -1815,56 +1800,18 @@ button {
   </div>
 </div>
 
-<div class="grid2" style="margin-bottom:16px">
-  <div class="panel">
-    <div class="sectionHead">
-      <div>
-        <div class="eyebrow">MODEL FACTORS</div>
-        <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Why the model predicted this</h3>
-        <p>Top feature influences returned by the ML model.</p>
-      </div>
-    </div>
-    <div id="xaiFactorsOverview" style="margin:16px 0"></div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:12px;border-top:1px solid var(--line)">
-      <span style="font-size:10px;color:var(--muted)">Model influence · Local feature perturbation</span>
-      <button class="btn secondary" onclick="go('xai')">Understand the prediction →</button>
+<div class="panel" style="margin-bottom:16px">
+  <div class="sectionHead">
+    <div>
+      <div class="eyebrow">MODEL FACTORS</div>
+      <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Why the model predicted this</h3>
+      <p>Top feature influences returned by the ML model.</p>
     </div>
   </div>
-
-  <div class="panel" style="display:flex;flex-direction:column;justify-content:space-between">
-    <div>
-      <div class="sectionHead">
-        <div>
-          <div class="eyebrow">POTENTIAL IMPACT</div>
-          <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Potential local impact</h3>
-          <p>What could this rainfall event mean for the selected area?</p>
-        </div>
-        <span class="status" style="color:var(--orange);background:var(--orange-bg);border-color:rgba(217,83,30,0.25)">MODERATE IMPACT</span>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0">
-        <div style="padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
-          <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Population</div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:4px">Moderate exposure</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:2px">Residential areas</div>
-        </div>
-        <div style="padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
-          <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Roads</div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:4px">Waterlogging risk</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:2px">Low-lying underpasses</div>
-        </div>
-        <div style="padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
-          <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">Critical facilities</div>
-          <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:4px">Low-moderate concern</div>
-          <div style="font-size:10px;color:var(--muted);margin-top:2px">Hospitals & power grid</div>
-        </div>
-      </div>
-    </div>
-
-    <div style="display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--line)">
-      <span style="font-size:11px;color:var(--muted)">Scenario estimate for current rainfall conditions</span>
-      <button class="btn secondary" onclick="go('map')">Explore impact →</button>
-    </div>
+  <div id="xaiFactorsOverview" style="margin:16px 0"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:12px;border-top:1px solid var(--line)">
+    <span style="font-size:10px;color:var(--muted)">Model influence · Local feature perturbation</span>
+    <button class="btn secondary" onclick="go('xai')">Understand the prediction →</button>
   </div>
 </div>
 
@@ -1916,9 +1863,7 @@ button {
   <div style="display:flex;align-items:center;gap:12px">
     <label style="font-size:11px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:6px">Forecast window
       <select id="window" style="padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--panel2);font-weight:700" onchange="runPrediction()">
-        <option value="1">1 hour</option>
         <option value="3" selected>3 hours</option>
-        <option value="6">6 hours</option>
       </select>
     </label>
     <button type="button" class="btn secondary" onclick="openLocationModal()" style="display:inline-flex;align-items:center;gap:6px">
@@ -1932,19 +1877,20 @@ button {
   <div class="panel score" style="display:flex;flex-direction:column;justify-content:space-between">
     <div>
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <div class="eyebrow" id="predEyebrow">Heavy-Rain Risk</div>
-        <span class="status scoreRisk" id="predRiskBadge" style="color:var(--orange);background:var(--orange-bg);border-color:rgba(217,83,30,0.25)">HIGH-IMPACT RAINFALL</span>
+        <div class="eyebrow" id="predEyebrow">PREDICTED HEAVY-RAINFALL RISK</div>
+        <span class="status scoreRisk" id="predRiskBadge" style="color:var(--orange);background:var(--orange-bg);border-color:rgba(217,83,30,0.25)">MODERATE RAINFALL RISK</span>
       </div>
 
-      <div style="margin:20px 0 8px">
-        <div class="scoreNum" id="predScoreNum" style="font-size:56px;font-weight:800;letter-spacing:-0.05em;color:var(--text);line-height:1">91.4<small style="font-size:24px">%</small></div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:4px" id="predRiskSubtext">Risk of rainfall ≥50 mm/h within the next 3 hours</div>
+      <div style="margin:18px 0 8px">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">PREDICTED HEAVY-RAINFALL RISK</div>
+        <div class="scoreNum" id="predScoreNum" style="font-size:56px;font-weight:800;letter-spacing:-0.05em;color:var(--text);line-height:1">33.5<small style="font-size:24px">%</small></div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600;margin-top:4px" id="predRiskSubtext">Probability of rainfall ≥50 mm/h within the next 3 hours</div>
       </div>
 
-      <div style="margin-top:20px;padding:12px;border-radius:8px;background:var(--panel2);border:1px solid var(--line)">
-        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase" id="predWindowLabel">Target & Window</div>
-        <div style="font-size:13px;font-weight:700;color:var(--text);margin-top:2px" id="predWindowText">Risk of rainfall ≥50 mm/h within next 3 hours</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px">MOSDAC Max Rain: <strong style="color:var(--text)"><span id="calcCurrent">0</span> mm/h</strong></div>
+      <div style="margin-top:16px;padding:12px;border-radius:8px;background:var(--panel2);border:1px solid var(--line)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">OBSERVED NOW</div>
+        <div style="font-size:22px;font-weight:800;color:var(--text);margin-top:2px"><span id="calcCurrent">0</span> <small style="font-size:11px;color:var(--muted)">mm/h</small></div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">MOSDAC latest observed rainfall</div>
       </div>
     </div>
   </div>
@@ -1953,15 +1899,18 @@ button {
     <div>
       <div class="sectionHead">
         <div>
-          <div class="eyebrow">FORECAST CURVE</div>
-          <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400">Rainfall intensity — forecast</h3>
-          <p>How rainfall intensity is expected to change at this location.</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <div class="eyebrow">RAINFALL FORECAST</div>
+            <span class="note" style="font-size:10px;padding:3px 8px;background:rgba(35,140,131,0.1);border-radius:4px;color:var(--teal);font-weight:700">PERSISTENCE BASELINE</span>
+          </div>
+          <h3 style="font-family:var(--font-serif);font-size:20px;font-weight:400;margin:0 0 4px">3-hour rainfall outlook — persistence baseline</h3>
+          <p style="margin:0;font-size:12px;color:var(--muted)">The ML model predicts heavy-rainfall probability. The rainfall trajectory shown here is a persistence baseline using the latest observed rainfall value.</p>
         </div>
       </div>
-      <div id="predChart" class="chart" style="height:210px"></div>
+      <div id="predChart" class="chart" style="height:200px"></div>
     </div>
     <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)" id="predChartSummary">
-      Forecast unavailable — insufficient temporal data.
+      The ML model predicts heavy-rainfall probability. The rainfall trajectory shown here is a persistence baseline using the latest observed rainfall value.
     </div>
   </div>
 </div>
@@ -2004,7 +1953,7 @@ button {
 </section>
 
 <!-- 3. RESCUE DISPATCH VIEW -->
-<section id="dispatch" class="view">
+<section id="dispatch" class="view" style="display:none !important">
   <div class="intro">
     <div>
       <div class="eyebrow">TACTICAL COMMAND & ROUTING</div>
@@ -2061,7 +2010,7 @@ button {
 </section>
 
 <!-- 4. FACILITIES VIEW -->
-<section id="facilities" class="view">
+<section id="facilities" class="view" style="display:none !important">
   <div class="intro">
     <div>
       <div class="eyebrow">RELIEF INFRASTRUCTURE & HEALTHCARE</div>
@@ -2084,7 +2033,7 @@ button {
 </section>
 
 <!-- 5. SOIL HYDROLOGY VIEW -->
-<section id="hydrology" class="view">
+<section id="hydrology" class="view" style="display:none !important">
   <div class="intro">
     <div>
       <div class="eyebrow">HYDROLOGICAL INTELLIGENCE</div>
@@ -2119,58 +2068,144 @@ button {
 <section id="simulation" class="view">
   <div class="intro">
     <div>
-      <div class="eyebrow">SCENARIO ENGINE</div>
-      <h2>What-if impact simulation</h2>
-      <p>Explore how changing rainfall conditions can alter estimated exposure and priority zones.</p>
+      <div class="eyebrow">HYPOTHETICAL SCENARIO ENGINE</div>
+      <h2 style="font-family:var(--font-serif);font-size:28px;font-weight:400;margin:4px 0 4px;color:var(--text)">What-if scenario simulation</h2>
+      <p style="color:var(--muted);margin:0;font-size:12px">Explore how changing rainfall intensity, duration, and terrain parameters alter qualitative scenario risk.</p>
     </div>
-    <button class="btn secondary" id="resetSim" onclick="resetSimulation()">↻ Reset</button>
+    <button type="button" class="btn secondary" id="resetSim" onclick="resetSimulation()">↻ Reset defaults</button>
   </div>
 
-  <div class="simGrid">
+  <div class="simGrid" style="margin-bottom:20px">
+    <!-- Left Column: Controls with Explanations -->
     <div class="panel">
-      <div class="eyebrow">SCENARIO INPUTS</div>
-      <h3>Adjust conditions</h3>
-      <div class="sliderBlock">
-        <label>Rainfall intensity <strong><span id="rainVal">82</span> mm/h</strong></label>
-        <input id="rainSlider" type="range" min="20" max="150" value="82" oninput="simUpdate()">
-        <div class="rangeLabels"><span>20</span><span>150</span></div>
+      <div class="eyebrow" style="margin-bottom:12px">HYPOTHETICAL PARAMETERS</div>
+      <h3 style="margin:0 0 16px;font-size:16px">Adjust scenario inputs</h3>
+
+      <!-- 1. Rainfall Intensity -->
+      <div class="sliderBlock" style="margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <label style="font-weight:700;font-size:12px">Rainfall intensity</label>
+          <span style="font-size:14px;font-weight:800;color:var(--teal)"><span id="rainVal">82</span> mm/h</span>
+        </div>
+        <input id="rainSlider" type="range" min="20" max="150" value="82" oninput="simUpdate()" style="width:100%;margin:8px 0 4px">
+        <div class="rangeLabels" style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>20 mm/h</span><span>150 mm/h</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;font-style:italic">"Higher rainfall intensity increases scenario risk."</div>
       </div>
-      <div class="sliderBlock">
-        <label>Duration <strong><span id="durationVal">3</span> hours</strong></label>
-        <input id="durationSlider" type="range" min="1" max="6" value="3" oninput="simUpdate()">
-        <div class="rangeLabels"><span>1h</span><span>6h</span></div>
+
+      <!-- 2. Duration -->
+      <div class="sliderBlock" style="margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <label style="font-weight:700;font-size:12px">Duration</label>
+          <span style="font-size:14px;font-weight:800;color:var(--teal)"><span id="durationVal">3</span> hours</span>
+        </div>
+        <input id="durationSlider" type="range" min="1" max="6" value="3" oninput="simUpdate()" style="width:100%;margin:8px 0 4px">
+        <div class="rangeLabels" style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>1 hour</span><span>6 hours</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;font-style:italic">"Longer rainfall duration increases scenario risk."</div>
       </div>
-      <div class="sliderBlock">
-        <label>Terrain sensitivity <strong><span id="elevVal">50</span>%</strong></label>
-        <input id="elevSlider" type="range" min="0" max="100" value="50" oninput="simUpdate()">
-        <div class="rangeLabels"><span>Higher impact</span><span>Lower impact</span></div>
+
+      <!-- 3. Terrain Sensitivity -->
+      <div class="sliderBlock" style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <label style="font-weight:700;font-size:12px">Terrain sensitivity</label>
+          <span style="font-size:14px;font-weight:800;color:var(--teal)"><span id="elevVal">50</span>%</span>
+        </div>
+        <input id="elevSlider" type="range" min="0" max="100" value="50" oninput="simUpdate()" style="width:100%;margin:8px 0 4px">
+        <div class="rangeLabels" style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted)"><span>Lower sensitivity</span><span>Higher sensitivity</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px;font-style:italic">"Higher terrain sensitivity indicates greater susceptibility."</div>
       </div>
-      <div class="note">ⓘ Scenario simulation only. It is not a validated hydrological or flood forecast.</div>
     </div>
 
-    <div class="panel">
-      <div class="eyebrow">SIMULATION OUTPUT</div>
-      <div class="simRisk" id="simRisk">HIGH</div>
-      <p style="color:var(--muted);font-size:10px">Estimated exposure under the selected scenario.</p>
-      <div class="scenarioCards">
-        <div class="panel stat"><span>Affected zones</span><div class="statValue" id="simZones">14</div></div>
-        <div class="panel stat"><span>Population exposure</span><div class="statValue" id="simPop">48.2K</div></div>
-        <div class="panel stat"><span>Road segments</span><div class="statValue" id="simRoads">19</div></div>
-        <div class="panel stat"><span>Priority level</span><div class="statValue" id="simPriority" style="font-size:17px">HIGH</div></div>
+    <!-- Right Column: Redesigned Output Card -->
+    <div class="panel" style="display:flex;flex-direction:column;justify-content:space-between;padding:22px">
+      <div>
+        <div class="eyebrow" style="margin-bottom:8px">SCENARIO RESULT</div>
+        
+        <!-- Risk Level Badge -->
+        <div style="display:flex;align-items:baseline;gap:10px;margin-top:6px">
+          <span id="simRiskBadge" style="font-size:13px;font-weight:800;padding:4px 12px;border-radius:4px;letter-spacing:0.04em;background:var(--orange-bg);color:var(--orange);border:1px solid rgba(217,83,30,0.25)">
+            HIGH SCENARIO RISK
+          </span>
+        </div>
+
+        <!-- Selected Scenario Compact Parameters Line -->
+        <div id="simParamsSummary" style="font-size:12px;font-weight:700;color:var(--text);margin-top:14px;padding:8px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:6px">
+          82 mm/h rainfall • 3 hour duration • Moderate terrain sensitivity
+        </div>
+
+        <!-- Dynamic Qualitative Explanation -->
+        <p id="simDesc" style="color:var(--text);font-size:13px;line-height:1.5;margin:14px 0 18px">
+          This scenario represents a higher-risk rainfall condition because of the combination of stronger rainfall, longer duration, and higher terrain sensitivity.
+        </p>
+
+        <!-- Qualitative Risk Scale (LOW --- MODERATE --- HIGH) -->
+        <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--line)">
+          <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:10px;letter-spacing:0.04em">QUALITATIVE SCENARIO SCALE</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <div id="scaleLow" style="flex:1;text-align:center;padding:8px;border-radius:6px;font-size:11px;font-weight:800;border:1px solid var(--line);color:var(--muted);background:var(--panel2)">
+              LOW
+            </div>
+            <div style="width:20px;height:2px;background:var(--line)"></div>
+            <div id="scaleMod" style="flex:1;text-align:center;padding:8px;border-radius:6px;font-size:11px;font-weight:800;border:1px solid var(--line);color:var(--muted);background:var(--panel2)">
+              MODERATE
+            </div>
+            <div style="width:20px;height:2px;background:var(--line)"></div>
+            <div id="scaleHigh" style="flex:1;text-align:center;padding:8px;border-radius:6px;font-size:11px;font-weight:800;border:1px solid var(--orange);color:var(--orange);background:var(--orange-bg)">
+              HIGH
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="scenarioBar"><div id="scenarioBar" style="--w:69%"></div></div>
+
+      <div style="margin-top:18px;font-size:10px;color:var(--muted);font-style:italic">
+        ⓘ Qualitative risk level is dynamically estimated from slider inputs.
+      </div>
     </div>
   </div>
 
-  <div class="panel" style="margin-top:15px">
-    <div class="eyebrow">CASCADE SIMULATION</div>
-    <h3>See the consequences, not just the rain</h3>
-    <div class="cascade">
-      <div class="cascadeNode"><b id="simRainNode">82</b><span>mm/h rain</span></div><div class="cascadeArrow">→</div>
-      <div class="cascadeNode"><b id="simSoil">--</b><span>soil saturation</span></div><div class="cascadeArrow">→</div>
-      <div class="cascadeNode"><b id="simDrain">--</b><span>drainage stress</span></div><div class="cascadeArrow">→</div>
-      <div class="cascadeNode"><b id="simAccess">--</b><span>accessibility risk</span></div>
+  <!-- Scenario Breakdown Card (3 rows) -->
+  <div class="panel" style="margin-bottom:20px;padding:20px">
+    <div class="eyebrow" style="margin-bottom:6px">SCENARIO BREAKDOWN</div>
+    <h3 style="margin:0 0 16px;font-size:16px">Individual parameter impact</h3>
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:14px">
+      <!-- 1. Rainfall Intensity Breakdown -->
+      <div style="padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">RAINFALL INTENSITY</div>
+        <div style="font-size:18px;font-weight:800;color:var(--text);margin:4px 0" id="breakdownRainVal">82 mm/h</div>
+        <div style="font-size:11px;font-weight:700" id="breakdownRainImpact">Impact on scenario: <span style="color:var(--orange)">High</span></div>
+      </div>
+
+      <!-- 2. Duration Breakdown -->
+      <div style="padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">DURATION</div>
+        <div style="font-size:18px;font-weight:800;color:var(--text);margin:4px 0" id="breakdownDurationVal">3 hours</div>
+        <div style="font-size:11px;font-weight:700" id="breakdownDurationImpact">Impact on scenario: <span style="color:var(--teal)">Moderate</span></div>
+      </div>
+
+      <!-- 3. Terrain Sensitivity Breakdown -->
+      <div style="padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">TERRAIN SENSITIVITY</div>
+        <div style="font-size:18px;font-weight:800;color:var(--text);margin:4px 0" id="breakdownElevVal">50%</div>
+        <div style="font-size:11px;font-weight:700" id="breakdownElevImpact">Impact on scenario: <span style="color:var(--teal)">Moderate</span></div>
+      </div>
     </div>
+  </div>
+
+  <!-- Scenario Interpretation Panel -->
+  <div class="panel" style="margin-bottom:20px;padding:18px 20px">
+    <div class="eyebrow" style="margin-bottom:6px">SCENARIO INTERPRETATION</div>
+    <h3 style="margin:0 0 8px;font-size:16px">How to interpret this simulation</h3>
+    <p style="font-size:13px;color:var(--text);line-height:1.6;margin:0">
+      Changing rainfall intensity, duration, or terrain sensitivity changes the qualitative scenario risk. This helps explore hypothetical conditions without representing a real flood forecast.
+    </p>
+  </div>
+
+  <!-- Important Disclaimer Box -->
+  <div class="panel" style="border-left:4px solid var(--teal);padding:16px 20px">
+    <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.04em">SIMULATION DISCLAIMER</div>
+    <p style="font-size:11px;color:var(--muted);line-height:1.5;margin:4px 0 0">
+      Scenario estimate based on selected rainfall and terrain sensitivity inputs. This is a qualitative simulation and is not a validated hydrological, flood-inundation, population-exposure, or infrastructure-impact model.
+    </p>
   </div>
 </section>
 
@@ -2180,21 +2215,50 @@ button {
     <div>
       <div class="eyebrow">EARLY WARNING</div>
       <h2>Alert center</h2>
-      <p>Prioritized rainfall warnings generated from model risk outputs.</p>
+      <p>Dynamic early-warning alerts derived directly from ML prediction probability.</p>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:11px;font-weight:700;color:var(--muted)">Notification integration</div>
+      <div style="font-size:10px;color:var(--muted);margin-top:2px">External SMS/email/app notifications are not enabled in this prototype.</div>
     </div>
   </div>
-  <div class="alertSummary">
-    <div class="summary"><b>⚠ 6 active signals</b><span>2 critical · 3 high · 1 watch</span></div>
-    <div class="summary"><b>♧ Notification engine</b><span>Ready for SMS / email / app integration</span></div>
-  </div>
-  <div class="alertList" id="allAlerts"></div>
-  <div class="panel" style="margin-top:15px">
+
+  <!-- Dynamic Prominent Alert Card Container -->
+  <div id="allAlerts" style="margin-bottom:20px"></div>
+
+  <!-- Prototype Alert Logic Reference Panel -->
+  <div class="panel" style="margin-bottom:16px">
     <div class="eyebrow">ALERT LOGIC</div>
-    <h3>Prototype thresholds</h3>
-    <div class="logic">
-      <div class="metric"><b style="color:#ff7185">CRITICAL</b><strong>≥ 90% probability</strong><span>Immediate priority monitoring</span></div>
-      <div class="metric"><b style="color:#f7c25a">HIGH</b><strong>75–89% probability</strong><span>Escalated preparedness</span></div>
-      <div class="metric"><b style="color:#60dfcf">WATCH</b><strong>55–74% probability</strong><span>Continue monitoring</span></div>
+    <h3 style="margin:2px 0 14px">Prototype alert thresholds</h3>
+    <div class="logic" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:12px">
+      <div class="metric" style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <b style="color:var(--green)">LOW</b>
+        <strong>&lt; 50% probability</strong>
+        <span>No immediate heavy-rain alert</span>
+      </div>
+      <div class="metric" style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <b style="color:var(--teal)">WATCH</b>
+        <strong>50–74% probability</strong>
+        <span>Rainfall conditions should be monitored</span>
+      </div>
+      <div class="metric" style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <b style="color:var(--orange)">HIGH</b>
+        <strong>75–89% probability</strong>
+        <span>Elevated heavy-rainfall probability</span>
+      </div>
+      <div class="metric" style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <b style="color:var(--red)">CRITICAL</b>
+        <strong>≥ 90% probability</strong>
+        <span>High probability of heavy rainfall</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Prototype Notification Note -->
+  <div class="panel" style="padding:14px 18px;border-left:4px solid var(--teal)">
+    <div style="font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase">NOTIFICATION INTEGRATION NOTE</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:4px">
+      External SMS/email/app notifications are not enabled in this prototype.
     </div>
   </div>
 </section>
@@ -2205,24 +2269,38 @@ button {
     <div>
       <div class="eyebrow">GEO-SPATIAL INTELLIGENCE</div>
       <h2>Impact & risk map</h2>
-      <p>Combine rainfall risk with exposure, hospitals, shelters, and critical infrastructure.</p>
+      <p>Visualize the selected location's current ML heavy-rainfall prediction and risk area.</p>
     </div>
   </div>
   <div class="mapLayout">
     <div class="panel layers">
-      <div class="eyebrow">MAP LAYERS</div>
-      <div id="layers"></div>
-      <hr style="border-color:var(--line);border-width:1px 0 0;margin:12px 0">
-      <div class="eyebrow">RISK FILTER</div>
-      <div class="segment" id="riskFilter"></div>
-      <div id="selectedZone" class="selectedZone"></div>
+      <div class="eyebrow">LOCATION RISK DETAILS</div>
+      <div style="margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">LOCATION</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:2px" id="mapLocation">--</div>
+      </div>
+      <div style="margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">ML PREDICTED RISK</div>
+        <div style="font-size:18px;font-weight:800;margin-top:2px" id="mapRiskBadge">--</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Probability: <strong style="color:var(--text)" id="mapProb">--</strong></div>
+      </div>
+      <div style="margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">CURRENT RAINFALL</div>
+        <div style="font-size:18px;font-weight:800;color:var(--text);margin-top:2px"><span id="mapRain">--</span> <small style="font-size:11px;color:var(--muted)">mm/h</small></div>
+      </div>
+      <div style="margin-top:14px">
+        <button type="button" class="btn secondary" onclick="openLocationModal()" style="width:100%;justify-content:center">Change location →</button>
+      </div>
+      <div style="margin-top:12px;padding:10px;border:1px dashed var(--line);border-radius:6px;background:var(--panel2)">
+        <div style="font-size:10px;color:var(--muted);line-height:1.4">
+          ⓘ <strong>Visualization note:</strong> Risk zone is a visualization around the selected monitoring location, not a flood inundation boundary.
+        </div>
+      </div>
     </div>
     <div class="panel" style="padding:8px">
-      <div id="fullMap" class="map"></div>
-      <div class="regionPredictionWrap" style="padding:8px 4px 4px">
-        <div class="eyebrow">REGIONAL PREDICTION GRID</div>
-        <div style="font-size:10px;color:var(--muted);margin:3px 0 8px">Risk prediction around the currently selected monitoring location.</div>
-        <div id="regionPredictionGrid" class="regionPredictionGrid"></div>
+      <div id="fullMap" class="map" style="height:480px"></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;padding:2px 6px;font-style:italic">
+        ⓘ Risk zone is a visualization around the selected monitoring location, not a flood inundation boundary.
       </div>
     </div>
   </div>
@@ -2244,7 +2322,7 @@ button {
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       <div>
         <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">CURRENT LOCATION</div>
-        <div id="xaiLocation" style="font-size:14px;font-weight:700;color:var(--text)">Ranchi, Jharkhand, India</div>
+        <div id="xaiLocation" style="font-size:14px;font-weight:700;color:var(--text)">--</div>
       </div>
     </div>
     <button type="button" class="btn secondary" onclick="openLocationModal()" style="font-size:11px">Change location →</button>
@@ -2256,16 +2334,16 @@ button {
     <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));gap:16px;align-items:center">
       <div>
         <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">RAIN EVENT PROBABILITY</div>
-        <div style="font-size:32px;font-weight:800;color:var(--text)" id="xaiProb">76%</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px">Likelihood of a high-impact rainfall event</div>
+        <div style="font-size:32px;font-weight:800;color:var(--text)" id="xaiProb">--</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">Likelihood of a heavy-rainfall event</div>
       </div>
       <div>
         <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">PREDICTED RISK LEVEL</div>
-        <div style="font-size:18px;font-weight:700;color:var(--orange);margin-top:4px" id="xaiRisk">HIGH RISK</div>
+        <div style="font-size:18px;font-weight:700;color:var(--orange);margin-top:4px" id="xaiRisk">--</div>
       </div>
       <div>
-        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">EXPECTED RAINFALL</div>
-        <div style="font-size:18px;font-weight:700;color:var(--text);margin-top:4px" id="xaiRain">82 mm/h</div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">MOSDAC MAX RAINFALL</div>
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-top:4px"><span id="xaiRain">--</span> <small style="font-size:11px;color:var(--muted)">mm/h</small></div>
       </div>
       <div>
         <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">FORECAST WINDOW</div>
@@ -2282,7 +2360,7 @@ button {
           <div class="eyebrow">FEATURE ATTRIBUTION</div>
           <h3 style="margin:2px 0 0">Why the model predicted this</h3>
         </div>
-        <span class="note" style="font-size:10px;padding:3px 8px;background:rgba(35,140,131,0.1);border-radius:4px;color:var(--teal)">Model influence</span>
+        <span class="note" id="xaiMethodBadge" style="font-size:10px;padding:3px 8px;background:rgba(35,140,131,0.1);border-radius:4px;color:var(--teal)">Feature Perturbation / Model Influence</span>
       </div>
       <div id="xaiFactors"></div>
     </div>
@@ -2292,131 +2370,240 @@ button {
         <div class="eyebrow">PLAIN-LANGUAGE EXPLANATION</div>
         <h3 style="margin:2px 0 12px">Summary breakdown</h3>
         <div class="explain" id="xaiExplanation" style="line-height:1.6;font-size:13px;color:var(--text)">
-          The model identified elevated atmospheric moisture and cloud characteristics as the primary drivers behind this predicted rainfall event.
+          Analyzing model feature influences...
         </div>
       </div>
       <div class="note" style="margin-top:16px;font-size:10px;color:var(--muted)">
-        ℹ️ Feature influence reflects the relative weight of environmental signals in computing current rainfall risk.
+        ℹ️ Feature influence reflects the relative weight of environmental features returned directly by the Prediction API.
       </div>
     </div>
   </div>
 
   <!-- 5. What Each Factor Means -->
   <div class="panel" style="margin-bottom:20px">
-    <div class="eyebrow" style="margin-bottom:6px">TERMINOLOGY & DEFINITIONS</div>
-    <h3 style="margin:0 0 14px">What do these signals mean?</h3>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:14px">
+    <div class="eyebrow" style="margin-bottom:6px">MODEL FEATURE DEFINITIONS</div>
+    <h3 style="margin:0 0 14px">What do the 5 model features represent?</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:14px">
       <div style="padding:12px;background:var(--panel2, rgba(0,0,0,0.02));border:1px solid var(--line);border-radius:8px">
-        <strong style="font-size:12px;color:var(--teal)">Rainfall intensity</strong>
-        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">How much rain is currently being observed or estimated at the location.</p>
+        <strong style="font-size:12px;color:var(--teal)">rain_current_max_mm_h</strong>
+        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">Maximum observed satellite rainfall intensity in the local grid area (mm/h).</p>
       </div>
       <div style="padding:12px;background:var(--panel2, rgba(0,0,0,0.02));border:1px solid var(--line);border-radius:8px">
-        <strong style="font-size:12px;color:var(--teal)">Atmospheric moisture</strong>
-        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">How much moisture is available in the surrounding atmospheric column.</p>
+        <strong style="font-size:12px;color:var(--teal)">rain_current_mean_mm_h</strong>
+        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">Spatial mean rainfall intensity across the monitoring cell (mm/h).</p>
       </div>
       <div style="padding:12px;background:var(--panel2, rgba(0,0,0,0.02));border:1px solid var(--line);border-radius:8px">
-        <strong style="font-size:12px;color:var(--teal)">Cloud characteristics</strong>
-        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">Properties and thickness of the cloud system associated with rainfall development.</p>
+        <strong style="font-size:12px;color:var(--teal)">cloud_top_pressure_hpa</strong>
+        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">Atmospheric pressure level at the cloud top measured in hectopascals (hPa).</p>
       </div>
       <div style="padding:12px;background:var(--panel2, rgba(0,0,0,0.02));border:1px solid var(--line);border-radius:8px">
-        <strong style="font-size:12px;color:var(--teal)">Wind pattern</strong>
-        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">Moisture transport, wind speed, and atmospheric circulation dynamics.</p>
+        <strong style="font-size:12px;color:var(--teal)">cloud_top_temperature_k</strong>
+        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">Infrared brightness temperature at the cloud top measured in Kelvin (K).</p>
       </div>
       <div style="padding:12px;background:var(--panel2, rgba(0,0,0,0.02));border:1px solid var(--line);border-radius:8px">
-        <strong style="font-size:12px;color:var(--teal)">Elevation</strong>
-        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">Local terrain elevation influencing orographic lifting of air masses.</p>
-      </div>
-      <div style="padding:12px;background:var(--panel2, rgba(0,0,0,0.02));border:1px solid var(--line);border-radius:8px">
-        <strong style="font-size:12px;color:var(--teal)">Temperature profile</strong>
-        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">Thermal conditions influencing convective atmospheric instability.</p>
+        <strong style="font-size:12px;color:var(--teal)">effective_cloud_emissivity</strong>
+        <p style="font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.4">Radiative cloud opacity scale ranging from 0.05 (thin) to 1.0 (thick convective cloud).</p>
       </div>
     </div>
   </div>
 
-  <!-- 7 & 8. Model Confidence & When Could Prediction Fail -->
+  <!-- 7 & 8. Model Status & Limitations -->
   <div class="grid2" style="margin-bottom:20px">
     <div class="panel">
-      <div class="eyebrow">MODEL RELIABILITY</div>
-      <h3 style="margin:2px 0 6px" id="xaiReliabilityTitle">HIGH</h3>
-      <div style="font-size:13px;font-weight:700;color:var(--teal);margin-bottom:4px" id="xaiReliabilityFoot">76.4% input consistency</div>
-      <p style="font-size:11px;color:var(--muted);margin:0 0 10px">How trustworthy the available inputs are for this prediction</p>
-      
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-        <span style="font-size:10px;font-weight:600;padding:3px 8px;background:rgba(35,140,131,0.08);border:1px solid rgba(35,140,131,0.2);border-radius:4px;color:var(--teal)">Data completeness ✓</span>
-        <span style="font-size:10px;font-weight:600;padding:3px 8px;background:rgba(35,140,131,0.08);border:1px solid rgba(35,140,131,0.2);border-radius:4px;color:var(--teal)">Input consistency ✓</span>
-        <span style="font-size:10px;font-weight:600;padding:3px 8px;background:rgba(35,140,131,0.08);border:1px solid rgba(35,140,131,0.2);border-radius:4px;color:var(--teal)">Model agreement ✓</span>
-      </div>
-      
+      <div class="eyebrow">MODEL STATUS</div>
+      <h3 style="margin:2px 0 6px" id="xaiReliabilityTitle">Prediction API healthy</h3>
+      <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:8px" id="xaiReliabilityFoot">✓ Active ML API connection</div>
       <p id="xaiReliabilityText" style="font-size:11px;color:var(--muted);line-height:1.4;margin:0">
-        Confidence is high because the available environmental inputs are consistent with the model's expected operating range.
+        The Random Forest prediction API is online and serving live inference requests for the selected region.
       </p>
     </div>
 
     <div class="panel">
-      <div class="eyebrow">MODEL LIMITATIONS & FAILURE MODES</div>
-      <h3 style="margin:2px 0 10px">When could this prediction fail?</h3>
+      <div class="eyebrow">MODEL LIMITATIONS & BOUNDARIES</div>
+      <h3 style="margin:2px 0 10px">Operational considerations</h3>
       <ul style="font-size:12px;color:var(--muted);line-height:1.6;margin:0;padding-left:18px">
-        <li><strong>Unusual environmental conditions:</strong> Sudden localized microbursts or rapid micro-climatic shifts.</li>
-        <li><strong>Incomplete input data:</strong> Temporary outages or latency in satellite cloud-cover updates.</li>
-        <li><strong>Sub-model disagreement:</strong> Variance between neural network and gradient-boosted tree sub-models.</li>
-        <li><strong>Out-of-range parameters:</strong> Extreme weather events exceeding the prototype training distribution.</li>
+        <li><strong>Satellite Data Latency:</strong> Inference depends on the update frequency of INSAT-3DR MOSDAC feeds.</li>
+        <li><strong>Out-of-Distribution Events:</strong> Extreme record-breaking atmospheric anomalies beyond historical training distributions.</li>
+        <li><strong>Spatial Resolution:</strong> Input features are aggregated over a 4 km × 4 km grid resolution.</li>
       </ul>
     </div>
   </div>
 
-  <!-- 9. Technical View (Collapsible) -->
-  <div class="panel" style="margin-bottom:20px">
-    <details>
-      <summary style="font-size:12px;font-weight:700;color:var(--teal);cursor:pointer;user-select:none;outline:none">
-        🔍 TECHNICAL XAI VIEW (Click to expand detailed feature attribution pipeline)
-      </summary>
-      <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--line)">
-        <div class="note" style="margin-bottom:12px;font-size:11px">
-          ℹ️ <strong>Attribution Architecture Note:</strong> SHAP-based feature explanations will be directly connected to the trained ML model weights in the production deployment pipeline. The table below represents proxy feature weights derived from normalized model input features.
-        </div>
-        <div style="overflow-x:auto">
-          <table style="width:100%;border-collapse:collapse;font-size:12px;text-align:left">
-            <thead>
-              <tr style="border-bottom:1px solid var(--line);color:var(--muted)">
-                <th style="padding:8px 10px">RANK</th>
-                <th style="padding:8px 10px">ENVIRONMENTAL SIGNAL</th>
-                <th style="padding:8px 10px">CURRENT VALUE</th>
-                <th style="padding:8px 10px">WEIGHT / CONTRIBUTION</th>
-                <th style="padding:8px 10px">SIGNAL DIRECTION</th>
-              </tr>
-            </thead>
-            <tbody id="xaiTechTable">
-              <!-- Dynamically populated by refreshXai(r) -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </details>
-  </div>
 </section>
 
-<!-- 10. HISTORICAL VIEW -->
+<!-- 10. MODEL VALIDATION VIEW -->
 <section id="historical" class="view">
   <div class="intro">
     <div>
       <div class="eyebrow">MODEL VALIDATION</div>
-      <h2>Historical event analysis</h2>
-      <p>Compare observed and predicted signals and inspect detection lead time.</p>
+      <h2>Model validation</h2>
+      <p>Evaluate VARSHAA-X on held-out temporal data.</p>
     </div>
   </div>
-  <div class="panel">
-    <div class="sectionHead"><div><div class="eyebrow">DEMO EVENT</div><h3>Observed vs predicted rainfall</h3></div></div>
-    <div id="historyChart" class="chart"></div>
-    <div style="text-align:center;color:#71869d;font-size:9px">● Observed &nbsp;&nbsp; <span style="color:#2dd4bf">●</span> Predicted</div>
+
+  <!-- Validation Scope Panel -->
+  <div class="panel" style="margin-bottom:20px;padding:16px 20px">
+    <div class="eyebrow" style="margin-bottom:8px">VALIDATION SCOPE</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:14px">
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">VALIDATION TYPE</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:2px">Temporal hold-out</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">TEST TIMESTAMPS</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:2px">09:15, 09:45 and 10:15 UTC — 19 Aug 2026</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">TARGET</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:2px">Rainfall ≥ 50 mm/h within the next 3 hours</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">MODEL</div>
+        <div style="font-size:14px;font-weight:700;color:var(--teal);margin-top:2px">VARSHAA-X Random Forest</div>
+      </div>
+    </div>
   </div>
 
-  <div class="events" id="historyEvents"></div>
+  <!-- Dataset & Evaluation Metrics Summary -->
+  <div class="panel" style="margin-bottom:20px;padding:20px">
+    <div class="eyebrow" style="margin-bottom:12px">HELD-OUT EVALUATION METRICS</div>
+    
+    <!-- Top Row: Sample Counts -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line)">
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">TEST SAMPLES</div>
+        <div style="font-size:24px;font-weight:800;color:var(--text);margin-top:2px">140,792</div>
+      </div>
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">POSITIVE HEAVY-RAIN EVENTS</div>
+        <div style="font-size:24px;font-weight:800;color:var(--orange);margin-top:2px">1,901</div>
+      </div>
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">POSITIVE EVENT RATE</div>
+        <div style="font-size:24px;font-weight:800;color:var(--teal);margin-top:2px">1.350%</div>
+      </div>
+    </div>
+
+    <!-- Main Metrics Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:12px">
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted)">ACCURACY</div>
+        <div style="font-size:20px;font-weight:800;color:var(--text);margin-top:2px">91.92%</div>
+      </div>
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted)">BALANCED ACCURACY</div>
+        <div style="font-size:20px;font-weight:800;color:var(--teal);margin-top:2px">86.25%</div>
+      </div>
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted)">PRECISION</div>
+        <div style="font-size:20px;font-weight:800;color:var(--text);margin-top:2px">12.20%</div>
+      </div>
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted)">RECALL</div>
+        <div style="font-size:20px;font-weight:800;color:var(--teal);margin-top:2px">80.43%</div>
+      </div>
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted)">F1 SCORE</div>
+        <div style="font-size:20px;font-weight:800;color:var(--text);margin-top:2px">0.2119</div>
+      </div>
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted)">ROC-AUC</div>
+        <div style="font-size:20px;font-weight:800;color:var(--teal);margin-top:2px">0.9453</div>
+      </div>
+      <div style="padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--panel2)">
+        <div style="font-size:10px;font-weight:700;color:var(--muted)">PR-AUC</div>
+        <div style="font-size:20px;font-weight:800;color:var(--text);margin-top:2px">0.3903</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confusion Matrix & Breakdown -->
+  <div class="grid2" style="margin-bottom:20px">
+    <div class="panel">
+      <div class="eyebrow" style="margin-bottom:8px">CONFUSION MATRIX</div>
+      <h3 style="margin:0 0 14px">Held-out test set predictions</h3>
+
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;text-align:center;border:1px solid var(--line)">
+          <thead>
+            <tr style="background:var(--panel2);border-bottom:1px solid var(--line)">
+              <th style="padding:10px;text-align:left">Actual \ Predicted</th>
+              <th style="padding:10px;color:var(--text)">Predicted No Heavy Rain</th>
+              <th style="padding:10px;color:var(--orange)">Predicted Heavy Rain</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--line)">
+              <td style="padding:12px;font-weight:700;text-align:left;background:var(--panel2)">Actual No Rain</td>
+              <td style="padding:12px;background:rgba(35,140,131,0.06);font-weight:800;color:var(--teal)">
+                127,888<br><small style="font-size:10px;font-weight:500;color:var(--muted)">True Negatives (TN)</small>
+              </td>
+              <td style="padding:12px;background:rgba(217,83,30,0.06);font-weight:800;color:var(--orange)">
+                11,003<br><small style="font-size:10px;font-weight:500;color:var(--muted)">False Positives (FP)</small>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:12px;font-weight:700;text-align:left;background:var(--panel2)">Actual Heavy Rain</td>
+              <td style="padding:12px;background:rgba(201,42,42,0.06);font-weight:800;color:var(--red)">
+                372<br><small style="font-size:10px;font-weight:500;color:var(--muted)">False Negatives (FN)</small>
+              </td>
+              <td style="padding:12px;background:rgba(35,140,131,0.12);font-weight:800;color:var(--teal)">
+                1,529<br><small style="font-size:10px;font-weight:500;color:var(--muted)">True Positives (TP)</small>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Matrix Summary Callout List -->
+    <div class="panel" style="display:flex;flex-direction:column;justify-content:space-between">
+      <div>
+        <div class="eyebrow" style="margin-bottom:8px">CONFUSION MATRIX BREAKDOWN</div>
+        <h3 style="margin:0 0 14px">Classification Counts</h3>
+        <div style="display:grid;gap:10px">
+          <div style="padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--panel2)">
+            <div style="font-size:10px;font-weight:700;color:var(--muted)">TRUE NEGATIVES (TN)</div>
+            <div style="font-size:16px;font-weight:800;color:var(--teal)">127,888</div>
+            <div style="font-size:11px;color:var(--muted)">Correctly identified non-heavy rainfall periods</div>
+          </div>
+          <div style="padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--panel2)">
+            <div style="font-size:10px;font-weight:700;color:var(--muted)">FALSE POSITIVES (FP)</div>
+            <div style="font-size:16px;font-weight:800;color:var(--orange)">11,003</div>
+            <div style="font-size:11px;color:var(--muted)">Over-predicted warnings (false alarms)</div>
+          </div>
+          <div style="padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--panel2)">
+            <div style="font-size:10px;font-weight:700;color:var(--muted)">FALSE NEGATIVES (FN)</div>
+            <div style="font-size:16px;font-weight:800;color:var(--red)">372</div>
+            <div style="font-size:11px;color:var(--muted)">Missed heavy-rain events</div>
+          </div>
+          <div style="padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--panel2)">
+            <div style="font-size:10px;font-weight:700;color:var(--muted)">TRUE POSITIVES (TP)</div>
+            <div style="font-size:16px;font-weight:800;color:var(--teal)">1,529</div>
+            <div style="font-size:11px;color:var(--muted)">Correctly detected heavy-rainfall events (80.43% Recall)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Limitation & Imbalance Callout Box -->
+  <div class="panel" style="margin-bottom:20px;border-left:4px solid var(--teal);padding:18px">
+    <div style="font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.04em">VALIDATION LIMITATION & CLASS IMBALANCE NOTE</div>
+    <h3 style="margin:4px 0 8px;font-size:16px">Scope Note on Temporal Evaluation</h3>
+    <p style="font-size:12px;color:var(--text);line-height:1.6;margin:0 0 10px">
+      Validation is based on a held-out temporal subset of the current 19 Aug 2026 dataset. Broader multi-day and multi-event validation is required before production deployment.
+    </p>
+    <p style="font-size:11px;color:var(--muted);line-height:1.5;margin:0">
+      <strong>Class Imbalance Warning:</strong> The heavy-rain target is highly imbalanced (1.350% positive event rate: 1,901 positive events out of 140,792 samples). Consequently, raw accuracy alone (91.92%) should not be used to judge the model. Metrics such as <strong>Balanced Accuracy (86.25%)</strong>, <strong>Recall (80.43%)</strong>, and <strong>PR-AUC (0.3903)</strong> provide a significantly more realistic assessment of detection capabilities on rare extreme events.
+    </p>
+  </div>
 </section>
 
 </div></main></div>
 
 <!-- FLOATING CITIZEN SOS TRIGGER BUTTON -->
-<button class="floatingSosBtn" onclick="openCitizenSosModal()">
+<button class="floatingSosBtn" style="display:none" onclick="openCitizenSosModal()">
   <span style="font-size:16px">🚨</span>
   <span>REQUEST RESCUE (SOS)</span>
 </button>
@@ -2550,14 +2737,16 @@ function optionize(select,items,placeholder){
   });
 }
 function countryNameFromCode(code){
+  if (typeof WORLD_COUNTRIES === "undefined" || !Array.isArray(WORLD_COUNTRIES)) return code || "";
   return (WORLD_COUNTRIES.find(x=>x.code===code)||{name:code}).name;
 }
 function initCountryLists(){
+  if (typeof WORLD_COUNTRIES === "undefined" || !Array.isArray(WORLD_COUNTRIES)) return;
   const items=WORLD_COUNTRIES.map(x=>({name:x.name,value:x.code}));
   const global=document.getElementById("globalCountry");
   const pred=document.getElementById("predCountry");
-  optionize(global,items,"Select a country");
-  optionize(pred,items,"Select a country");
+  if (global) optionize(global,items,"Select a country");
+  if (pred) optionize(pred,items,"Select a country");
   const status=document.getElementById("globalLocationStatus");
   if(status) status.textContent="✓ Select a country to continue.";
 }
@@ -2641,7 +2830,7 @@ function getRiskForPlace(lat,lng){
 }
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
 function sigmoid(x){return 1/(1+Math.exp(-x));}
-function runPrediction(){
+function runManualFormPrediction(){
   const rain=clamp(Number(document.getElementById("inRain")?.value)||0,0,250);
   const humidity=clamp(Number(document.getElementById("inHumidity")?.value)||0,0,100);
   const cloud=clamp(Number(document.getElementById("inCloud")?.value)||0,0,100);
@@ -2752,15 +2941,14 @@ function getGlobalLocation() {
     if (stored) {
       const parsed = JSON.parse(stored);
       if (parsed && (parsed.name || parsed.label) && (parsed.latitude !== undefined || parsed.lat !== undefined)) {
-        return {
-          name: parsed.name || parsed.label,
-          latitude: Number(parsed.latitude ?? parsed.lat),
-          longitude: Number(parsed.longitude ?? parsed.lng)
-        };
+        const name = parsed.name || parsed.label;
+        const latitude = Number(parsed.latitude ?? parsed.lat);
+        const longitude = Number(parsed.longitude ?? parsed.lng);
+        return { name, latitude, longitude, label: name, lat: latitude, lng: longitude, city: parsed.city || name.split(',')[0], state: parsed.state || '', country: parsed.country || '' };
       }
     }
   } catch (e) {}
-  return { name: "Ranchi, Jharkhand, India", latitude: 23.3441, longitude: 85.3096 };
+  return { name: "Ranchi, Jharkhand, India", latitude: 23.3441, longitude: 85.3096, label: "Ranchi, Jharkhand, India", lat: 23.3441, lng: 85.3096, city: "Ranchi", state: "Jharkhand", country: "India" };
 }
 
 function getStoredLocation() {
@@ -2773,13 +2961,13 @@ function updateGlobalLocation(loc) {
 
 function setGlobalLocation(locObj) {
   if (!locObj) return;
-  const name = locObj.name || locObj.label || `${locObj.city || ''}, ${locObj.state || ''}, ${locObj.country || ''}`.replace(/^,\s*/, '');
+  const name = locObj.name || locObj.label || `${locObj.city || ''}${locObj.state ? ', ' + locObj.state : ''}${locObj.country ? ', ' + locObj.country : ''}`.replace(/^,\s*/, '');
   const latitude = Number(locObj.latitude ?? locObj.lat);
   const longitude = Number(locObj.longitude ?? locObj.lng);
 
   if (isNaN(latitude) || isNaN(longitude)) return;
 
-  const globalLoc = { name, latitude, longitude };
+  const globalLoc = { name, latitude, longitude, label: name, lat: latitude, lng: longitude, city: locObj.city || name.split(',')[0], state: locObj.state || '', country: locObj.country || '' };
   if (!window.VARSHAA_APP_STATE) window.VARSHAA_APP_STATE = {};
   window.VARSHAA_APP_STATE.location = globalLoc;
 
@@ -2897,9 +3085,7 @@ function formatXAIInfluencesHTML(explanationArray) {
       </div>`;
   }
 
-  const top3 = explanationArray.slice(0, 3);
-
-  const cardsHtml = top3.map((item, idx) => {
+  const cardsHtml = explanationArray.map((item, idx) => {
     const isIncrease = (item.direction || "").toLowerCase().includes("increase") || (item.probability_change > 0);
     const directionLabel = isIncrease ? "↑ Increases risk" : "↓ Decreases risk";
     const changeVal = typeof item.probability_change === "number" ? item.probability_change : 0;
@@ -2907,24 +3093,25 @@ function formatXAIInfluencesHTML(explanationArray) {
     
     let formattedVal = `${item.value}`;
     const featLower = (item.feature || "").toLowerCase();
-    if (featLower.includes("rainfall") || featLower.includes("mm/h")) {
+    if (featLower.includes("rain") || featLower.includes("mm_h")) {
       formattedVal = `${item.value} mm/h`;
     } else if (featLower.includes("pressure") || featLower.includes("hpa")) {
       formattedVal = `${item.value} hPa`;
-    } else if (featLower.includes("temperature") || featLower.includes("k")) {
+    } else if (featLower.includes("temperature") || featLower.includes("_k")) {
       formattedVal = `${item.value} K`;
     }
 
     const badgeColor = isIncrease ? "var(--orange)" : "var(--teal)";
     const badgeBg = isIncrease ? "var(--orange-bg)" : "var(--teal-light)";
     const badgeBorder = isIncrease ? "rgba(217,83,30,0.25)" : "var(--teal-border)";
+    const detailText = item.detailed_explanation ? `<div style="font-size:10px;color:var(--muted);margin-top:6px;line-height:1.4">${escapeHtml(item.detailed_explanation)}</div>` : "";
 
     return `
       <div class="xaiCard" style="padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);display:flex;flex-direction:column;justify-content:space-between;gap:8px">
         <div style="display:flex;justify-content:space-between;align-items:flex-start">
           <div>
             <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">0${idx+1} · MODEL INFLUENCE</div>
-            <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:2px">${item.feature}</div>
+            <div style="font-size:13px;font-weight:700;color:var(--text);margin-top:2px">${escapeHtml(item.feature)}</div>
           </div>
           <span style="font-size:11px;font-weight:800;color:${badgeColor};background:${badgeBg};border:1px solid ${badgeBorder};padding:2px 8px;border-radius:4px">
             ${changeFormatted}
@@ -2932,11 +3119,12 @@ function formatXAIInfluencesHTML(explanationArray) {
         </div>
 
         <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:4px">
-          <div style="font-size:22px;font-weight:800;color:var(--text);line-height:1">${formattedVal}</div>
-          <div style="font-size:12px;font-weight:700;color:${badgeColor};display:inline-flex;align-items:center;gap:4px">
+          <div style="font-size:20px;font-weight:800;color:var(--text);line-height:1">${formattedVal}</div>
+          <div style="font-size:11px;font-weight:700;color:${badgeColor};display:inline-flex;align-items:center;gap:4px">
             ${directionLabel}
           </div>
         </div>
+        ${detailText}
       </div>
     `;
   }).join("");
@@ -2944,9 +3132,6 @@ function formatXAIInfluencesHTML(explanationArray) {
   return `
     <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:12px">
       ${cardsHtml}
-    </div>
-    <div style="font-size:10px;color:var(--muted);margin-top:10px;font-style:italic">
-      Explanation uses local feature perturbation.
     </div>
   `;
 }
@@ -2958,7 +3143,7 @@ function updateAllViews(){
   const locLabel = loc.name || loc.label || `${loc.city || ''}, ${loc.state || ''}, ${loc.country || ''}`.replace(/^,\s*/, '');
 
   // 1. Sync Location & Dataset Observation Timestamp elements across ALL pages
-  ["heroLocation", "monitoringLocation", "predictionLocation", "selectedLocation", "xaiLocation"].forEach(id=>{
+  ["heroLocation", "monitoringLocation", "predictionLocation", "selectedLocation", "xaiLocation", "mapLocation"].forEach(id=>{
     const el=document.getElementById(id);
     if(el) el.textContent=locLabel;
   });
@@ -2973,7 +3158,7 @@ function updateAllViews(){
   if(condTitle) condTitle.textContent=locLabel;
 
   // 2. Sync Current Real MOSDAC Rainfall Metrics (Max & Mean)
-  ["dashRainNow", "heroRain", "readRain", "forecastCurrentVal", "calcCurrent"].forEach(id=>{
+  ["dashRainNow", "heroRain", "readRain", "forecastCurrentVal", "calcCurrent", "mapRain"].forEach(id=>{
     const el=document.getElementById(id);
     if(el) el.textContent=s.currentRainfallMax !== undefined ? s.currentRainfallMax : (s.currentRainfall !== undefined ? s.currentRainfall : 0);
   });
@@ -3017,7 +3202,7 @@ function updateAllViews(){
   }
 
   if (status === "LOADING") {
-    ["calcProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "--"; });
+    ["calcProb", "mapProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "--"; });
     ["heroConfidence", "xaiConfidence", "xaiProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "..."; });
     const confEl = document.getElementById("calcConfidence");
     if (confEl) confEl.textContent = "...";
@@ -3031,6 +3216,12 @@ function updateAllViews(){
       conditionBadge.style.color = "var(--teal)";
       conditionBadge.style.background = "var(--teal-light)";
       conditionBadge.style.borderColor = "var(--teal-border)";
+    }
+
+    const mapRiskEl = document.getElementById("mapRiskBadge");
+    if (mapRiskEl) {
+      mapRiskEl.textContent = "ANALYZING...";
+      mapRiskEl.style.color = "var(--teal)";
     }
 
     const heroRiskText = document.getElementById("heroRiskText");
@@ -3057,7 +3248,7 @@ function updateAllViews(){
     if (predWindowText) predWindowText.textContent = "Analyzing atmospheric conditions...";
 
   } else if (status === "UNAVAILABLE") {
-    ["calcProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "N/A"; });
+    ["calcProb", "mapProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "N/A"; });
     ["heroConfidence", "xaiConfidence", "xaiProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "N/A"; });
     const confEl = document.getElementById("calcConfidence");
     if (confEl) confEl.textContent = "N/A";
@@ -3071,6 +3262,12 @@ function updateAllViews(){
       conditionBadge.style.color = "var(--muted)";
       conditionBadge.style.background = "var(--panel2)";
       conditionBadge.style.borderColor = "var(--line)";
+    }
+
+    const mapRiskEl = document.getElementById("mapRiskBadge");
+    if (mapRiskEl) {
+      mapRiskEl.textContent = "UNAVAILABLE";
+      mapRiskEl.style.color = "var(--muted)";
     }
 
     const heroRiskText = document.getElementById("heroRiskText");
@@ -3099,7 +3296,7 @@ function updateAllViews(){
     if (predWindowText) predWindowText.textContent = unavailMsg;
 
   } else if (status === "ERROR") {
-    ["calcProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "N/A"; });
+    ["calcProb", "mapProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "N/A"; });
     ["heroConfidence", "xaiConfidence", "xaiProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = "N/A"; });
     const confEl = document.getElementById("calcConfidence");
     if (confEl) confEl.textContent = "N/A";
@@ -3113,6 +3310,12 @@ function updateAllViews(){
       conditionBadge.style.color = "var(--red)";
       conditionBadge.style.background = "var(--red-bg)";
       conditionBadge.style.borderColor = "rgba(201,42,42,0.25)";
+    }
+
+    const mapRiskEl = document.getElementById("mapRiskBadge");
+    if (mapRiskEl) {
+      mapRiskEl.textContent = "UNAVAILABLE";
+      mapRiskEl.style.color = "var(--red)";
     }
 
     const heroRiskText = document.getElementById("heroRiskText");
@@ -3148,8 +3351,14 @@ function updateAllViews(){
     const riskSentence = `Risk of rainfall ≥${threshold} mm/h within the next ${leadHours} hours`;
 
     ["calcConfidence", "mapReliability"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = s.reliability || "HIGH"; });
-    ["calcProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = probFormatted; });
+    ["calcProb", "mapProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = probFormatted + "%"; });
     ["heroConfidence", "xaiConfidence", "xaiProb"].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = probFormatted + "%"; });
+
+    const mapRiskEl = document.getElementById("mapRiskBadge");
+    if (mapRiskEl) {
+      mapRiskEl.textContent = `${riskUpper} RISK`;
+      mapRiskEl.style.color = riskColor;
+    }
 
     const scoreNum = document.getElementById("predScoreNum") || document.querySelector("#prediction .scoreNum");
     if (scoreNum) scoreNum.innerHTML = `${probFormatted}<small style="font-size:24px">%</small>`;
@@ -3161,14 +3370,26 @@ function updateAllViews(){
       conditionBadge.style.background = riskBg;
     }
 
+    const xaiRiskEl = document.getElementById("xaiRisk");
+    if (xaiRiskEl) {
+      xaiRiskEl.textContent = `${riskUpper} RISK`;
+      xaiRiskEl.style.color = riskColor;
+    }
+
+    const xaiRainEl = document.getElementById("xaiRain");
+    if (xaiRainEl) {
+      xaiRainEl.textContent = s.currentRainfallMax !== undefined ? s.currentRainfallMax : (s.currentRainfall !== undefined ? s.currentRainfall : 0);
+    }
+
     const heroRiskText = document.getElementById("heroRiskText");
     if (heroRiskText) heroRiskText.textContent = riskUpper;
 
     const heroRiskWindow = document.getElementById("heroRiskWindow");
     if (heroRiskWindow) heroRiskWindow.textContent = `Risk of rainfall ≥${threshold} mm/h within next ${leadHours} hours`;
 
+    const currentObs = s.currentRainfallMax !== undefined ? s.currentRainfallMax : (s.currentRainfall !== undefined ? s.currentRainfall : 0);
     const heroRiskSubtext = document.getElementById("heroRiskSubtext");
-    if (heroRiskSubtext) heroRiskSubtext.textContent = riskSentence;
+    if (heroRiskSubtext) heroRiskSubtext.textContent = `Observed now: ${currentObs} mm/h · Predicted risk: ${probFormatted}% probability of rainfall ≥${threshold} mm/h within next ${leadHours} hours`;
 
     const scoreRiskEl = document.getElementById("predRiskBadge") || document.querySelector("#prediction .scoreRisk");
     if (scoreRiskEl) {
@@ -3178,7 +3399,7 @@ function updateAllViews(){
     }
 
     const predRiskSubtext = document.getElementById("predRiskSubtext");
-    if (predRiskSubtext) predRiskSubtext.textContent = riskSentence;
+    if (predRiskSubtext) predRiskSubtext.textContent = `Observed now: ${currentObs} mm/h · Predicted risk: ${probFormatted}% probability of rainfall ≥${threshold} mm/h within next ${leadHours} hours`;
 
     const predWindowText = document.getElementById("predWindowText");
     if (predWindowText) predWindowText.textContent = `Risk of rainfall ≥${threshold} mm/h within next ${leadHours} hours`;
@@ -3267,6 +3488,9 @@ function updateAllViews(){
 
   // 6. Forecast Summary Card & Sync Charts
   renderDashboardCharts();
+
+  // 7. Sync Alert Center Page
+  if (typeof renderAlerts === "function") renderAlerts();
 }
 
 function renderNowcastChart(containerId, nowcast) {
@@ -3312,12 +3536,6 @@ function renderNowcastChart(containerId, nowcast) {
         </linearGradient>
       </defs>
 
-      <!-- Badge Overlay: Prototype Nowcast -->
-      <g transform="translate(${w - 145}, 10)">
-        <rect x="0" y="0" width="135" height="18" rx="4" fill="var(--panel2)" stroke="var(--line)" />
-        <text x="67" y="12" text-anchor="middle" fill="var(--muted)" font-size="9" font-weight="700">PROTOTYPE NOWCAST</text>
-      </g>
-
       <!-- Y-Axis Label -->
       <text x="6" y="14" fill="#5A7067" font-size="9" font-weight="600">Rainfall intensity (mm/h)</text>
 
@@ -3353,10 +3571,10 @@ function renderNowcastChart(containerId, nowcast) {
 
         return `
           <g>
-            ${badge}
             <circle cx="${pt[0]}" cy="${pt[1]}" r="${radius}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2">
               <title>${allPoints[i].offset} (${allPoints[i].type}): ${allPoints[i].rain_mm_h} mm/h</title>
             </circle>
+            ${badge}
           </g>
         `;
       }).join("")}
@@ -3378,9 +3596,7 @@ function renderDashboardCharts() {
   const currentMax = s ? (s.currentRainfallMax !== undefined ? s.currentRainfallMax : 0) : 0;
   const obsTime = s ? (s.observationTime || "19 Aug 2026 · 09:45 IST") : "19 Aug 2026 · 09:45 IST";
 
-  const summaryText = nowcast
-    ? `Prototype nowcast (${nowcast.method} baseline): Latest observed max rain ${currentMax} mm/h (${obsTime}). Projected 3-hour outlook.`
-    : "Forecast unavailable — insufficient temporal data.";
+  const summaryText = "The ML model predicts heavy-rainfall probability. The rainfall trajectory shown here is a persistence baseline using the latest observed rainfall value.";
 
   const summaryEl = document.getElementById("forecastSummaryText");
   if (summaryEl) summaryEl.textContent = summaryText;
@@ -3615,129 +3831,188 @@ function onLocationSearchInput(val){
 
 function renderAlerts(){
   const box = document.getElementById("allAlerts");
-  if(box){
-    box.innerHTML = alerts.map(a => `
-      <div class="alert ${a.s.toLowerCase()}">
-        <div class="alertIcon">⚠</div>
-        <div class="alertMain">
-          <div class="alertTitle"><b>${a.s}</b><span>${a.p}% probability</span></div>
-          <h4>${a.area}</h4>
-          <p>${a.msg}</p>
-          <small>${a.win}</small>
+  if(!box) return;
+
+  const s = window.VARSHAA_APP_STATE;
+  if (!s) return;
+
+  const loc = s.location || getGlobalLocation();
+  const locLabel = loc.name || loc.label || `${loc.city || ''}, ${loc.state || ''}, ${loc.country || ''}`.replace(/^,\s*/, '') || "Selected location";
+  const prob = (s.probability !== undefined && s.probability !== null) ? Number(s.probability) : 0;
+  const probFormatted = prob.toFixed(1) + "%";
+  const obsTime = s.observationTime || "19 Aug 2026 · 09:45 IST";
+  const leadHours = s.leadHours || 3;
+  const threshold = s.threshold || 50;
+
+  let level = "LOW";
+  let badgeColor = "var(--green)";
+  let badgeBg = "var(--green-bg)";
+  let badgeBorder = "rgba(42,126,81,0.25)";
+  let msg = "No immediate heavy-rain alert. Current model probability is below the warning threshold.";
+
+  if (prob >= 90) {
+    level = "CRITICAL";
+    badgeColor = "var(--red)";
+    badgeBg = "var(--red-bg)";
+    badgeBorder = "rgba(201,42,42,0.25)";
+    msg = "High probability of heavy rainfall. Immediate monitoring recommended.";
+  } else if (prob >= 75) {
+    level = "HIGH";
+    badgeColor = "var(--orange)";
+    badgeBg = "var(--orange-bg)";
+    badgeBorder = "rgba(217,83,30,0.25)";
+    msg = "Elevated heavy-rainfall probability. Drainage and road monitoring recommended.";
+  } else if (prob >= 50) {
+    level = "WATCH";
+    badgeColor = "var(--teal)";
+    badgeBg = "var(--teal-light)";
+    badgeBorder = "var(--teal-border)";
+    msg = "Rainfall conditions should be monitored. Current model probability indicates developing rainfall risk.";
+  }
+
+  box.innerHTML = `
+    <div class="panel" style="padding:22px;border-left:5px solid ${badgeColor}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+        <div>
+          <span style="font-size:12px;font-weight:800;letter-spacing:0.04em;color:${badgeColor};background:${badgeBg};border:1px solid ${badgeBorder};padding:4px 12px;border-radius:4px">
+            ${level} ALERT
+          </span>
+          <div style="font-size:36px;font-weight:800;color:var(--text);margin-top:8px;line-height:1">
+            ${probFormatted}
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">
+            Probability of rainfall ≥${threshold} mm/h within the next ${leadHours} hours
+          </div>
+        </div>
+
+        <button type="button" class="btn secondary" onclick="go('prediction')" style="font-size:12px;padding:8px 16px">
+          Open prediction →
+        </button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:12px;padding:12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;margin-bottom:16px">
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">LOCATION</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-top:2px">${escapeHtml(locLabel)}</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">DATA TIMESTAMP</div>
+          <div style="font-size:13px;font-weight:700;color:var(--text);margin-top:2px">${escapeHtml(obsTime)}</div>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase">DATA SOURCE</div>
+          <div style="font-size:13px;font-weight:700;color:var(--teal);margin-top:2px">INSAT-3DR / MOSDAC</div>
         </div>
       </div>
-    `).join("");
-  }
-}
 
-function renderXai(){
-  const factors = [
-    ["Atmospheric moisture", 31, "High precipitable water signal"],
-    ["Cloud characteristics", 27, "Rapid cloud-top cooling / development"],
-    ["Rainfall intensity", 18, "Surface rain rate observation"],
-    ["Wind pattern", 14, "Convergent moisture transport"],
-    ["Elevation", 7, "Local terrain lifting effect"],
-    ["Temperature profile", 3, "Convective instability signature"]
-  ];
-  const el = document.getElementById("xaiFactors");
-  if(el){
-    el.innerHTML = factors.map(f => `
-      <div class="factor" style="margin-bottom:14px">
-        <div class="factorTop"><span>${f[0]}</span><b>${f[1]}%</b></div>
-        <div class="track"><i style="width:${f[1]}%"></i></div>
-        <div style="font-size:10px;color:var(--muted);margin-top:4px">${f[2]}</div>
+      <div style="font-size:13px;color:var(--text);line-height:1.5;padding:12px;background:rgba(0,0,0,0.02);border:1px solid var(--line);border-radius:8px">
+        <strong>Alert Message:</strong> "${msg}"
       </div>
-    `).join("");
-  }
-}
-
-function drawHistory(){
-  const el = document.getElementById("historyChart");
-  if(!el) return;
-  const obs = [18, 31, 55, 72, 96, 78, 52, 36], pred = [16, 29, 49, 68, 91, 74, 56, 39], w = el.clientWidth || 700, h = 260, p = 30, max = 110;
-  const pts = a => a.map((v, i) => [p + i * (w - 2 * p) / (a.length - 1), h - p - (v / max) * (h - 2 * p)]);
-  const po = pts(obs), pp = pts(pred), path = a => a.map((q, i) => (i ? "L" : "M") + q[0] + " " + q[1]).join(" ");
-  el.innerHTML = `
-    <svg viewBox="0 0 ${w} ${h}" width="100%" height="100%" preserveAspectRatio="none">
-      <g stroke="#1c3045" stroke-dasharray="3 4">${[25, 50, 75, 100].map(v => `<line x1="${p}" x2="${w-p}" y1="${h-p-(v/max)*(h-2*p)}" y2="${h-p-(v/max)*(h-2*p)}"/>`).join("")}</g>
-      <path d="${path(po)}" fill="none" stroke="#ff4d67" stroke-width="3"/>
-      <path d="${path(pp)}" fill="none" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="7 4"/>
-      ${po.map(q => `<circle cx="${q[0]}" cy="${q[1]}" r="3" fill="#ff4d67"/>`).join("")}
-    </svg>
+    </div>
   `;
 }
 
-function renderHistoryEvents(){
-  const el = document.getElementById("historyEvents");
-  if(!el) return;
-  el.innerHTML = window.VARSHAA_HISTORY_EVENTS.map(ev => `
-    <div class="panel event">
-      <div class="eyebrow">${ev.date}</div>
-      <h3>${ev.name}</h3>
-      <div class="eventStats">
-        <div><span>Peak rain</span><b>${ev.peakRain} mm/h</b></div>
-        <div><span>Lead time</span><b>${ev.leadTimeMin} min</b></div>
-        <div><span>Accuracy</span><b>${ev.accuracy}%</b></div>
-      </div>
-    </div>
-  `).join("");
+function refreshLocationAlerts(r){
+  renderAlerts();
 }
 
 function simUpdate(){
   const rain = Number(document.getElementById("rainSlider")?.value) || 82;
   const duration = Number(document.getElementById("durationSlider")?.value) || 3;
   const terrain = Number(document.getElementById("elevSlider")?.value) || 50;
-  
-  const prob = Math.max(1, Math.min(99, 55 + (rain - 82) * 0.42 + (duration - 3) * 4));
-  const priority = prob >= 80 ? "HIGH" : prob >= 60 ? "MODERATE" : "LOW";
-  
+
+  // Compute qualitative scenario score (20-150 rain, 1-6 duration, 0-100 terrain)
+  const rainScore = ((rain - 20) / 130) * 50;
+  const durationScore = ((duration - 1) / 5) * 30;
+  const terrainScore = (terrain / 100) * 20;
+  const totalScore = rainScore + durationScore + terrainScore;
+
+  let level = "LOW";
+  let badgeColor = "var(--green)";
+  let badgeBg = "var(--green-bg)";
+  let badgeBorder = "rgba(42,126,81,0.25)";
+  let explanation = "Under this scenario, rainfall intensity and duration indicate relatively limited scenario risk.";
+
+  if (totalScore >= 65) {
+    level = "HIGH";
+    badgeColor = "var(--orange)";
+    badgeBg = "var(--orange-bg)";
+    badgeBorder = "rgba(217,83,30,0.25)";
+    explanation = "This scenario represents a higher-risk rainfall condition because of the combination of stronger rainfall, longer duration, and higher terrain sensitivity.";
+  } else if (totalScore >= 35) {
+    level = "MODERATE";
+    badgeColor = "var(--amber)";
+    badgeBg = "var(--amber-bg)";
+    badgeBorder = "rgba(217,130,30,0.25)";
+    explanation = "This scenario indicates elevated potential risk due to the combined rainfall intensity, duration, and terrain sensitivity.";
+  }
+
+  // 1. Update Input Labels
   setText("rainVal", rain);
   setText("durationVal", duration);
   setText("elevVal", terrain);
-  setText("simRisk", priority);
-  setText("simZones", Math.round(3 + prob / 8));
-  setText("simPop", (18 + prob * 0.37).toFixed(1) + "K");
-  setText("simRoads", Math.round(4 + prob * 0.18));
-  setText("simPriority", priority);
-  setText("simRainNode", rain);
-  setText("simSoil", Math.round(terrain * 0.28 + rain * 0.42));
-  setText("simDrain", Math.round(rain * 0.48 + terrain * 0.18) + "%");
-  setText("simAccess", Math.round(prob * 0.65) + "%");
 
-  const bar = document.getElementById("scenarioBar");
-  if(bar) bar.style.setProperty("--w", Math.round(prob) + "%");
+  // 2. Update Result Badge & Summary Line
+  const badgeEl = document.getElementById("simRiskBadge");
+  if (badgeEl) {
+    badgeEl.textContent = `${level} SCENARIO RISK`;
+    badgeEl.style.color = badgeColor;
+    badgeEl.style.background = badgeBg;
+    badgeEl.style.borderColor = badgeBorder;
+  }
+
+  const terrainQual = terrain >= 70 ? "High" : terrain >= 35 ? "Moderate" : "Low";
+  const paramsSummaryEl = document.getElementById("simParamsSummary");
+  if (paramsSummaryEl) {
+    paramsSummaryEl.textContent = `${rain} mm/h rainfall • ${duration} hour duration • ${terrainQual} terrain sensitivity`;
+  }
+
+  // 3. Update Qualitative Explanation
+  const descEl = document.getElementById("simDesc");
+  if (descEl) descEl.textContent = explanation;
+
+  // 4. Update Qualitative Risk Scale (Highlight LOW / MODERATE / HIGH)
+  ["scaleLow", "scaleMod", "scaleHigh"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.background = "var(--panel2)";
+      el.style.color = "var(--muted)";
+      el.style.borderColor = "var(--line)";
+    }
+  });
+
+  const activeScaleId = level === "HIGH" ? "scaleHigh" : level === "MODERATE" ? "scaleMod" : "scaleLow";
+  const activeScaleEl = document.getElementById(activeScaleId);
+  if (activeScaleEl) {
+    activeScaleEl.style.background = badgeBg;
+    activeScaleEl.style.color = badgeColor;
+    activeScaleEl.style.borderColor = badgeBorder;
+  }
+
+  // 5. Update Breakdown Cards
+  const rainImpactText = rain >= 90 ? `<span style="color:var(--orange)">High</span>` : rain >= 50 ? `<span style="color:var(--amber)">Moderate</span>` : `<span style="color:var(--green)">Low</span>`;
+  const durImpactText = duration >= 5 ? `<span style="color:var(--orange)">High</span>` : duration >= 3 ? `<span style="color:var(--amber)">Moderate</span>` : `<span style="color:var(--green)">Low</span>`;
+  const terrainImpactText = terrain >= 70 ? `<span style="color:var(--orange)">High</span>` : terrain >= 35 ? `<span style="color:var(--amber)">Moderate</span>` : `<span style="color:var(--green)">Low</span>`;
+
+  setText("breakdownRainVal", `${rain} mm/h`);
+  setText("breakdownDurationVal", `${duration} hour${duration > 1 ? 's' : ''}`);
+  setText("breakdownElevVal", `${terrain}%`);
+
+  const brRain = document.getElementById("breakdownRainImpact");
+  if (brRain) brRain.innerHTML = `Impact on scenario: ${rainImpactText}`;
+
+  const brDur = document.getElementById("breakdownDurationImpact");
+  if (brDur) brDur.innerHTML = `Impact on scenario: ${durImpactText}`;
+
+  const brElev = document.getElementById("breakdownElevImpact");
+  if (brElev) brElev.innerHTML = `Impact on scenario: ${terrainImpactText}`;
 }
 
 function resetSimulation(){
-  document.getElementById("rainSlider").value = 82;
-  document.getElementById("durationSlider").value = 3;
-  document.getElementById("elevSlider").value = 50;
+  if (document.getElementById("rainSlider")) document.getElementById("rainSlider").value = 82;
+  if (document.getElementById("durationSlider")) document.getElementById("durationSlider").value = 3;
+  if (document.getElementById("elevSlider")) document.getElementById("elevSlider").value = 50;
   simUpdate();
-}
-
-function renderDispatchBoard(){
-  const pendingCount = window.VARSHAA_SOS_QUEUE.filter(s => s.status.includes("Awaiting")).length;
-  const availableCount = window.VARSHAA_RESCUE_TEAMS.filter(t => t.status === "Available").length;
-  setText("statPendingSos", pendingCount);
-  setText("statAvailableUnits", availableCount);
-  setText("dispatchBadge", pendingCount);
-
-function refreshLocationAlerts(r){
-  const p=Math.round(r.prob||55),loc=currentPlace.city||"Selected location",risk=r.risk||"LOW";
-  const arr=risk==="HIGH"?[
-    {s:"CRITICAL",area:loc,p:Math.min(99,p+4),win:"Next 1–3 hours",msg:"High-impact rainfall probability is elevated at the selected location."},
-    {s:"HIGH",area:loc+" — drainage",p:Math.max(75,p-5),win:"Next 2–4 hours",msg:"Drainage and road stress may increase under the current scenario."},
-    {s:"WATCH",area:loc+" — critical facilities",p:Math.max(55,p-12),win:"Next 3–6 hours",msg:"Keep vulnerable facilities and access routes under observation."}
-  ]:risk==="MODERATE"?[
-    {s:"HIGH",area:loc,p:Math.min(89,p+2),win:"Next 2–4 hours",msg:"Rainfall conditions require increased local monitoring."},
-    {s:"WATCH",area:loc+" — roads",p:Math.max(55,p-4),win:"Next 3–6 hours",msg:"Watch low-lying road segments and drainage bottlenecks."},
-    {s:"WATCH",area:loc+" — facilities",p:Math.max(50,p-10),win:"Next 3–6 hours",msg:"Maintain readiness for changing rainfall conditions."}
-  ]:[
-    {s:"WATCH",area:loc,p:Math.max(45,p),win:"Next 3–6 hours",msg:"Rainfall conditions are currently within a lower-risk prototype range."},
-    {s:"WATCH",area:loc+" — drainage",p:Math.max(40,p-8),win:"Next 6 hours",msg:"Continue routine monitoring of low-lying points."},
-    {s:"WATCH",area:loc+" — roads",p:Math.max(35,p-14),win:"Next 6 hours",msg:"No immediate high-impact signal in the prototype scenario."}
-  ];
-  ["dashAlerts","allAlerts"].forEach(id=>{const box=document.getElementById(id);if(box)box.innerHTML=arr.map(a=>`<div class="alert ${a.s.toLowerCase()}"><div class="alertIcon">⚠</div><div class="alertMain"><div class="alertTitle"><b>${a.s}</b><span>${a.p}% probability</span></div><h4>${a.area}</h4><p>${a.msg}</p><small>${a.win}</small></div></div>`).join("")});
 }
 
 function refreshHistorical(r){
@@ -3848,39 +4123,7 @@ function renderVisualMap(id){
   `;
 }
 
-function initFullMap(){
-  const container = document.getElementById("fullMap");
-  if(!container) return;
 
-  renderVisualMap("fullMap");
-
-  if(typeof L !== "undefined"){
-    try {
-      if(!mapInstance){
-        mapInstance = L.map("fullMap", { zoomControl: true }).setView([23.344, 85.309], 11);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "© OpenStreetMap contributors" }).addTo(mapInstance);
-
-        zones.forEach(z => {
-          L.circle([z.lat, z.lng], { radius: 3500, color: colors[z.risk], fillColor: colors[z.risk], fillOpacity: 0.25, weight: 2 }).addTo(mapInstance)
-            .bindPopup(`<b>${z.name}</b><br>Risk: <b>${z.risk}</b><br>Rainfall: ${z.rain} mm/h<br>Exposed Pop: ${z.people.toLocaleString()}`);
-        });
-
-        window.VARSHAA_SHELTERS.forEach(sh => {
-          L.circleMarker([sh.lat, sh.lng], { radius: 8, color: "#238C83", fillColor: "#238C83", fillOpacity: 0.9 }).addTo(mapInstance)
-            .bindPopup(`<b>⛺ ${sh.name}</b><br>Capacity: <b>${sh.capacity - sh.occupied} free beds</b><br>Contact: ${sh.contact}`);
-        });
-
-        window.VARSHAA_HOSPITALS.forEach(h => {
-          L.circleMarker([h.lat, h.lng], { radius: 9, color: "#C92A2A", fillColor: "#C92A2A", fillOpacity: 0.95 }).addTo(mapInstance)
-            .bindPopup(`<b>🏥 ${h.name}</b><br>Free ICU Beds: <b>${h.icuFree}</b><br>Emergency: ${h.contact}`);
-        });
-      }
-      setTimeout(() => { if(mapInstance) mapInstance.invalidateSize(); }, 150);
-    } catch(e) {
-      console.warn("Leaflet tile fallback active");
-    }
-  }
-}
 
 function renderLayers(){
   const layerNames = [["rain", "Rainfall intensity"], ["hazard", "Hazard zones"], ["shelters", "Relief Shelters"], ["hospitals", "Hospitals & ICU"]];
@@ -3902,7 +4145,7 @@ const VIEW_NAMES = {
   xai: "Explainable AI",
   map: "Impact & Risk Map",
   simulation: "What-if Simulation",
-  historical: "Historical Events",
+  historical: "Model Validation",
   alerts: "Alert Center",
   dispatch: "Rescue Operations & Routing",
   facilities: "Shelters & Hospitals",
@@ -3921,22 +4164,24 @@ function go(view){
   setText("title", name);
   setText("crumb", name.toUpperCase());
 
-  if(view === "dashboard" || view === "prediction") setTimeout(renderDashboardCharts, 60);
-  if(view === "map") setTimeout(initFullMap, 80);
-  if(view === "dispatch") renderDispatchBoard();
-  if(view === "facilities") renderFacilitiesView();
-  if(view === "hydrology") setTimeout(renderHydrologyModule, 60);
-  if(view === "alerts") renderAlerts();
-  if(view === "simulation") simUpdate();
-  if(view === "xai") renderXai();
-  if(view === "historical"){ setTimeout(drawHistory, 60); renderHistoryEvents(); }
+  try {
+    if(view === "dashboard" || view === "prediction") setTimeout(renderDashboardCharts, 60);
+    if(view === "map") setTimeout(initFullMap, 80);
+    if(view === "dispatch") { renderDispatchBoard(); setTimeout(initRescueMap, 80); }
+    if(view === "facilities") renderFacilitiesView();
+    if(view === "hydrology") setTimeout(renderHydrologyModule, 60);
+    if(view === "alerts") renderAlerts();
+    if(view === "simulation") simUpdate();
+    if(view === "xai") renderXai();
+    if(view === "historical"){ setTimeout(drawHistory, 60); renderHistoryEvents(); }
+  } catch(e) { console.warn("View nav error:", e); }
 
   document.getElementById("sidebar")?.classList.remove("open");
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-initCountryLists();
-wireLocationSelectors();
+if (typeof initCountryLists === "function") initCountryLists();
+if (typeof wireLocationSelectors === "function") wireLocationSelectors();
 
 
 /* ===== VARSHAA-X Differentiation Engine ===== */
@@ -4084,108 +4329,9 @@ function initializeVarshaaApp(){
   });
 }
 
-function renderRegionalPredictionGrid(){
-  const el=document.getElementById("regionPredictionGrid");
-  if(!el) return;
-  buildRegionalZones();
-  el.innerHTML=window.VARSHAA_APP_STATE.regionZones.map(z=>{
-    const c=colors[z.risk] || colors.MODERATE;
-    return `<div class="regionCell" style="background:${c}" title="${z.risk} · ${z.probability.toFixed(0)}%">
-      <span>${z.risk}</span><small>${z.probability.toFixed(0)}%</small>
-    </div>`;
-  }).join("");
-}
+function buildRegionalZones(){ return; }
+function renderRegionalPredictionGrid(){ return; }
 
-function updateLocationDependentData(){
-  const s=window.VARSHAA_APP_STATE, p=getLocationProfile();
-  s.currentRainfall=p.rain;
-  s.forecast=[
-    p.rain,
-    Math.round(p.rain*1.07),
-    Math.round(p.rain*1.16),
-    Math.round(p.rain*1.03),
-    Math.round(p.rain*0.78),
-    Math.round(p.rain*0.58)
-  ];
-  s.peakRainfall=Math.max(...s.forecast);
-  s.peakTime="+1 h";
-  s.probability=clamp(54 + p.rain*0.42 + (p.humidity-70)*0.18 + (p.cloud-60)*0.08, 35, 98);
-  s.riskLevel=s.probability>=90?"CRITICAL":s.probability>=75?"HIGH":s.probability>=55?"MODERATE":"LOW";
-  s.environmental=p;
-  buildRegionalZones();
-
-  setText("heroConfidence",s.probability.toFixed(1)+"%");
-  setText("heroRain",Math.round(s.currentRainfall));
-  setText("dashPeakRain",s.peakRainfall);
-  setText("forecastCurrentVal",s.currentRainfall);
-  setText("forecastPeakVal",s.peakRainfall);
-  setText("forecastPeakTimeVal",s.peakTime);
-  setText("calcPeak",s.peakRainfall);
-  setText("calcPeakTime",s.peakTime);
-  setText("readRain",Math.round(p.rain));
-  setText("readHumidity",Math.round(p.humidity));
-  setText("readCloud",Math.round(p.cloud));
-  setText("readTemp",Math.round(p.temp));
-  setText("readWind",Math.round(p.wind));
-  setText("readElevation",Math.round(p.elevation));
-
-  const riskColor=s.riskLevel==="CRITICAL"?"var(--red)":s.riskLevel==="HIGH"?"var(--orange)":s.riskLevel==="MODERATE"?"var(--amber)":"var(--green)";
-  document.querySelectorAll("#conditionBadge,.scoreRisk").forEach(el=>{
-    el.textContent=s.riskLevel==="CRITICAL"?"CRITICAL RISK":s.riskLevel==="HIGH"?"HIGH RISK":s.riskLevel==="MODERATE"?"MODERATE RISK":"LOW RISK";
-    el.style.color=riskColor;
-  });
-  const riskLabel=document.getElementById("heroRiskLabel");
-  if(riskLabel) riskLabel.textContent="CURRENT "+s.riskLevel+" RISK";
-  const riskHead=document.querySelector("#dashboard .heroMain h2");
-  if(riskHead) riskHead.textContent=s.riskLevel;
-}
-
-function renderXai(){
-  const s=window.VARSHAA_APP_STATE, p=s.environmental || getLocationProfile();
-  const factors=[
-    {name:"Rainfall intensity",value:`${Math.round(p.rain)} mm/h`,score:31,impact:p.rain>=70?"up":"neutral",
-      short:p.rain>=70?"High rainfall intensity":"Moderate rainfall intensity",
-      explain:`Rainfall is currently ${Math.round(p.rain)} mm/h in ${s.location.city}. Higher intensity means more water reaches the surface in a shorter period, increasing runoff and the likelihood of waterlogging or flash flooding.`,
-      detail:`This factor matters because drainage systems and soil infiltration have limited capacity. When rainfall arrives faster than water can drain or infiltrate, accumulated surface water rises.`},
-    {name:"Atmospheric moisture",value:`${Math.round(p.humidity)}% humidity`,score:24,impact:p.humidity>=78?"up":"neutral",
-      short:p.humidity>=78?"Moist air supports heavier precipitation":"Moderate atmospheric moisture",
-      explain:`Humidity is ${Math.round(p.humidity)}%. Moist air provides more available water vapour for cloud formation and can support sustained heavy rainfall when other atmospheric conditions are favourable.`,
-      detail:`Humidity alone does not cause flooding. Its contribution is interpreted together with rainfall intensity, cloud development and wind-driven moisture transport.`},
-    {name:"Cloud cover / development",value:`${Math.round(p.cloud)}% cloud cover`,score:17,impact:p.cloud>=75?"up":"neutral",
-      short:p.cloud>=75?"Strong cloud development signal":"Moderate cloud development signal",
-      explain:`Cloud cover is ${Math.round(p.cloud)}% around the selected region. More extensive cloud development can indicate a stronger rain-producing system, especially when paired with high humidity.`,
-      detail:`The model treats this as supporting evidence rather than a standalone flood trigger.`},
-    {name:"Soil saturation",value:`${Math.round(p.soil)}% estimated saturation`,score:13,impact:p.soil>=65?"up":"neutral",
-      short:p.soil>=65?"Reduced absorption capacity":"Available soil absorption",
-      explain:`Estimated soil saturation is ${Math.round(p.soil)}%. Saturated soil has less capacity to absorb additional rainfall, so a larger fraction can become surface runoff.`,
-      detail:`This factor connects rainfall to local hydrology: the same rainfall amount can produce different impacts depending on how wet the ground already is.`},
-    {name:"Wind pattern",value:`${Math.round(p.wind)} km/h`,score:9,impact:p.wind>=22?"up":"neutral",
-      short:p.wind>=22?"Stronger moisture transport":"Moderate wind conditions",
-      explain:`Wind speed is approximately ${Math.round(p.wind)} km/h. Stronger winds can transport moist air and influence the organisation and movement of rain-producing systems.`,
-      detail:`Wind is interpreted as a supporting atmospheric signal and does not by itself indicate a flood.`},
-    {name:"Elevation / terrain",value:`${Math.round(p.elevation)} m`,score:6,impact:"neutral",
-      short:"Terrain modifies local runoff",
-      explain:`The selected region has an estimated elevation of ${Math.round(p.elevation)} m. Terrain influences where water can accumulate and how quickly runoff moves across the landscape.`,
-      detail:`Low-lying basins and drainage depressions can experience greater accumulation, while elevated terrain can alter runoff pathways.`}
-  ];
-  const el=document.getElementById("xaiFactors");
-  if(el){
-    el.innerHTML=factors.map((f,i)=>`
-      <div class="xaiExplainCard" id="xaiCard${i}">
-        <div class="xaiExplainHead"><b>${f.name}</b><span class="xaiImpact ${f.impact}">${f.impact==="up"?"INCREASES RISK":f.impact==="down"?"REDUCES RISK":"SUPPORTING FACTOR"}</span></div>
-        <div class="xaiValue">${f.value} · contribution ${f.score}%</div>
-        <div class="track"><i style="width:${f.score}%"></i></div>
-        <div class="xaiExplain">${f.explain}</div>
-        <button class="xaiLearn" type="button" onclick="toggleXaiDetail(${i})">Why does this matter? +</button>
-        <div class="xaiDetail">${f.detail}</div>
-      </div>`).join("");
-  }
-  setText("xaiRegionSummary",
-    `<strong>Region-specific explanation:</strong> For ${s.location.label}, VARSHAA-X estimates a <strong>${s.probability.toFixed(1)}%</strong> probability of a ${s.riskLevel.toLowerCase()} heavy-rain event. The explanations above use the current environmental values for this selected region.`
-  );
-  const overview=document.getElementById("xaiFactorsOverview");
-  if(overview) overview.innerHTML=factors.slice(0,4).map(f=>`<div class="factor"><div class="factorTop"><span>${f.name}</span><b>+${f.score}%</b></div><div class="track"><i style="width:${f.score}%"></i></div></div>`).join("");
-}
 function toggleXaiDetail(i){ document.getElementById("xaiCard"+i)?.classList.toggle("open"); }
 
 async function searchLocation(){
@@ -4222,50 +4368,15 @@ async function searchLocation(){
   }
 }
 function escapeHtml(v){ return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
 function selectSearchLocation(loc){
-  selectLocationDirect(loc.city,loc.state||"Selected region",loc.country||"",loc.lat,loc.lng);
+  selectLocationDirect(loc.city, loc.state||"Selected region", loc.country||"", loc.lat, loc.lng);
 }
 
-function selectLocationDirect(city,state,country,lat,lng){
-  window.VARSHAA_APP_STATE.location={city,state,country,label:`${city}${state?", "+state:""}${country?", "+country:""}`,lat:Number(lat),lng:Number(lng)};
-  updateLocationDependentData();
-  closeLocationModal();
-  updateAllViews();
-  if(mapInstance){
-    mapInstance.setView([Number(lat),Number(lng)],11);
-    rebuildRiskMapLayers();
-  }
-  if(rescueMap) rescueMap.setView([Number(lat),Number(lng)],11);
-}
-
-function updateAllViews(){
-  updateLocationDependentData();
-  const s=window.VARSHAA_APP_STATE, loc=s.location.label;
-  ["heroLocation","monitoringLocation","predictionLocation"].forEach(id=>setText(id,loc));
-  setText("forecastCurrentVal",s.currentRainfall);
-  setText("forecastPeakVal",Math.max(...s.forecast));
-  setText("calcPeak",Math.max(...s.forecast));
-  renderDashboardCharts();
-  renderAlerts();
-  renderDispatchBoard();
-  renderFacilitiesView();
-  renderHydrologyModule();
-  renderXai();
-  drawHistory();
-  renderHistoryEvents();
-  simUpdate();
-  renderRegionalPredictionGrid();
-  if(mapInstance) setTimeout(rebuildRiskMapLayers,80);
-}
-
-function runPrediction(){
-  const hours=Number(document.getElementById("window")?.value||3);
-  const s=window.VARSHAA_APP_STATE;
-  const factor=hours===1?0.92:hours===6?1.08:1;
-  s.forecast=s.forecast.map((v,i)=>Math.round(v*factor));
-  s.peakRainfall=Math.max(...s.forecast);
-  s.peakTime=s.forecast.indexOf(s.peakRainfall)===0?"Now":`+${s.forecast.indexOf(s.peakRainfall)*0.5} h`;
-  updateAllViews();
+function selectLocationDirect(city, state, country, lat, lng){
+  const name = `${city}${state ? ', ' + state : ''}${country ? ', ' + country : ''}`;
+  setGlobalLocation({ city, state, country, lat: Number(lat), lng: Number(lng), name, latitude: Number(lat), longitude: Number(lng) });
+  if (typeof closeLocationModal === "function") closeLocationModal();
 }
 
 function haversine(a,b){
@@ -4297,9 +4408,14 @@ async function getShortestRoadRoute(start,end){
 function initRescueMap(){
   const el=document.getElementById("rescueTrackingMap");
   if(!el || typeof L==="undefined") return;
+  const s = window.VARSHAA_APP_STATE;
+  const lat = Number(s?.location?.latitude ?? s?.location?.lat ?? 23.344);
+  const lng = Number(s?.location?.longitude ?? s?.location?.lng ?? 85.309);
   if(!rescueMap){
-    rescueMap=L.map("rescueTrackingMap",{zoomControl:true}).setView([23.344,85.309],11);
+    rescueMap=L.map("rescueTrackingMap",{zoomControl:true}).setView([lat,lng],11);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap contributors"}).addTo(rescueMap);
+  } else {
+    rescueMap.setView([lat,lng],11);
   }
   setTimeout(()=>rescueMap.invalidateSize(),100);
 }
@@ -4326,7 +4442,8 @@ async function startRescueMission(sosId){
   initRescueMap();
   if(!rescueMap) return;
 
-  const citizen={lat:Number(sos.lat??window.VARSHAA_APP_STATE.location.lat),lng:Number(sos.lng??window.VARSHAA_APP_STATE.location.lng)};
+  const s = window.VARSHAA_APP_STATE;
+  const citizen={lat:Number(sos.lat??s?.location?.latitude??s?.location?.lat??23.344),lng:Number(sos.lng??s?.location?.longitude??s?.location?.lng??85.309)};
   const start={lat:Number(team.lat),lng:Number(team.lng)};
   const route=await getShortestRoadRoute(start,citizen);
 
@@ -4420,95 +4537,64 @@ function assignFirstPendingSOS(){
   if(sos) startRescueMission(sos.id);
 }
 
-function renderDispatchBoard(){
-  const pendingCount=window.VARSHAA_SOS_QUEUE.filter(s=>s.status.includes("Awaiting")).length;
-  const availableCount=window.VARSHAA_RESCUE_TEAMS.filter(t=>t.status==="Available").length;
-  setText("statPendingSos",pendingCount);
-  setText("statAvailableUnits",availableCount);
-  setText("dispatchBadge",pendingCount);
-
-  const sosContainer=document.getElementById("sosQueueContainer");
-  if(sosContainer){
-    sosContainer.innerHTML=window.VARSHAA_SOS_QUEUE.map(s=>{
-      const active=s.status==="En Route";
-      const arrived=s.status==="Arrived";
-      return `<div class="alert ${s.priority.includes("P1")?"critical":"high"}" style="display:flex;flex-direction:column;gap:6px">
-        <div style="display:flex;justify-content:space-between;width:100%">
-          <b>${s.priority} · ${s.id}</b><span style="font-size:10px;color:var(--muted)">${s.timeAgo}</span>
-        </div>
-        <div><h4 style="margin:2px 0">${escapeHtml(s.name)} (${s.count} stranded) · 📞 ${escapeHtml(s.phone)}</h4>
-        <p>Water: <strong>${escapeHtml(s.waterLevel)}</strong> | Medical: <strong>${escapeHtml(s.medical)}</strong></p>
-        <small>📍 ${escapeHtml(s.landmark)} · ${Number(s.lat||0).toFixed(4)}, ${Number(s.lng||0).toFixed(4)}</small></div>
-        <div style="padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);font-size:11px">
-          <div>Route: <strong>${s.distSafeRouteKm??"—"} km</strong>${s.etaMin?` · ETA: <strong>${s.etaMin<1?"<1":Math.ceil(s.etaMin)} min</strong>`:""}</div>
-          <div style="font-size:10px;margin-top:2px">🏥 Destination: <strong>${escapeHtml(s.assignedFacility)}</strong></div>
-        </div>
-        <div style="display:flex;gap:7px;align-items:center">
-          <span class="status" style="font-size:9px">${escapeHtml(s.status)}</span>
-          ${s.status==="Awaiting Allotment"?`<button class="btn primary" type="button" onclick="startRescueMission('${s.id}')">Assign & Track →</button>`:
-            active?`<button class="btn secondary" type="button" onclick="go('dispatch');setTimeout(()=>initRescueMap(),100)">View Live Team →</button>`:
-            arrived?`<button class="btn secondary" type="button" disabled>✓ Mission Arrived</button>`:""}
-        </div>
-      </div>`;
-    }).join("");
-  }
-
-  const rosterContainer=document.getElementById("unitRosterContainer");
-  if(rosterContainer){
-    rosterContainer.innerHTML=window.VARSHAA_RESCUE_TEAMS.map(t=>`
-      <div style="padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);display:flex;justify-content:space-between;align-items:center">
-        <div><b style="font-size:12px">${escapeHtml(t.name)}</b>
-        <div style="font-size:10px;color:var(--muted)">${escapeHtml(t.type)} · Speed: ${t.speedKmH} km/h · Position: ${Number(t.lat).toFixed(4)}, ${Number(t.lng).toFixed(4)}</div></div>
-        <span class="status" style="font-size:9px;color:${t.status==="Available"?"var(--green)":t.status==="En Route"?"var(--orange)":"var(--amber)"}">${escapeHtml(t.status)}</span>
-      </div>`).join("");
-  }
-}
-
 function rebuildRiskMapLayers(){
   if(!mapInstance || typeof L==="undefined") return;
   mapInstance.eachLayer(layer=>{
     if(layer instanceof L.Circle || layer instanceof L.CircleMarker || layer._varshaaRiskLayer) mapInstance.removeLayer(layer);
   });
-  buildRegionalZones();
-  window.VARSHAA_APP_STATE.regionZones.forEach(z=>{
-    const layer=L.circle([z.lat,z.lng],{radius:2200,color:colors[z.risk],fillColor:colors[z.risk],fillOpacity:.20,weight:2});
-    layer._varshaaRiskLayer=true;
-    layer.addTo(mapInstance).bindPopup(`<b>${escapeHtml(z.name)}</b><br>Risk: <b>${z.risk}</b><br>Probability: ${z.probability.toFixed(0)}%<br>Rainfall: ${z.rain} mm/h<br>Exposure: ${z.people.toLocaleString()}`);
+
+  const s = window.VARSHAA_APP_STATE;
+  const loc = (s && s.location) ? s.location : getGlobalLocation();
+  const lat = Number(loc.latitude ?? loc.lat ?? 23.344);
+  const lng = Number(loc.longitude ?? loc.lng ?? 85.309);
+  const label = loc.name || loc.label || `${loc.city || ''}, ${loc.state || ''}, ${loc.country || ''}`.replace(/^,\s*/, '') || "Selected location";
+  const prob = (s && s.probability !== undefined && s.probability !== null) ? Number(s.probability).toFixed(1) + "%" : "--";
+  const risk = (s && s.riskLevel) ? String(s.riskLevel).toUpperCase() : "LOW";
+  const rain = (s && s.currentRainfallMax !== undefined) ? s.currentRainfallMax : (s?.currentRainfall ?? "--");
+
+  const strokeColor = risk === "CRITICAL" ? "#C92A2A" : risk === "HIGH" ? "#D9531E" : risk === "MODERATE" ? "#D97706" : "#2A7E51";
+
+  // Visual risk zone circle around selected location based on REAL ML prediction
+  const riskCircle = L.circle([lat, lng], {
+    radius: 4500,
+    color: strokeColor,
+    fillColor: strokeColor,
+    fillOpacity: 0.18,
+    weight: 2
   });
-  window.VARSHAA_SHELTERS.forEach(sh=>{
-    const layer=L.circleMarker([sh.lat,sh.lng],{radius:8,color:"#238C83",fillColor:"#238C83",fillOpacity:.9});
-    layer._varshaaRiskLayer=true; layer.addTo(mapInstance).bindPopup(`<b>⛺ ${escapeHtml(sh.name)}</b><br>Capacity: ${sh.capacity-sh.occupied} free beds`);
-  });
-  window.VARSHAA_HOSPITALS.forEach(h=>{
-    const layer=L.circleMarker([h.lat,h.lng],{radius:9,color:"#C92A2A",fillColor:"#C92A2A",fillOpacity:.95});
-    layer._varshaaRiskLayer=true; layer.addTo(mapInstance).bindPopup(`<b>🏥 ${escapeHtml(h.name)}</b><br>Free ICU: ${h.icuFree}`);
-  });
-  const loc=window.VARSHAA_APP_STATE.location;
-  if(!window.VARSHAA_USER_LOCATION_MARKER) window.VARSHAA_USER_LOCATION_MARKER=L.marker([loc.lat,loc.lng]).addTo(mapInstance);
-  window.VARSHAA_USER_LOCATION_MARKER.setLatLng([loc.lat,loc.lng]).bindPopup(`<b>📍 ${escapeHtml(loc.label)}</b><br>Current monitoring location`);
+  riskCircle._varshaaRiskLayer = true;
+  riskCircle.addTo(mapInstance).bindPopup(
+    `<b>📍 ${escapeHtml(label)}</b><br>` +
+    `ML Risk Level: <b>${escapeHtml(risk)}</b><br>` +
+    `Probability: <b>${prob}</b><br>` +
+    `Current Rainfall: <b>${rain} mm/h</b>`
+  );
+
+  // Dynamic selected location marker
+  if(!window.VARSHAA_USER_LOCATION_MARKER) {
+    window.VARSHAA_USER_LOCATION_MARKER = L.marker([lat, lng]).addTo(mapInstance);
+  }
+  window.VARSHAA_USER_LOCATION_MARKER.setLatLng([lat, lng])
+    .bindPopup(`<b>📍 ${escapeHtml(label)}</b><br>ML Risk: <b>${escapeHtml(risk)}</b> (${prob})`);
 }
 
-const _oldInitFullMap=initFullMap;
-initFullMap=function(){
+function initFullMap(){
   const container=document.getElementById("fullMap");
   if(!container) return;
   if(typeof L!=="undefined"){
+    const loc = (window.VARSHAA_APP_STATE && window.VARSHAA_APP_STATE.location) ? window.VARSHAA_APP_STATE.location : getGlobalLocation();
+    const lat = Number(loc?.latitude ?? loc?.lat ?? 23.344);
+    const lng = Number(loc?.longitude ?? loc?.lng ?? 85.309);
     if(!mapInstance){
-      mapInstance=L.map("fullMap",{zoomControl:true}).setView([window.VARSHAA_APP_STATE.location.lat,window.VARSHAA_APP_STATE.location.lng],11);
+      mapInstance=L.map("fullMap",{zoomControl:true}).setView([lat,lng],11);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap contributors"}).addTo(mapInstance);
+    } else {
+      mapInstance.setView([lat,lng],11);
     }
     rebuildRiskMapLayers();
     setTimeout(()=>mapInstance.invalidateSize(),150);
   }
-  renderRegionalPredictionGrid();
-};
-
-const _oldGo=go;
-go=function(view){
-  _oldGo(view);
-  if(view==="map") setTimeout(initFullMap,100);
-  if(view==="dispatch") setTimeout(initRescueMap,100);
-};
+}
 
 function handleCitizenSosSubmit(e){
   e.preventDefault();
@@ -4518,7 +4604,9 @@ function handleCitizenSosSubmit(e){
   const waterLevel=document.getElementById("sosWaterLevel").value;
   const medical=document.getElementById("sosMedical").value;
   const landmark=document.getElementById("sosLandmark").value.trim();
-  const loc=window.VARSHAA_APP_STATE.location;
+  const s=window.VARSHAA_APP_STATE;
+  const lat=Number(s?.location?.latitude??s?.location?.lat??23.344);
+  const lng=Number(s?.location?.longitude??s?.location?.lng??85.309);
   const id="SOS-"+Math.floor(100+Math.random()*900);
   const offset=(Math.random()-.5)*0.012;
   window.VARSHAA_SOS_QUEUE.unshift({
@@ -4527,7 +4615,7 @@ function handleCitizenSosSubmit(e){
     status:"Awaiting Allotment",timeAgo:"Just now",
     distStraightKm:0,distSafeRouteKm:null,etaMin:null,assignedTeam:null,
     assignedFacility:medical.includes("Oxygen")?"RIMS Trauma Center":"Ranchi District Multipurpose Cyclone Shelter",
-    lat:Number(loc.lat)+offset,lng:Number(loc.lng)+offset
+    lat:lat+offset,lng:lng+offset
   });
   closeCitizenSosModal();
   renderDispatchBoard();
@@ -4539,11 +4627,10 @@ window.searchLocation=searchLocation;
 window.selectSearchLocation=selectSearchLocation;
 window.selectLocationDirect=selectLocationDirect;
 window.toggleXaiDetail=toggleXaiDetail;
-window.runPrediction=runPrediction;
 window.assignFirstPendingSOS=assignFirstPendingSOS;
 
 window.onload = function(){
-  updateAllViews();
+  initializeVarshaaApp();
   renderLayers();
 };
 </script>
